@@ -4,7 +4,6 @@ import { Box, Button, Typography } from '@mui/material';
 const Navbar = () => {
   return (
     <Box
-
     >
       <Typography
         sx={{

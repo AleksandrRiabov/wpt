@@ -1,6 +1,8 @@
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material';
+import Home from './pages/Home';
 
 const theme = createTheme({
   palette: {
@@ -20,6 +22,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <Navbar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
       </div>
     </ThemeProvider>
   );
