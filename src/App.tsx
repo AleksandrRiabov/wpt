@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, createHashRouter, createRoutesFromElements, RouterProvider, Outlet} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material';
 import Home from './pages/Home';
@@ -17,17 +17,45 @@ const theme = createTheme({
   }
 })
 
-function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-        </Routes>
-      </div>
-    </ThemeProvider>
-  );
+const App = () => {
+  const router = createHashRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Root />}>
+        <Route path="/" index element={<Home />} />
+        <Route path='*' element={<Home/>} />
+      </Route>
+    )
+  )
+  return <RouterProvider router={router} />
 }
+
+const Root = () => {
+  return (
+    <>
+      <div>
+        <Navbar />
+      </div>
+      <div>
+        <Outlet />
+      </div>
+      <div>
+        Footer
+      </div>
+    </>
+  )
+}
+
+// function App() {
+//   return (
+//     <ThemeProvider theme={theme}>
+//       <div className="App">
+//         <Navbar />
+//         <Routes>
+//           <Route path='/' element={<Home />} />
+//         </Routes>
+//       </div>
+//     </ThemeProvider>
+//   );
+// }
 
 export default App;
