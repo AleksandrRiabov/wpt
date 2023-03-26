@@ -1,6 +1,15 @@
+import { Box, Container } from "@mui/system"
+
 const Home = () => {
   return (
-    <div className="page">Home</div>
+<Box sx={{
+  bgcolor: 'primary.main',
+  width: '100%'
+}}>
+  <Container maxWidth="xl">
+home
+  </Container>
+</Box>
   )
 }
 
