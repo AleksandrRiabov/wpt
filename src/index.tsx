@@ -2,7 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2E424D',
+      light: '#EAEBED'
+    },
+    secondary: {
+      main: '#5B8291',
+      light: '#98DAD9'
+    }
+  }
+})
 
 
 const root = ReactDOM.createRoot(
@@ -10,9 +23,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <ThemeProvider theme={theme}>
       <App />
-    </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

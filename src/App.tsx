@@ -1,28 +1,19 @@
 import './App.css';
-import { Route, createHashRouter, createRoutesFromElements, RouterProvider, Outlet} from 'react-router-dom';
+import { Route, createHashRouter, createRoutesFromElements, RouterProvider, Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import { ThemeProvider, createTheme } from '@mui/material';
-import Home from './pages/Home';
+import { Home, Dashboard, Week, Day } from './pages';
+import Footer from './components/Footer/Footer';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#2E424D',
-      light: '#EAEBED'
-    },
-    secondary: {
-      main: '#5B8291',
-      light: '#98DAD9'
-    }
-  }
-})
 
 const App = () => {
   const router = createHashRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route path="/" index element={<Home />} />
-        <Route path='*' element={<Home/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/week/:id" element={<Week />} />
+        <Route path="/day/:id" element={<Day />} />
+        <Route path='*' element={<Home />} />
       </Route>
     )
   )
@@ -39,23 +30,10 @@ const Root = () => {
         <Outlet />
       </div>
       <div>
-        Footer
+        <Footer />
       </div>
     </>
   )
 }
-
-// function App() {
-//   return (
-//     <ThemeProvider theme={theme}>
-//       <div className="App">
-//         <Navbar />
-//         <Routes>
-//           <Route path='/' element={<Home />} />
-//         </Routes>
-//       </div>
-//     </ThemeProvider>
-//   );
-// }
 
 export default App;
