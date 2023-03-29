@@ -1,8 +1,19 @@
-import React from 'react'
+import { PageHeader } from "../../components"
+import { Container, Box } from "@mui/material"
+
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <Box
+      className="page"
+      sx={{
+        bgcolor: 'primary.main'
+      }}
+    >
+      <Container maxWidth='xl'>
+        <PageHeader title='Dashboard' />
+      </Container>
+    </Box>
   )
 }
 
