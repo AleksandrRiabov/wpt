@@ -15,9 +15,11 @@ const PageHeader = ({ title }: PageHeaderTypes) => {
       display: 'flex',
       paddingTop: { lg: '20px' }
     }}>
-      <Button variant='contained' color={'secondary'}>
+      <Button
+        onClick={() => navigate(-1)}
+        variant='contained'
+        color={'secondary'}>
         <KeyboardReturn
-          onClick={() => navigate(-1)}
           sx={{
             color: 'primary.contrastText',
             cursor: 'pointer',
