@@ -1,9 +1,17 @@
-import './App.css';
-import { Route, createHashRouter, createRoutesFromElements, RouterProvider, Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import { Home, Dashboard, Week, Day } from './pages';
-import Footer from './components/Footer/Footer';
-
+import "./App.css";
+import {
+  Route,
+  createHashRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Outlet,
+} from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import { Home, Dashboard, Week, Day } from "./pages";
+import Footer from "./components/Footer/Footer";
+import { ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ColorModeContext, useMode } from "./theme";
 
 const App = () => {
   const router = createHashRouter(
@@ -13,27 +21,32 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/week/:id" element={<Week />} />
         <Route path="/day/:id" element={<Day />} />
-        <Route path='*' element={<Home />} />
+        <Route path="*" element={<Home />} />
       </Route>
     )
-  )
-  return <RouterProvider router={router} />
-}
+  );
+  return <RouterProvider router={router} />;
+};
 
 const Root = () => {
+  const [theme, colorMode] = useMode();
+
   return (
-    <>
-      <div>
-        <Navbar />
-      </div>
-      <div>
-        <Outlet />
-      </div>
-      <div>
-        <Footer />
-      </div>
-    </>
-  )
-}
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div>
+          <Navbar />
+        </div>
+        <div>
+          <Outlet />
+        </div>
+        <div>
+          <Footer />
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
 
 export default App;

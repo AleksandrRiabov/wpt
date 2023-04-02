@@ -1,30 +1,31 @@
 import { useState, createContext, useMemo } from "react";
-import { createTheme, PaletteMode } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { PaletteMode } from "@mui/material";
 
 export const tokens = (mode: PaletteMode) => ({
   ...(mode === "dark"
     ? {
         primary: {
-          100: "#dcccce",
-          200: "#b9999d",
-          300: "#95666d",
-          400: "#72333c",
-          500: "#4f000b",
-          600: "#3f0009",
-          700: "#2f0007",
-          800: "#200004",
-          900: "#100002",
+          100: "#ced8da",
+          200: "#9db1b5",
+          300: "#6c8991",
+          400: "#3b626c",
+          500: "#0a3b47",
+          600: "#082f39",
+          700: "#06232b",
+          800: "#04181c",
+          900: "#020c0e",
         },
         secondary: {
-          100: "#e3ccd4",
-          200: "#c799a8",
-          300: "#aa667d",
-          400: "#8e3351",
-          500: "#720026",
-          600: "#5b001e",
-          700: "#440017",
-          800: "#2e000f",
-          900: "#170008",
+          100: "#ffe8d5",
+          200: "#ffd1ab",
+          300: "#ffbb80",
+          400: "#ffa456",
+          500: "#ff8d2c",
+          600: "#cc7123",
+          700: "#99551a",
+          800: "#663812",
+          900: "#331c09",
         },
         lightBlue: {
           100: "#f5d3dd",
@@ -120,17 +121,19 @@ export const tokens = (mode: PaletteMode) => ({
 });
 
 export const getDesignTokens = (mode: PaletteMode) => {
-  const colors = tokens(mode as PaletteMode);
+  const colors = tokens(mode);
 
   return {
     palette: {
       mode: mode,
       ...(mode === "dark"
         ? {
-            prmary: {
+            primary: {
+              ...colors.primary,
               main: colors.primary[500],
             },
             secondary: {
+              ...colors.secondary,
               main: colors.secondary[500],
             },
             neutral: {
@@ -143,7 +146,7 @@ export const getDesignTokens = (mode: PaletteMode) => {
             },
           }
         : {
-            prmary: {
+            primary: {
               main: colors.primary[100],
             },
             secondary: {
@@ -209,5 +212,5 @@ export const useMode = () => {
   // Update the theme only if the mode changes
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-  return [theme, colorMode];
+  return [theme, colorMode] as const;
 };
