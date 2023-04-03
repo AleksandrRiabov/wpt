@@ -1,5 +1,5 @@
 import Home from "./Home/Home"
-import Dashboard from "./Dashboard/Dashboard"
+import Dashboard from "./Dashboard"
 import Week from "./Week/Week"
 import Day from "./Day/Day"
 
