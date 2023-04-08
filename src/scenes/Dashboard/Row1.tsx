@@ -4,19 +4,23 @@ import { tokens } from "../../theme";
 import {
   Area,
   AreaChart,
+  LineChart,
   ResponsiveContainer,
   XAxis,
   YAxis,
   Tooltip,
+  Line,
+  CartesianGrid,
+  Legend,
 } from "recharts";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
-import { useGetKpisQuery } from "../../state/api";
+import { useGetDaysDataQuery } from "../../state/api";
 import BoxHeader from "../../components/BoxHeader/BoxHeader";
 
 type Props = {};
 
 const Row1 = (props: Props) => {
-  const { data } = useGetKpisQuery();
+  const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
@@ -53,7 +57,7 @@ const Row1 = (props: Props) => {
               height={400}
               data={chartData}
               margin={{
-                top: 15,
+                top: 20,
                 right: 25,
                 left: -20,
                 bottom: 0,
@@ -83,18 +87,21 @@ const Row1 = (props: Props) => {
                 axisLine={{ strokeWidth: "0" }}
                 style={{ fontSize: "10px" }}
               />
-              <Tooltip />
+              <Tooltip
+                contentStyle={{ backgroundColor: colors.primary[500] }}
+                itemStyle={{ color: colors.primary[100] }}
+              />
               <Area
                 type="monotone"
                 dataKey="cases"
-                stroke={colors.lightBlue[900]}
+                stroke={colors.lightBlue[800]}
                 fillOpacity={0.7}
                 fill="url(#colorDays)"
               />
               <Area
                 type="monotone"
                 dataKey="pallets"
-                stroke={colors.primary[900]}
+                stroke={colors.primary[700]}
                 fillOpacity={0.9}
                 fill="url(#colorDays)"
               />
@@ -102,7 +109,68 @@ const Row1 = (props: Props) => {
           </ResponsiveContainer>
         </Box>
       </DashboardBox>
-      <DashboardBox gridArea="b"> </DashboardBox>
+
+      <DashboardBox gridArea="b">
+        <BoxHeader
+          title="Product: Chill"
+          subtitle="7 Days Statistics"
+          sideText="+5%"
+        />
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={chartData}
+            margin={{
+              top: 20,
+              right: -20,
+              left: -20,
+              bottom: 0,
+            }}
+          >
+            <CartesianGrid vertical={false} stroke={colors.white[800]} />
+            <XAxis
+              dataKey="name"
+              tickLine={false}
+              style={{ fontSize: "10px" }}
+            />
+            <YAxis
+              yAxisId="left"
+              tickLine={false}
+              axisLine={false}
+              style={{ fontSize: "10px" }}
+            />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              tickLine={false}
+              axisLine={false}
+              style={{ fontSize: "10px" }}
+            />
+            <Tooltip
+              contentStyle={{ backgroundColor: colors.primary[500] }}
+              itemStyle={{ color: colors.primary[100] }}
+            />
+            <Legend
+              height={20}
+              wrapperStyle={{
+                margin: "0 0 10px 0",
+              }}
+            />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="cases"
+              stroke={colors.green[100]}
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="pallets"
+              stroke={colors.green[400]}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </DashboardBox>
+
       <DashboardBox gridArea="c"></DashboardBox>
     </>
   );
