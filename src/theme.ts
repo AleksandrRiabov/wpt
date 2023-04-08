@@ -32,7 +32,7 @@ export const tokens = (mode: PaletteMode) => ({
           200: "#eba7bc",
           300: "#e27c9a",
           400: "#d85079",
-          500: "#ce2457",
+          500: "#4deeea",
           600: "#a51d46",
           700: "#7c1634",
           800: "#520e23",
@@ -60,6 +60,17 @@ export const tokens = (mode: PaletteMode) => ({
           800: "#663e22",
           900: "#331f11",
         },
+        green: {
+          100: "#e3fcd0",
+          200: "#c7f8a1",
+          300: "#acf573",
+          400: "#90f144",
+          500: "#74ee15",
+          600: "#5dbe11",
+          700: "#468f0d",
+          800: "#2e5f08",
+          900: "#173004",
+        },
       }
     : {
         primary: {
@@ -71,7 +82,7 @@ export const tokens = (mode: PaletteMode) => ({
           600: "#40b69b",
           700: "#308874",
           800: "#205b4e",
-          900: "#102d27"
+          900: "#102d27",
         },
         secondary: {
           100: "#170008",
@@ -116,6 +127,17 @@ export const tokens = (mode: PaletteMode) => ({
           700: "#ffc398",
           800: "#ffd7bb",
           900: "#ffebdd",
+        },
+        green: {
+          100: "#173004",
+          200: "#2e5f08",
+          300: "#468f0d",
+          400: "#5dbe11",
+          500: "#74ee15",
+          600: "#90f144",
+          700: "#acf573",
+          800: "#c7f8a1",
+          900: "#e3fcd0",
         },
       }),
 });
@@ -167,27 +189,27 @@ export const getDesignTokens = (mode: PaletteMode) => {
       fontSize: 12,
       h1: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 40,
+        fontSize: 32,
       },
       h2: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 32,
+        fontSize: 24,
       },
       h3: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 24,
+        fontSize: 20,
       },
       h4: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 20,
+        fontSize: 14,
       },
       h5: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 16,
+        fontSize: 12,
       },
       h6: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 14,
+        fontSize: 10,
       },
     },
   };
