@@ -14,7 +14,7 @@ const PageHeader = ({ title }: PageHeaderTypes) => {
       sx={{
         display: "flex",
         alignItems: "center",
-        padding: { lg: "25px 0" },
+        padding: { lg: "25px 0", xs: "20px 0" },
       }}
     >
       <Button
