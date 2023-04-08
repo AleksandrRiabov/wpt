@@ -8,11 +8,11 @@ export const api = createApi({
   tagTypes: ["DaysData"],
   // highlight-end
   endpoints: (build) => ({
-    getKpis: build.query<Array<GetDaysDataResponse>, void>({
-      query: () => "day/01-04-2023_01-01-2029",
+    getDaysData: build.query<Array<GetDaysDataResponse>, string>({
+      query: (range) => `day/${range}`,
       providesTags: ["DaysData"],
     }),
   }),
 });
 
-export const { useGetKpisQuery } = api;
+export const { useGetDaysDataQuery } = api;
