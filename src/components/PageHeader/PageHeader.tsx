@@ -13,7 +13,8 @@ const PageHeader = ({ title }: PageHeaderTypes) => {
     <Box
       sx={{
         display: "flex",
-        paddingTop: { lg: "20px" },
+        alignItems: "center",
+        padding: { lg: "25px 0" },
       }}
     >
       <Button
@@ -28,7 +29,7 @@ const PageHeader = ({ title }: PageHeaderTypes) => {
           }}
         />
       </Button>
-      <Typography sx={{ marginLeft: "50px" }} variant="h4">
+      <Typography sx={{ marginLeft: "50px" }} variant="h3">
         {title}
       </Typography>
     </Box>
