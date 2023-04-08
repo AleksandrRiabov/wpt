@@ -5,6 +5,8 @@ const DashboardBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary[700],
   borderRadius: "1rem",
   boxShadow: "0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, 0.8)",
+  display: "flex",
+  flexDirection: "column",
 }));
 
 export default DashboardBox;
