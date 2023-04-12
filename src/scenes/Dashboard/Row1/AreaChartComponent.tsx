@@ -1,5 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { tokens } from "../../../theme";
 import {
   Area,
@@ -9,35 +9,58 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-
 import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
+import ChartFilters from "../ChartFilters";
+const defaultCategory = ["Fresh"];
+
+const categories = {
+  Fresh: ['Chill', 'Bread', 'Produce', "Directs", 'Flowers', 'Electronics' ],
+  Ambient: ['711', 'Ambient']
+}
 
 const AreaChartComponent = () => {
+  const [checkedProducts, setCheckedProducts] =
+    useState<string[]>(defaultCategory);
   const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
   const chartData = useMemo(() => {
-    return (
-      data &&
-      data.map((day) => {
-        const product = day.products.find(
-          (product) => product.name === "Chill"
-        );
-        return {
-          name: day.date.slice(0, 10),
-          cases: Number(product?.cases),
-          pallets: Number(product?.pallets),
-        };
-      })
-    );
-  }, [data]);
+    if (!data) return [];
 
+    const selectedSet = new Set(checkedProducts);
+    const result = [];
+
+    for (const day of data) {
+      let totalCases = 0;
+      let totalPallets = 0;
+
+      for (const product of day.products) {
+        if (
+          selectedSet.has(product.category) ||
+          selectedSet.has(product.name)
+        ) {
+          totalCases += Number(product.cases);
+          totalPallets += Number(product.pallets);
+        }
+      }
+
+      if (totalCases > 0 && totalPallets > 0) {
+        result.push({
+          cases: totalCases,
+          pallets: totalPallets,
+          name: day.date.slice(0, 10),
+        });
+      }
+    }
+
+    return result;
+  }, [data, checkedProducts]);
   return (
     <>
       <BoxHeader
-        title="Product: Chill"
+        title={`Product: ${checkedProducts.join(", ")}`}
         subtitle="7 Days Statistics"
         sideText="+5%"
       />
@@ -98,6 +121,11 @@ const AreaChartComponent = () => {
             />
           </AreaChart>
         </ResponsiveContainer>
+        <ChartFilters
+          categories={categories}
+          setCheckedProducts={setCheckedProducts}
+          checkedProducts={checkedProducts}
+        />
       </Box>
     </>
   );

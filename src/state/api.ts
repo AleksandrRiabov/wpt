@@ -12,7 +12,11 @@ export const api = createApi({
       query: (range) => `day/${range}`,
       providesTags: ["DaysData"],
     }),
+    getTrailersData: build.query<Array<GetDaysDataResponse>, string>({
+      query: (query) => `trailers/${query}`,
+      providesTags: ["DaysData"],
+    }),
   }),
 });
 
-export const { useGetDaysDataQuery } = api;
+export const { useGetDaysDataQuery, useGetTrailersDataQuery } = api;

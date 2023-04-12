@@ -1,18 +1,12 @@
-import { Box, useTheme } from "@mui/material";
 import { useMemo } from "react";
-import { tokens } from "../../../theme";
 import DashboardBox from "../../../components/dashboardBox/DashboardBox";
 import { useGetDaysDataQuery } from "../../../state/api";
 import AreaChartComponent from "./AreaChartComponent";
 import LineChartCompnent from "./LineChartCompnent";
 import BarChartComponent from "./BarChartComponent";
 
-type Props = {};
-
-const Row1 = (props: Props) => {
+const Row1 = () => {
   const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
-  const { palette } = useTheme();
-  const colors = tokens(palette.mode);
 
   const chartData = useMemo(() => {
     return (
