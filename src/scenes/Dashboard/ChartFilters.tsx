@@ -5,75 +5,89 @@ type Categories = Record<string, string[]>;
 
 interface Props {
   categories: Categories;
-  setCheckedProducts: (products: string[]) => void;
   checkedProducts: string[];
+  setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const ChartFilters = ({
   categories,
-  setCheckedProducts,
   checkedProducts,
+  setCheckedProducts,
 }: Props) => {
-  const handleProductChange =
-    (category: string, product: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const isChecked = event.target.checked;
-      const productsInCategory = categories[category];
-      let updatedCheckedProducts = [...checkedProducts];
-      if (isChecked) {
-        updatedCheckedProducts.push(product);
-        if (
-          productsInCategory.every((productInCategory) =>
-            updatedCheckedProducts.includes(productInCategory)
-          )
-        ) {
-          // if all products in category are checked, also check the category
-          updatedCheckedProducts.push(category);
-        }
-      } else {
-        updatedCheckedProducts = updatedCheckedProducts.filter(
-          (checkedProduct) =>
-            checkedProduct !== product && checkedProduct !== category
-        );
-      }
-      setCheckedProducts(updatedCheckedProducts);
-      localStorage.setItem("checkedProducts", JSON.stringify(updatedCheckedProducts));
-    };
-
-  const handleCategoryChange =
-    (category: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const isChecked = event.target.checked;
-      const productsInCategory = categories[category];
-      let updatedCheckedProducts = [...checkedProducts];
-      if (isChecked) {
-        updatedCheckedProducts.push(category, ...productsInCategory);
-      } else {
-        updatedCheckedProducts = updatedCheckedProducts.filter(
-          (checkedProduct) =>
-            !productsInCategory.includes(checkedProduct) &&
-            checkedProduct !== category
-        );
-      }
-      setCheckedProducts(updatedCheckedProducts);
-      localStorage.setItem("checkedProducts", JSON.stringify(updatedCheckedProducts));
-    };
-
-  React.useEffect(() => {
-    const savedCheckedProducts = localStorage.getItem("checkedProducts");
-    if (savedCheckedProducts) {
-      setCheckedProducts(JSON.parse(savedCheckedProducts));
+  const handleCategoryCheck = (selectedCategory: string) => {
+    const isChecked = checkedProducts.includes(selectedCategory);
+    // if the category is already checked, uncheck it
+    if (isChecked) {
+      setCheckedProducts(
+        checkedProducts.filter((category) => category !== selectedCategory)
+      );
+    } else {
+      // otherwise, add the category to the list of checked products and remove any products in the category that were previously checked
+      const filteredProducts = checkedProducts.filter(
+        (product) => !categories[selectedCategory].includes(product)
+      );
+      setCheckedProducts([...filteredProducts, selectedCategory]);
     }
-  },[]);
+  };
 
+  const handleProductCheck = (selectedProduct: string, category: string) => {
+    const isChecked = checkedProducts.includes(selectedProduct);
+    const isCategoryChecked = checkedProducts.includes(category);
+
+    if (isChecked || isCategoryChecked) {
+      if (isCategoryChecked) {
+        //If category is full, get all products from category, remove the one which was clicked on, and remove category as its not full anymore
+        const allProductsInCategory = categories[category];
+        const mergedCtegoryProductsWithSelected = [
+          ...allProductsInCategory,
+          ...checkedProducts,
+        ];
+        setCheckedProducts(
+          mergedCtegoryProductsWithSelected.filter(
+            (product) => product !== selectedProduct && product !== category
+          )
+        );
+      } else {
+        // otherwise, just remove the product from the list of checked products
+        setCheckedProducts(
+          checkedProducts.filter((product) => product !== selectedProduct)
+        );
+      }
+    } else {
+      // if the product and its category are not already checked, add the product to the list of checked products and check if all products in the category are now checked
+      const mergedWithUpcoming = checkedProducts.concat([selectedProduct]);
+      const willFullCategory = categories[category].every((product) =>
+        mergedWithUpcoming.includes(product)
+      );
+
+      if (willFullCategory) {
+        // if all products in the category are now checked, add the category to the list of checked products and remove any products in the category that were previously checked
+        setCheckedProducts([
+          ...checkedProducts.filter(
+            (product) => !categories[category].includes(product)
+          ),
+          category,
+        ]);
+      } else {
+        // otherwise, just add the product to the list of checked products
+        setCheckedProducts([...checkedProducts, selectedProduct]);
+      }
+    }
+  };
   return (
-    <Box sx={{ position: "absolute" }}>
+    <Box>
       {Object.entries(categories).map(([category, products]) => (
-        <div key={category}>
+        <Box key={category}>
           <FormControlLabel
             control={
               <Checkbox
-                checked={checkedProducts.includes(category)}
-                onChange={handleCategoryChange(category)}
+                checked={
+                  checkedProducts.includes(category) ||
+                  categories[category].every(
+                    (product) => checkedProducts.indexOf(product) >= 0
+                  )
+                }
+                onChange={() => handleCategoryCheck(category)}
               />
             }
             label={category}
@@ -84,15 +98,18 @@ const ChartFilters = ({
                 key={product}
                 control={
                   <Checkbox
-                    checked={checkedProducts.includes(product)}
-                    onChange={handleProductChange(category, product)}
+                    checked={
+                      checkedProducts.includes(category) ||
+                      checkedProducts.includes(product)
+                    }
+                    onChange={() => handleProductCheck(product, category)}
                   />
                 }
                 label={product}
               />
             ))}
           </div>
-        </div>
+        </Box>
       ))}
     </Box>
   );

@@ -12,12 +12,13 @@ import {
 import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 import ChartFilters from "../ChartFilters";
+import FiltersModal from "../../../components/FiltersModal/FiltersModal";
 const defaultCategory = ["Fresh"];
 
 const categories = {
-  Fresh: ['Chill', 'Bread', 'Produce', "Directs", 'Flowers', 'Electronics' ],
-  Ambient: ['711', 'Ambient']
-}
+  Fresh: ["Chill", "Bread", "Produce", "Directs", "Flowers", "Electronics"],
+  Ambient: ["711", "Grocery"],
+};
 
 const AreaChartComponent = () => {
   const [checkedProducts, setCheckedProducts] =
@@ -25,6 +26,10 @@ const AreaChartComponent = () => {
   const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
+
+  const [open, setOpen] = useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const chartData = useMemo(() => {
     if (!data) return [];
@@ -57,12 +62,14 @@ const AreaChartComponent = () => {
 
     return result;
   }, [data, checkedProducts]);
+
   return (
     <>
       <BoxHeader
         title={`Product: ${checkedProducts.join(", ")}`}
         subtitle="7 Days Statistics"
         sideText="+5%"
+        handleOpen={handleOpen}
       />
       <Box height="100%">
         <ResponsiveContainer width="100%" height="100%">
@@ -121,12 +128,18 @@ const AreaChartComponent = () => {
             />
           </AreaChart>
         </ResponsiveContainer>
+      </Box>
+      <FiltersModal
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+      >
         <ChartFilters
           categories={categories}
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
         />
-      </Box>
+      </FiltersModal>
     </>
   );
 };
