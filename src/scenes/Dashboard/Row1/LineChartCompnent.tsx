@@ -1,5 +1,5 @@
 import { useTheme } from "@mui/material";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { tokens } from "../../../theme";
 import {
   LineChart,
@@ -13,33 +13,64 @@ import {
 } from "recharts";
 import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
+import FiltersModal from "../../../components/FiltersModal/FiltersModal";
+import ChartFilters from "../ChartFilters";
+
+const categories = {
+  Fresh: ["Chill", "Bread", "Produce", "Directs", "Flowers", "Electronics"],
+  Ambient: ["711", "Grocery"],
+};
 
 const LineChartCompnent = () => {
   const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
+  const [checkedProducts, setCheckedProducts] = useState<string[]>(["Ambient"]);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const chartData = useMemo(() => {
-    return (
-      data &&
-      data.map((day) => {
-        const product = day.products.find(
-          (product) => product.name === "Chill"
-        );
-        return {
+    if (!data) return [];
+
+    const selectedSet = new Set(checkedProducts);
+    const result = [];
+
+    for (const day of data) {
+      let totalCases = 0;
+      let totalPallets = 0;
+
+      for (const product of day.products) {
+        if (
+          selectedSet.has(product.category) ||
+          selectedSet.has(product.name)
+        ) {
+          totalCases += Number(product.cases);
+          totalPallets += Number(product.pallets);
+        }
+      }
+
+      if (totalCases > 0 && totalPallets > 0) {
+        result.push({
+          cases: totalCases,
+          pallets: totalPallets,
           name: day.date.slice(0, 10),
-          cases: Number(product?.cases),
-          pallets: Number(product?.pallets),
-        };
-      })
-    );
-  }, [data]);
+        });
+      }
+    }
+
+    return result;
+  }, [data, checkedProducts]);
+
   return (
     <>
       <BoxHeader
-        title="Product: Chill"
+        title={`Product: ${checkedProducts.join(", ")}`}
         subtitle="7 Days Statistics"
         sideText="+5%"
+        handleOpen={handleOpen}
       />
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
@@ -90,6 +121,17 @@ const LineChartCompnent = () => {
           />
         </LineChart>
       </ResponsiveContainer>
+      <FiltersModal
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+      >
+        <ChartFilters
+          categories={categories}
+          setCheckedProducts={setCheckedProducts}
+          checkedProducts={checkedProducts}
+        />
+      </FiltersModal>
     </>
   );
 };
