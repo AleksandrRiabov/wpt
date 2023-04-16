@@ -1,5 +1,5 @@
 import { useTheme } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { tokens } from "../../../theme";
 import {
   LineChart,
@@ -16,58 +16,38 @@ import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 import FiltersModal from "../../../components/FiltersModal/FiltersModal";
 import ChartFilters from "../ChartFilters";
 import useGetCategories from "../../../hooks/useGetCategories";
+import useFormatChartData from "../../../hooks/useFormatChartData";
+
+// Default category array for the chart
+const defaultCategory = ["781"];
 
 const LineChartCompnent = () => {
+  // Use the `useState` hook to manage the checkedProducts state
+  const [checkedProducts, setCheckedProducts] =
+    useState<string[]>(defaultCategory);
+
+  // Use the `useGetDaysDataQuery` hook to fetch data
   const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
+
+  // Use the `useTheme` hook to access the MUI theme object
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
-  const [checkedProducts, setCheckedProducts] = useState<string[]>(["Ambient"]);
-
+  // Use the `useState` hook to manage the open state of the modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // Use custom hooks to get the categories and format the chart data
   const categories = useGetCategories(data);
-
-  const chartData = useMemo(() => {
-    if (!data) return [];
-
-    const selectedSet = new Set(checkedProducts);
-    const result = [];
-
-    for (const day of data) {
-      let totalCases = 0;
-      let totalPallets = 0;
-
-      for (const product of day.products) {
-        if (
-          selectedSet.has(product.category) ||
-          selectedSet.has(product.name)
-        ) {
-          totalCases += Number(product.cases);
-          totalPallets += Number(product.pallets);
-        }
-      }
-
-      if (totalCases > 0 && totalPallets > 0) {
-        result.push({
-          cases: totalCases,
-          pallets: totalPallets,
-          name: day.date.slice(0, 10),
-        });
-      }
-    }
-
-    return result;
-  }, [data, checkedProducts]);
+  const chartData = useFormatChartData({ data, checkedProducts });
 
   return (
     <>
       <BoxHeader
         title={`Product: ${checkedProducts.join(", ")}`}
         subtitle="7 Days Statistics"
-        sideText="+5%"
+        sideText="ADD Products"
         handleOpen={handleOpen}
       />
       <ResponsiveContainer width="100%" height="100%">
