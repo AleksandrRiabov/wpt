@@ -13,12 +13,8 @@ import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 import ChartFilters from "../ChartFilters";
 import FiltersModal from "../../../components/FiltersModal/FiltersModal";
+import useGetCategories from "../../../hooks/useGetCategories";
 const defaultCategory = ["Fresh"];
-
-const categories = {
-  Fresh: ["Chill", "Bread", "Produce", "Directs", "Flowers", "Electronics"],
-  Ambient: ["711", "Grocery"],
-};
 
 const AreaChartComponent = () => {
   const [checkedProducts, setCheckedProducts] =
@@ -30,6 +26,8 @@ const AreaChartComponent = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const categories = useGetCategories(data);
 
   const chartData = useMemo(() => {
     if (!data) return [];

@@ -15,11 +15,7 @@ import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 import FiltersModal from "../../../components/FiltersModal/FiltersModal";
 import ChartFilters from "../ChartFilters";
-
-const categories = {
-  Fresh: ["Chill", "Bread", "Produce", "Directs", "Flowers", "Electronics"],
-  Ambient: ["711", "Grocery"],
-};
+import useGetCategories from "../../../hooks/useGetCategories";
 
 const LineChartCompnent = () => {
   const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
@@ -31,6 +27,8 @@ const LineChartCompnent = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const categories = useGetCategories(data);
 
   const chartData = useMemo(() => {
     if (!data) return [];
