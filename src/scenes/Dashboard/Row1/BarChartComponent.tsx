@@ -1,5 +1,5 @@
 import { useTheme } from "@mui/material";
-import { useMemo } from "react";
+import { useState } from "react";
 import { tokens } from "../../../theme";
 import {
   ResponsiveContainer,
@@ -12,34 +12,42 @@ import {
 } from "recharts";
 import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
+import useGetCategories from "../../../hooks/useGetCategories";
+import FiltersModal from "../../../components/FiltersModal/FiltersModal";
+import ChartFilters from "../ChartFilters";
+import useFormatBarChartData from "../../../hooks/useFormatBarChartData";
+
+// Default category array for the chart
+const defaultCategory = ["Fresh"];
 
 const BarChartComponent = () => {
+  // Use the `useState` hook to manage the checkedProducts state
+  const [checkedProducts, setCheckedProducts] =
+    useState<string[]>(defaultCategory);
+
+  // Use the `useGetDaysDataQuery` hook to fetch data
   const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
+
+  // Use the `useTheme` hook to access the MUI theme object
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
-  const chartData = useMemo(() => {
-    return (
-      data &&
-      data.map((day) => {
-        const product = day.products.find(
-          (product) => product.name === "Chill"
-        );
-        return {
-          name: day.date.slice(0, 10),
-          cases: Number(product?.cases),
-          pallets: Number(product?.pallets),
-        };
-      })
-    );
-  }, [data]);
+  // Use the `useState` hook to manage the open state of the modal
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  // Use custom hooks to get the categories and format the chart data
+  const categories = useGetCategories(data);
+  const chartData = useFormatBarChartData({ data, checkedProducts });
 
   return (
     <>
       <BoxHeader
-        title="Month By Month"
+        title="Cases Per Pallet"
         subtitle="7 Days Statistics"
-        sideText="+5%"
+        sideText="Select Products"
+        handleOpen={handleOpen}
       />
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -83,9 +91,20 @@ const BarChartComponent = () => {
             contentStyle={{ backgroundColor: colors.primary[500] }}
             itemStyle={{ color: colors.primary[100] }}
           />
-          <Bar dataKey="cases" fill="url(#colorBar)" />
+          <Bar dataKey="casesPerPallet" fill="url(#colorBar)" />
         </BarChart>
       </ResponsiveContainer>
+      <FiltersModal
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+      >
+        <ChartFilters
+          categories={categories}
+          setCheckedProducts={setCheckedProducts}
+          checkedProducts={checkedProducts}
+        />
+      </FiltersModal>
     </>
   );
 };
