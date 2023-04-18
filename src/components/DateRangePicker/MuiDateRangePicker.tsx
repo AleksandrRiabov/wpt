@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { useEffect, useState } from "react";
+import FlexBetween from "../FlexBetween/FlexBetween";
 
 interface DateRange {
   from: Date | null;
@@ -33,18 +34,25 @@ function MuiDateRangePicker({ onDataChange }: Props) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Box>
-        <DatePicker
-          label="From"
-          value={dateRange.from}
-          onChange={(date) => handleDateChange("from", date)}
-        />
-        <DatePicker
-          label="To"
-          value={dateRange.to}
-          onChange={(date) => handleDateChange("to", date)}
-        />
-      </Box>
+      <FlexBetween>
+        <Box width={"45%"}>
+          <DatePicker
+            autoFocus={true}
+            label="From"
+            value={dateRange.from}
+            onChange={(date) => handleDateChange("from", date)}
+            format="dd/MM/yyyy"
+          />
+        </Box>
+        <Box width={"45%"}>
+          <DatePicker
+            label="To"
+            value={dateRange.to}
+            onChange={(date) => handleDateChange("to", date)}
+            format="dd/MM/yyyy"
+          />
+        </Box>
+      </FlexBetween>
     </LocalizationProvider>
   );
 }
