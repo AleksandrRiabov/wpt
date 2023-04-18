@@ -10,9 +10,7 @@ export interface GetDaysDataResponse {
       category: string;
     }
   ];
-};
-
-
+}
 
 export type Product = {
   name: string;
@@ -22,7 +20,7 @@ export type Product = {
   _id: string;
 };
 
- type EditedBy = {
+type EditedBy = {
   name: string;
   date: string;
   _id: string;
@@ -39,3 +37,7 @@ export type DaysDataResponse = {
   __v: number;
 };
 
+export type DateRange = {
+  from: Date | null;
+  to: Date | null;
+};

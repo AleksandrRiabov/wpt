@@ -1,5 +1,7 @@
 import * as React from "react";
-import { Box, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import MuiDateRangePicker from "../../components/DateRangePicker/MuiDateRangePicker";
+import { DateRange } from "../../state/types";
 
 type Categories = Record<string, string[]>;
 
@@ -7,12 +9,14 @@ interface Props {
   categories: Categories;
   checkedProducts: string[];
   setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
+  onDataChange: (dateRange: DateRange) => void;
 }
 
 const ChartFilters = ({
   categories,
   checkedProducts,
   setCheckedProducts,
+  onDataChange,
 }: Props) => {
   const handleCategoryCheck = (selectedCategory: string) => {
     const isChecked = checkedProducts.includes(selectedCategory);
@@ -74,43 +78,53 @@ const ChartFilters = ({
       }
     }
   };
+
   return (
     <Box>
-      {Object.entries(categories).map(([category, products]) => (
-        <Box key={category}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={
-                  checkedProducts.includes(category) ||
-                  categories[category].every(
-                    (product) => checkedProducts.indexOf(product) >= 0
-                  )
-                }
-                onChange={() => handleCategoryCheck(category)}
-              />
-            }
-            label={category}
-          />
-          <div style={{ marginLeft: "1rem" }}>
-            {products.map((product) => (
-              <FormControlLabel
-                key={product}
-                control={
-                  <Checkbox
-                    checked={
-                      checkedProducts.includes(category) ||
-                      checkedProducts.includes(product)
-                    }
-                    onChange={() => handleProductCheck(product, category)}
-                  />
-                }
-                label={product}
-              />
-            ))}
-          </div>
+      <MuiDateRangePicker onDataChange={onDataChange} />
+      {Object.entries(categories).length ? (
+        Object.entries(categories).map(([category, products]) => (
+          <Box key={category}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={
+                    checkedProducts.includes(category) ||
+                    categories[category].every(
+                      (product) => checkedProducts.indexOf(product) >= 0
+                    )
+                  }
+                  onChange={() => handleCategoryCheck(category)}
+                />
+              }
+              label={category}
+            />
+            <div style={{ marginLeft: "1rem" }}>
+              {products.map((product) => (
+                <FormControlLabel
+                  key={product}
+                  control={
+                    <Checkbox
+                      checked={
+                        checkedProducts.includes(category) ||
+                        checkedProducts.includes(product)
+                      }
+                      onChange={() => handleProductCheck(product, category)}
+                    />
+                  }
+                  label={product}
+                />
+              ))}
+            </div>
+          </Box>
+        ))
+      ) : (
+        <Box>
+          <Typography variant="h4">
+            No Products Categories Found for the selected dates
+          </Typography>
         </Box>
-      ))}
+      )}
     </Box>
   );
 };

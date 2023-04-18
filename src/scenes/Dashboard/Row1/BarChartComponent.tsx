@@ -16,17 +16,27 @@ import useGetCategories from "../../../hooks/useGetCategories";
 import FiltersModal from "../../../components/FiltersModal/FiltersModal";
 import ChartFilters from "../ChartFilters";
 import useFormatBarChartData from "../../../hooks/useFormatBarChartData";
+import { formateDateRange } from "../../../helpers";
+import { DateRange } from "../../../state/types";
+import { format, subDays } from "date-fns";
+
+// Default date from in the query
+const today = new Date();
+const defaultDateFrom = format(subDays(today, 30), "dd-MM-yyyy");
 
 // Default category array for the chart
 const defaultCategory = ["Fresh"];
 
 const BarChartComponent = () => {
+  // Use the `useState` hook to manage date range query for fetching
+  const [dateRangeQuery, setDateRangeQuery] = useState(defaultDateFrom);
+
   // Use the `useState` hook to manage the checkedProducts state
   const [checkedProducts, setCheckedProducts] =
     useState<string[]>(defaultCategory);
 
   // Use the `useGetDaysDataQuery` hook to fetch data
-  const { data } = useGetDaysDataQuery("01-04-2023_01-01-2029");
+  const { data } = useGetDaysDataQuery(dateRangeQuery);
 
   // Use the `useTheme` hook to access the MUI theme object
   const { palette } = useTheme();
@@ -41,11 +51,18 @@ const BarChartComponent = () => {
   const categories = useGetCategories(data);
   const chartData = useFormatBarChartData({ data, checkedProducts });
 
+  //On change format date range and update state/query
+  const handleDateRangeChange = (dateRange: DateRange) => {
+    const formatedDateRange = formateDateRange(dateRange);
+    setDateRangeQuery(formatedDateRange);
+  };
   return (
     <>
       <BoxHeader
         title="Cases Per Pallet"
-        subtitle="7 Days Statistics"
+        subtitle={`From ${dateRangeQuery.split("_")[0]} - To ${
+          dateRangeQuery.split("_")[1] || format(today, "dd-MM-yyyy")
+        }`}
         sideText="Select Products"
         handleOpen={handleOpen}
       />
@@ -103,6 +120,7 @@ const BarChartComponent = () => {
           categories={categories}
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
+          onDataChange={handleDateRangeChange}
         />
       </FiltersModal>
     </>
