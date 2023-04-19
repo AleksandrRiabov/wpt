@@ -1,4 +1,4 @@
-import DashboardBox from "../../components/dashboardBox/DashboardBox";
+import DashboardBox from "../../../components/dashboardBox/DashboardBox";
 
 type Props = {};
 
