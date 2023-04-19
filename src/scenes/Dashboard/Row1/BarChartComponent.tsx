@@ -63,7 +63,6 @@ const BarChartComponent = () => {
         subtitle={`From ${dateRangeQuery.split("_")[0]} - To ${
           dateRangeQuery.split("_")[1] || format(today, "dd-MM-yyyy")
         }`}
-        sideText="Select Products"
         handleOpen={handleOpen}
       />
       <ResponsiveContainer width="100%" height="100%">
@@ -73,7 +72,7 @@ const BarChartComponent = () => {
           data={chartData}
           margin={{
             top: 15,
-            right: 50,
+            right: 25,
             left: -5,
             bottom: 5,
           }}

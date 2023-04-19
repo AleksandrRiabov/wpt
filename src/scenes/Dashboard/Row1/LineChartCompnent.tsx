@@ -66,7 +66,6 @@ const LineChartCompnent = () => {
         subtitle={`From ${dateRangeQuery.split("_")[0]} - To ${
           dateRangeQuery.split("_")[1] || format(today, "dd-MM-yyyy")
         }`}
-        sideText="ADD Products"
         handleOpen={handleOpen}
       />
       <ResponsiveContainer width="100%" height="100%">

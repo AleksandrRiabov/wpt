@@ -63,7 +63,6 @@ const AreaChartComponent = () => {
         subtitle={`From ${dateRangeQuery.split("_")[0]} - To ${
           dateRangeQuery.split("_")[1] || format(today, "dd-MM-yyyy")
         }`}
-        sideText="Product / Category"
         handleOpen={handleOpen}
       />
       <Box height="100%">

@@ -1,16 +1,16 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import FlexBetween from "../FlexBetween/FlexBetween";
 import { tokens } from "../../theme";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 type Props = {
   icon?: React.ReactNode;
   title: string;
   subtitle?: string;
-  sideText?: string;
   handleOpen?: () => void;
 };
 
-const BoxHeader = ({ icon, title, subtitle, sideText, handleOpen }: Props) => {
+const BoxHeader = ({ icon, title, subtitle, handleOpen }: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
@@ -34,7 +34,10 @@ const BoxHeader = ({ icon, title, subtitle, sideText, handleOpen }: Props) => {
             fontWeight="700"
             color={colors.secondary[500]}
           >
-            {sideText}
+            <FlexBetween>
+              <SettingsIcon />
+              Settings{" "}
+            </FlexBetween>
           </Typography>
         </FlexBetween>
       </FlexBetween>
