@@ -113,7 +113,7 @@ export default function PieChartComponent() {
     <ResponsiveContainer width="100%" height="100%">
       <PieChart width={400} height={400}>
         <defs>
-          <linearGradient id="pieChart" x1="0" y1="1" x2="1" y2="">
+          <linearGradient id="pieChart" x1="0" y1="1" x2="1" y2="0">
             <stop offset="10%" stopColor={colors.green[500]} stopOpacity={1} />
             <stop
               offset="90%"

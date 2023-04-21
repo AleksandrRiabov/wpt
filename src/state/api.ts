@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GetDaysDataResponse } from "./types";
+import { GetDaysDataResponse, GetTrailersDataResponse } from "./types";
 
 export const api = createApi({
   // highlight-start
@@ -12,8 +12,8 @@ export const api = createApi({
       query: (range) => `day/${range}`,
       providesTags: ["DaysData"],
     }),
-    getTrailersData: build.query<Array<GetDaysDataResponse>, string>({
-      query: (query) => `trailers/${query}`,
+    getTrailersData: build.query<Array<GetTrailersDataResponse>, string>({
+      query: (query) => `trailers/?${query}`,
       providesTags: ["DaysData"],
     }),
   }),

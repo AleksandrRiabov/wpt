@@ -12,6 +12,41 @@ export interface GetDaysDataResponse {
   ];
 }
 
+export interface GetTrailersDataResponse {
+  _id: string;
+  reference: string;
+  trailerNumber: string;
+  received: Date | null;
+  clearance: Date;
+  loadType: string;
+  freightType: string;
+  sentDate: Date;
+  deliveryDate: Date ;
+  alcohol: boolean;
+  cert: boolean;
+  extraCost: { cost: number; comment: string };
+  algecirasFerry: { cost: number };
+  rejectedBySIVEP: { cost: number };
+  holdOver: { days: number; cost: number };
+  nonStop: { cost: Number };
+  crossed: string;
+  comments: string;
+  products: [
+    {
+      name: string;
+      cases: string;
+      pallets: string;
+      category: string;
+    }
+  ];
+  editedBy: [
+    {
+      name: String;
+      date: Date;
+    }
+  ];
+}
+
 export type Product = {
   name: string;
   cases: string;
