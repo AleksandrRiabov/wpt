@@ -1,36 +1,32 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../../theme";
-import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 
-interface Data {
-  name: string;
-  value: number;
-}
-
-interface Props {
-  cx: number;
-  cy: number;
-  innerRadius: number;
-  outerRadius: number;
-  fill: string;
-  payload: any;
-  percent: number;
-  value: number;
-  midAngle: number;
-  startAngle: number;
-  endAngle: number;
-}
-
-const data: Data[] = [
-  { name: "Chill", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
+const data = [
+  { name: "Fresh", value: 400 },
+  { name: "Ambient", value: 300 },
+  { name: "Frozen", value: 300 },
+  { name: "Alcohol", value: 200 },
+  { name: "Directs", value: 400 },
 ];
 
-const renderActiveShape = (props: Props) => {
+type shapeProps = {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  index: number;
+  startAngle: number;
+  endAngle: number;
+  fill: string;
+  payload: { name: string; value: number };
+  percent: number;
+  value: number;
+};
+
+const renderActiveShape = (props: shapeProps) => {
   const RADIAN = Math.PI / 180;
   const {
     cx,
@@ -88,56 +84,57 @@ const renderActiveShape = (props: Props) => {
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
-        fill="red"
-      >{`PV ${value}`}</text>
+        fill="#ff8d2c"
+      >{`Cases ${value}`}</text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         dy={18}
         textAnchor={textAnchor}
-        fill="gold"
+        fill={"red"}
       >
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        {`(${(percent * 100).toFixed(2)}%)`}
       </text>
     </g>
   );
 };
 
-const PieChartComponent = () => {
+export default function PieChartComponent() {
+  const [activeIndex, setActiveIndex] = useState(1);
 
-    // Use the `useTheme` hook to access the MUI theme object
-    const { palette } = useTheme();
-    const colors = tokens(palette.mode);
-
-    const [activeIndex, setActiveIndex] = useState(0)
-
+  const { palette } = useTheme();
+  const colors = tokens(palette.mode);
 
   const onPieEnter = (_: any, index: number) => {
     setActiveIndex(index);
   };
 
-
-    return (
-      <>
-      <BoxHeader title='Volumes'></BoxHeader>
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={300} height={300}>
-          <Pie
-            activeIndex={activeIndex}
-            activeShape={renderActiveShape}
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={50}
-            outerRadius={70}
-            fill={colors.green[700]}
-            dataKey="value"
-            onMouseEnter={onPieEnter}
-          />
-        </PieChart>
-      </ResponsiveContainer></>
-    );
-  
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart width={400} height={400}>
+        <defs>
+          <linearGradient id="pieChart" x1="0" y1="1" x2="1" y2="">
+            <stop offset="10%" stopColor={colors.green[500]} stopOpacity={1} />
+            <stop
+              offset="90%"
+              stopColor={colors.green[400]}
+              stopOpacity={0.4}
+            />
+          </linearGradient>
+        </defs>
+        <Pie
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius={40}
+          outerRadius={60}
+          fill={"url(#pieChart)"}
+          dataKey="value"
+          onMouseEnter={onPieEnter}
+        />
+      </PieChart>
+    </ResponsiveContainer>
+  );
 }
-
-export default PieChartComponent
