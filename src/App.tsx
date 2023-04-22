@@ -13,6 +13,7 @@ import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
 import Team from "./scenes/Team/Team";
+import TrailerDetails from "./scenes/Dashboard/Row2/TrailerDetails";
 
 const App = () => {
   const router = createHashRouter(
@@ -20,6 +21,7 @@ const App = () => {
       <Route path="/" element={<Root />}>
         <Route path="/" index element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/trailers/details/:id" element={<TrailerDetails />} />
         <Route path="/team" element={<Team />} />
         <Route path="/week/:id" element={<Week />} />
         <Route path="/day/:id" element={<Day />} />
