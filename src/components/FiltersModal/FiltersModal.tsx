@@ -15,7 +15,6 @@ const style = {
 type Props = {
   children: string | JSX.Element | JSX.Element[];
   open: boolean;
-  handleOpen: () => void;
   handleClose: () => void;
 };
 

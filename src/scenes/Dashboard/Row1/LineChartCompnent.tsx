@@ -119,7 +119,6 @@ const LineChartCompnent = () => {
       </ResponsiveContainer>
       <FiltersModal
         open={open}
-        handleOpen={handleOpen}
         handleClose={handleClose}
       >
         <ChartFilters

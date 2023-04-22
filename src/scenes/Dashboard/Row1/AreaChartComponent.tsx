@@ -125,7 +125,6 @@ const AreaChartComponent = () => {
       </Box>
       <FiltersModal
         open={open}
-        handleOpen={handleOpen}
         handleClose={handleClose}
       >
         <ChartFilters
