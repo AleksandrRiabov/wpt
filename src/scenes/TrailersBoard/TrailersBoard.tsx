@@ -16,7 +16,7 @@ const TrailersBoard = () => {
 
   // function to handle row double-click
   const handleRowDoubleClick = (params: GridRowParams) => {
-    const trailerId = params.row.reference;
+    const trailerId = params.row._id;
     history(`/trailers/details/${trailerId}`);
   };
 
