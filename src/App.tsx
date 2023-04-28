@@ -7,7 +7,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import { Home, Dashboard, Week, Day } from "./scenes";
+import { Home, Dashboard, Week, Day, AddTrailer } from "./scenes";
 import Footer from "./components/Footer/Footer";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,6 +22,7 @@ const App = () => {
         <Route path="/" index element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/trailers/details/:id" element={<TrailerDetails />} />
+        <Route path="/trailers/add" element={<AddTrailer />} />
         <Route path="/team" element={<Team />} />
         <Route path="/week/:id" element={<Week />} />
         <Route path="/day/:id" element={<Day />} />

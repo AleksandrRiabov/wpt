@@ -1,12 +1,14 @@
 import "./style.css";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataGrid, GridCellParams, GridRowParams } from "@mui/x-data-grid";
 import BoxHeader from "../../components/BoxHeader/BoxHeader";
 import { useGetTrailersDataQuery } from "../../state/api";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AddBox } from "@mui/icons-material";
+import FlexBetween from "../../components/FlexBetween/FlexBetween";
 
 const TrailersBoard = () => {
   const { data } = useGetTrailersDataQuery("sentDateFrom=2022-12-31");
@@ -71,7 +73,20 @@ const TrailersBoard = () => {
 
   return (
     <>
-      <BoxHeader title="Recent trailers" subtitle={"123"} />
+      <Box color={colors.white[100]} margin="1.5rem 1rem 0 1rem">
+        <FlexBetween>
+          {" "}
+          <Typography variant="h4" pb="5px">
+            Recent trailers
+          </Typography>
+          <Link to="/trailers/add">
+            {" "}
+            <Typography variant="h3" color={colors.secondary[500]}>
+              <AddBox fontSize="large" />
+            </Typography>
+          </Link>
+        </FlexBetween>
+      </Box>
       <Box
         mt="0.5rem"
         p="0  0.5rem"
