@@ -5,8 +5,8 @@ export interface GetDaysDataResponse {
   products: [
     {
       name: string;
-      cases: string;
-      pallets: string;
+      cases: number;
+      pallets: number;
       category: string;
     }
   ];
@@ -21,21 +21,19 @@ export interface GetTrailersDataResponse {
   loadType: string;
   freightType: string;
   sentDate: Date;
-  deliveryDate: Date ;
+  deliveryDate: Date;
   alcohol: boolean;
   cert: boolean;
-  extraCost: { cost: number; comment: string };
-  algecirasFerry: { cost: number };
-  rejectedBySIVEP: { cost: number };
-  holdOver: { days: number; cost: number };
-  nonStop: { cost: Number };
+  extraCost: {
+    [key: string]: { cost: number;} | undefined;
+  };
   crossed: string;
   comments: string;
   products: [
     {
       name: string;
-      cases: string;
-      pallets: string;
+      cases: number;
+      pallets: number;
       category: string;
     }
   ];

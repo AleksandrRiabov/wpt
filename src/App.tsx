@@ -13,7 +13,7 @@ import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
 import Team from "./scenes/Team/Team";
-import TrailerDetails from "./scenes/Dashboard/Row2/TrailerDetails";
+import TrailerDetails from "./scenes/TrailerDetails/TrailerDetails";
 
 const App = () => {
   const router = createHashRouter(
