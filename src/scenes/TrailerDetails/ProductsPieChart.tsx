@@ -34,7 +34,6 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-  index,
 }: Label) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -58,7 +57,6 @@ export default function ProductsPieChart({
 }: {
   data: GetTrailersDataResponse["products"];
 }) {
-  console.log(data);
   return (
     <>
       <Box height={"100%"} width="100%">

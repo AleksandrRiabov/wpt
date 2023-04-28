@@ -132,9 +132,12 @@ const InfoSection = ({ trailer }: Props) => {
                 return null;
               }
               return (
-                <Box display="flex" sx={{ flexDirection: "column" }}>
+                <Box
+                  key={extraKey}
+                  display="flex"
+                  sx={{ flexDirection: "column" }}
+                >
                   <FlexBetween
-                    key={extraKey}
                     p="7px"
                     sx={{ borderBottom: "1px solid #6c8991" }}
                   >

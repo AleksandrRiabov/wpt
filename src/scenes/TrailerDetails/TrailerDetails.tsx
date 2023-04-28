@@ -14,8 +14,6 @@ const TrailerDetails = () => {
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
-  console.log(data.isLoading);
-  console.log(trailer);
 
   return (
     <>
@@ -55,7 +53,6 @@ const TrailerDetails = () => {
                 }}
               >
                 {/* Products section */}
-
                 <Box flex="1" sx={{}} p="20px">
                   {trailer?.products.map((product) => (
                     <Typography
@@ -64,9 +61,8 @@ const TrailerDetails = () => {
                     >{`- ${product.name}: ${product.pallets} pallets - ${product.cases} cases`}</Typography>
                   ))}
                 </Box>
-                {/* comments section */}
               </Box>
-
+              {/* comments section */}
               <Box flex="1" mb="40px">
                 <Container>
                   <Typography variant="h4">Comments:</Typography>
