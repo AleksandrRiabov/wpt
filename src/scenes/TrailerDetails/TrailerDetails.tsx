@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import ProductsPieChart from "./ProductsPieChart";
 import InfoSection from "./InfoSection";
+import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
 
 const TrailerDetails = () => {
   const { id } = useParams();
@@ -21,9 +22,18 @@ const TrailerDetails = () => {
         <PageHeader title={` Trailer Details`} />
         <Box>
           {data.isLoading ? (
-            <Typography variant="h2">Loading</Typography>
+            <FlexCenterCenter>
+              <Typography variant="h3">Loading...</Typography>
+            </FlexCenterCenter>
           ) : !trailer ? (
-            <Box> No Trailers found</Box>
+            <FlexCenterCenter>
+              <Typography variant="h4">
+                We're sorry, but the trailer you're trying to access is not
+                available. It may have been removed or may have never existed.
+                Please check the ID and try again, or contact our support team
+                if you need further assistance.
+              </Typography>
+            </FlexCenterCenter>
           ) : (
             <DashboardBox display={"flex"}>
               <Box
