@@ -7,13 +7,13 @@ import {
   Outlet,
 } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import { Home, Dashboard, Week, Day, AddTrailer } from "./scenes";
+import { Home, Dashboard, Week, Day, AddTrailer, TrailerDetails } from "./scenes";
 import Footer from "./components/Footer/Footer";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
 import Team from "./scenes/Team/Team";
-import TrailerDetails from "./scenes/TrailerDetails/TrailerDetails";
+
 
 const App = () => {
   const router = createHashRouter(

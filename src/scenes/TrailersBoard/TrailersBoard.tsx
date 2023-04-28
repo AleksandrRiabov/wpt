@@ -1,20 +1,31 @@
 import "./style.css";
 import { Box, Typography } from "@mui/material";
 import { DataGrid, GridCellParams, GridRowParams } from "@mui/x-data-grid";
-import BoxHeader from "../../components/BoxHeader/BoxHeader";
 import { useGetTrailersDataQuery } from "../../state/api";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { format } from "date-fns";
+import { format, subDays } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
 import { AddBox } from "@mui/icons-material";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
+import MuiDateRangePicker from "../../components/DateRangePicker/MuiDateRangePicker";
+import { DateRange } from "../../state/types";
+import { formateDateRange } from "../../helpers";
+import { useState } from "react";
+
+// Default date from in the query
+const today = new Date();
+const defaultDateFrom = `sentDateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
 
 const TrailersBoard = () => {
+   // Use the `useState` hook to manage date range query for fetching
+   const [dateRangeQuery, setDateRangeQuery] = useState(defaultDateFrom);
   const { data } = useGetTrailersDataQuery("sentDateFrom=2022-12-31");
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
   const history = useNavigate();
+
+  console.log(dateRangeQuery)
 
   // function to handle row double-click
   const handleRowDoubleClick = (params: GridRowParams) => {
@@ -71,6 +82,14 @@ const TrailersBoard = () => {
       : "";
   };
 
+   //On change format date range and update state/query
+   const handleDateRangeChange = (dateRange: DateRange) => {
+    const dates = formateDateRange(dateRange).split('_');
+
+
+    setDateRangeQuery(`sentDateFrom=${dates[0]}`);
+  };
+
   return (
     <>
       <Box color={colors.white[100]} margin="1.5rem 1rem 0 1rem">
@@ -79,6 +98,7 @@ const TrailersBoard = () => {
           <Typography variant="h4" pb="5px">
             Recent trailers
           </Typography>
+          <MuiDateRangePicker onDataChange={handleDateRangeChange} />
           <Link to="/trailers/add">
             {" "}
             <Typography variant="h3" color={colors.secondary[500]}>
