@@ -15,17 +15,15 @@ import { useState } from "react";
 
 // Default date from in the query
 const today = new Date();
-const defaultDateFrom = `sentDateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
+const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
 
 const TrailersBoard = () => {
-   // Use the `useState` hook to manage date range query for fetching
-   const [dateRangeQuery, setDateRangeQuery] = useState(defaultDateFrom);
-  const { data } = useGetTrailersDataQuery("sentDateFrom=2022-12-31");
+  // Use the `useState` hook to manage date range query for fetching
+  const [dateRangeQuery, setDateRangeQuery] = useState(defaultDateFrom);
+  const { data } = useGetTrailersDataQuery(dateRangeQuery);
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
   const history = useNavigate();
-
-  console.log(dateRangeQuery)
 
   // function to handle row double-click
   const handleRowDoubleClick = (params: GridRowParams) => {
@@ -82,12 +80,10 @@ const TrailersBoard = () => {
       : "";
   };
 
-   //On change format date range and update state/query
-   const handleDateRangeChange = (dateRange: DateRange) => {
-    const dates = formateDateRange(dateRange).split('_');
-
-
-    setDateRangeQuery(`sentDateFrom=${dates[0]}`);
+  //On change format date range and update state/query
+  const handleDateRangeChange = (dateRange: DateRange) => {
+    const dates = formateDateRange(dateRange);
+    setDateRangeQuery(dates);
   };
 
   return (

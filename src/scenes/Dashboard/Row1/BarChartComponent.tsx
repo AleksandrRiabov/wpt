@@ -22,7 +22,7 @@ import { format, subDays } from "date-fns";
 
 // Default date from in the query
 const today = new Date();
-const defaultDateFrom = format(subDays(today, 30), "dd-MM-yyyy");
+const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
 
 // Default category array for the chart
 const defaultCategory = ["Fresh"];
@@ -110,10 +110,7 @@ const BarChartComponent = () => {
           <Bar dataKey="casesPerPallet" fill="url(#colorBar)" />
         </BarChart>
       </ResponsiveContainer>
-      <FiltersModal
-        open={open}
-        handleClose={handleClose}
-      >
+      <FiltersModal open={open} handleClose={handleClose}>
         <ChartFilters
           categories={categories}
           setCheckedProducts={setCheckedProducts}

@@ -24,7 +24,7 @@ import { formateDateRange } from "../../../helpers";
 
 // Default date from in the query
 const today = new Date();
-const defaultDateFrom = format(subDays(today, 30), "dd-MM-yyyy");
+const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
 
 // Default category array for the chart
 const defaultCategory = ["781"];
@@ -117,10 +117,7 @@ const LineChartCompnent = () => {
           />
         </LineChart>
       </ResponsiveContainer>
-      <FiltersModal
-        open={open}
-        handleClose={handleClose}
-      >
+      <FiltersModal open={open} handleClose={handleClose}>
         <ChartFilters
           categories={categories}
           setCheckedProducts={setCheckedProducts}
