@@ -59,13 +59,14 @@ const LineChartCompnent = () => {
     setDateRangeQuery(formatedDateRange);
   };
 
+  const dateFrom = dateRangeQuery.slice(9, 19);
+  const dateTo = dateRangeQuery.slice(27) || format(today, "dd-MM-yyyy");
+
   return (
     <>
       <BoxHeader
         title={`Product: ${checkedProducts.join(", ")}`}
-        subtitle={`From ${dateRangeQuery.split("_")[0]} - To ${
-          dateRangeQuery.split("_")[1] || format(today, "dd-MM-yyyy")
-        }`}
+        subtitle={`From ${dateFrom} - To ${dateTo}`}
         handleOpen={handleOpen}
       />
       <ResponsiveContainer width="100%" height="100%">
@@ -122,7 +123,8 @@ const LineChartCompnent = () => {
           categories={categories}
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
-          onDataChange={handleDateRangeChange}
+          onDateChange={handleDateRangeChange}
+          sessionStorageKey="dashboard-line-chart"
         />
       </FiltersModal>
     </>

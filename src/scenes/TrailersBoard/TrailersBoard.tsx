@@ -94,7 +94,10 @@ const TrailersBoard = () => {
           <Typography variant="h4" pb="5px">
             Recent trailers
           </Typography>
-          <MuiDateRangePicker onDataChange={handleDateRangeChange} />
+          <MuiDateRangePicker
+            onDateChange={handleDateRangeChange}
+            sessionStorageKey="trailersBoard"
+          />
           <Link to="/trailers/add">
             {" "}
             <Typography variant="h3" color={colors.secondary[500]}>

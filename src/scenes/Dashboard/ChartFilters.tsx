@@ -9,14 +9,16 @@ interface Props {
   categories: Categories;
   checkedProducts: string[];
   setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
-  onDataChange: (dateRange: DateRange) => void;
+  onDateChange: (dateRange: DateRange) => void;
+  sessionStorageKey: string;
 }
 
 const ChartFilters = ({
   categories,
   checkedProducts,
   setCheckedProducts,
-  onDataChange,
+  onDateChange,
+  sessionStorageKey,
 }: Props) => {
   const handleCategoryCheck = (selectedCategory: string) => {
     const isChecked = checkedProducts.includes(selectedCategory);
@@ -81,7 +83,10 @@ const ChartFilters = ({
 
   return (
     <Box>
-      <MuiDateRangePicker onDataChange={onDataChange} />
+      <MuiDateRangePicker
+        onDateChange={onDateChange}
+        sessionStorageKey={sessionStorageKey}
+      />
       {Object.entries(categories).length ? (
         Object.entries(categories).map(([category, products]) => (
           <Box key={category}>

@@ -56,13 +56,14 @@ const AreaChartComponent = () => {
     setDateRangeQuery(formatedDateRange);
   };
 
+  const dateFrom = dateRangeQuery.slice(9, 19);
+  const dateTo = dateRangeQuery.slice(27) || format(today, "dd-MM-yyyy");
+
   return (
     <>
       <BoxHeader
         title={`Product: ${checkedProducts.join(", ")}`}
-        subtitle={`From ${dateRangeQuery.split("_")[0]} - To ${
-          dateRangeQuery.split("_")[1] || format(today, "dd-MM-yyyy")
-        }`}
+        subtitle={`From ${dateFrom} - To ${dateTo}`}
         handleOpen={handleOpen}
       />
       <Box height="100%">
@@ -128,7 +129,8 @@ const AreaChartComponent = () => {
           categories={categories}
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
-          onDataChange={handleDateRangeChange}
+          onDateChange={handleDateRangeChange}
+          sessionStorageKey="dashboard-areachart"
         />
       </FiltersModal>
     </>

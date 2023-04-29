@@ -56,13 +56,15 @@ const BarChartComponent = () => {
     const formatedDateRange = formateDateRange(dateRange);
     setDateRangeQuery(formatedDateRange);
   };
+
+  const dateFrom = dateRangeQuery.slice(9, 19);
+  const dateTo = dateRangeQuery.slice(27) || format(today, "dd-MM-yyyy");
+
   return (
     <>
       <BoxHeader
-        title="Cases Per Pallet"
-        subtitle={`From ${dateRangeQuery.split("_")[0]} - To ${
-          dateRangeQuery.split("_")[1] || format(today, "dd-MM-yyyy")
-        }`}
+        title={`Product: ${checkedProducts.join(", ")}`}
+        subtitle={`From ${dateFrom} - To ${dateTo}`}
         handleOpen={handleOpen}
       />
       <ResponsiveContainer width="100%" height="100%">
@@ -115,7 +117,8 @@ const BarChartComponent = () => {
           categories={categories}
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
-          onDataChange={handleDateRangeChange}
+          onDateChange={handleDateRangeChange}
+          sessionStorageKey="dashboard-barchart"
         />
       </FiltersModal>
     </>
