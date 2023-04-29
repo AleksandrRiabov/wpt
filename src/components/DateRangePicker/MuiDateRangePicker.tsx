@@ -10,27 +10,39 @@ interface DateRange {
 }
 
 interface Props {
-  onDataChange: (dateRange: DateRange) => void;
+  onDateChange: (dateRange: DateRange) => void;
+  sessionStorageKey: string;
 }
 
-function MuiDateRangePicker({ onDataChange }: Props) {
-  const [dateRange, setDateRange] = useState<DateRange>({
-    from: null,
-    to: null,
+function MuiDateRangePicker({ onDateChange, sessionStorageKey }: Props) {
+  const [dateRange, setDateRange] = useState<DateRange>(() => {
+    const storedDateRange = sessionStorage?.getItem(
+      `${sessionStorageKey}dateRange`
+    );
+    if (!storedDateRange) return { from: null, to: null };
+    const parsedRange = JSON.parse(storedDateRange);
+    const dateFrom = new Date(parsedRange.from);
+    const dateTo = new Date(parsedRange.to);
+    return { from: dateFrom, to: dateTo };
   });
 
   const handleDateChange = (key: keyof DateRange, date: Date | null) => {
-    setDateRange((prev) => ({
-      ...prev,
+    const newDateRange = {
+      ...dateRange,
       [key]: date,
-    }));
+    };
+    setDateRange(newDateRange);
+    sessionStorage.setItem(
+      `${sessionStorageKey}dateRange`,
+      JSON.stringify(newDateRange)
+    );
   };
 
   useEffect(() => {
     if (dateRange.from && dateRange.to) {
-      onDataChange(dateRange);
+      onDateChange(dateRange);
     }
-  }, [dateRange, onDataChange]);
+  }, [dateRange, onDateChange]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
