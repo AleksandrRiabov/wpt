@@ -9,7 +9,7 @@ export const api = createApi({
   // highlight-end
   endpoints: (build) => ({
     getDaysData: build.query<Array<GetDaysDataResponse>, string>({
-      query: (range) => `day/${range}`,
+      query: (range) => `day/?${range}`,
       providesTags: ["DaysData"],
     }),
     getTrailersData: build.query<Array<GetTrailersDataResponse>, string>({

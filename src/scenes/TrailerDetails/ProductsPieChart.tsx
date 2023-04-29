@@ -70,7 +70,7 @@ export default function ProductsPieChart({
               label={renderCustomizedLabel}
               outerRadius={120}
               fill="#8884d8"
-              dataKey="cases"
+              dataKey="pallets"
             >
               {data.map((entry, index) => (
                 <Cell
