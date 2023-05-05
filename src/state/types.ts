@@ -45,12 +45,36 @@ export interface GetTrailersDataResponse {
   ];
 }
 
+
+export type NewTrailer = {
+  reference: string;
+  trailerNumber: string;
+  loadType: string;
+  freightType: string;
+  sentDate: Date;
+  deliveryDate: Date;
+  alcohol: boolean;
+  cert: boolean;
+  extraCost: {
+    [key: string]: { cost: number;} | undefined;
+  };
+  crossed: string;
+  comments: string;
+  products?: 
+    {
+      name: string;
+      cases: number;
+      pallets: number;
+      category: string;
+    }[];
+}
+
 export type Product = {
   name: string;
-  cases: string;
-  pallets: string;
+  cases: number;
+  pallets: number;
   category: string;
-  _id: string;
+  _id?: string;
 };
 
 type EditedBy = {
