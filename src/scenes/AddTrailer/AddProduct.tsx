@@ -23,6 +23,7 @@ const products = ["Chill", "Ambient", "Bread", "SV924", "Frozen"];
 
 const AddProduct = ({ addProduct }: Props) => {
   const [product, setProduct] = useState<Product | undefined>(undefined);
+  const [error, setError] = useState(false);
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -40,18 +41,13 @@ const AddProduct = ({ addProduct }: Props) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (!product?.name || !product.cases) {
-      console.log("Not all required fields filled up");
+      setError(true);
       return;
-    } else {
-      if (!product.pallets) {
-        const newProduct = { ...product, pallets: 0 };
-        addProduct(newProduct);
-      } else {
-        addProduct(product);
-      }
-      setProduct(undefined);
     }
-    console.log(product);
+
+    const newProduct = !product.pallets ? { ...product, pallets: 0 } : product;
+    addProduct(newProduct);
+    setProduct({ name: "", cases: 0, pallets: 0, category: "" });
   };
 
   return (
@@ -74,6 +70,8 @@ const AddProduct = ({ addProduct }: Props) => {
             fullWidth
             select
             onChange={handleChange}
+            error={error && !product?.name}
+            helperText={error && !product?.name && "Select Product"}
           >
             {products.map((option) => (
               <MenuItem key={option} value={option}>
@@ -102,6 +100,8 @@ const AddProduct = ({ addProduct }: Props) => {
             value={product?.cases || ""}
             fullWidth
             onChange={handleChange}
+            error={error && !product?.cases}
+            helperText={error && !product?.cases && "Insert Cases Qantity"}
           />
         </Grid>
         <Grid
