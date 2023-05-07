@@ -48,6 +48,7 @@ const AddProduct = ({ addProduct }: Props) => {
     const newProduct = !product.pallets ? { ...product, pallets: 0 } : product;
     addProduct(newProduct);
     setProduct({ name: "", cases: 0, pallets: 0, category: "" });
+    setError(false);
   };
 
   return (
