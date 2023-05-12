@@ -18,7 +18,7 @@ export const api = createApi({
     // POST request with form data
     createTrailer: build.mutation<void, NewTrailer>({
       query: (formData) => ({
-        url: "/trailers",
+        url: "/trailer",
         method: "POST",
         body: formData,
       }),

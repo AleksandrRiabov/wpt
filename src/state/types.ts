@@ -20,6 +20,7 @@ export interface GetTrailersDataResponse {
   clearance: Date;
   loadType: string;
   freightType: string;
+  contractor: string,
   sentDate: Date;
   deliveryDate: Date;
   alcohol: boolean;

@@ -1,18 +1,20 @@
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Box, Button, Container, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { PageHeader } from "../../components";
 import { useGetTrailersDataQuery } from "../../state/api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import ProductsPieChart from "./ProductsPieChart";
 import InfoSection from "./InfoSection";
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
+import FlexBetween from "../../components/FlexBetween/FlexBetween";
 
 const TrailerDetails = () => {
   const { id } = useParams();
   const data = useGetTrailersDataQuery(`_id=${id}`);
   const trailer = data && data.data && data.data[0];
 
+  
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
@@ -73,14 +75,30 @@ const TrailerDetails = () => {
                 </Box>
               </Box>
               {/* comments section */}
-              <Box flex="1" mb="40px">
+              <FlexBetween flex="1" mb="40px">
                 <Container>
                   <Typography variant="h4">Comments:</Typography>
                   <Typography variant="body1" color={colors.secondary[300]}>
                     {trailer.comments}
                   </Typography>
                 </Container>
-              </Box>
+                <Container sx={{ display: "flex" }}>
+                  <Link to={`/trailer/${id}/edit`}>
+                    <Button
+                      sx={{
+                        width: "80%",
+                        maxWidth: "300px",
+                        padding: "10px",
+                        margin: "0 auto",
+                      }}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Edit
+                    </Button>
+                  </Link>
+                </Container>
+              </FlexBetween>
             </DashboardBox>
           )}
         </Box>

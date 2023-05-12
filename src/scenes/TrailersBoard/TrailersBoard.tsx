@@ -28,7 +28,7 @@ const TrailersBoard = () => {
   // function to handle row double-click
   const handleRowDoubleClick = (params: GridRowParams) => {
     const trailerId = params.row._id;
-    history(`/trailers/details/${trailerId}`);
+    history(`/trailer/${trailerId}`);
   };
 
   const trailerColumns = [
@@ -98,7 +98,7 @@ const TrailersBoard = () => {
             onDateChange={handleDateRangeChange}
             sessionStorageKey="trailersBoard"
           />
-          <Link to="/trailers/add">
+          <Link to="/trailer/add">
             {" "}
             <Typography variant="h3" color={colors.secondary[500]}>
               <AddBox fontSize="large" />

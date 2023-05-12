@@ -10,11 +10,13 @@ export const formateDateRange = (dateRange: DateRange) => {
 };
 
 export const countExtraCharges = (
-  extras: GetTrailersDataResponse["extraCost"]
+  extras: GetTrailersDataResponse["extraCost"] | undefined
 ) => {
+  if (!extras) return 0;
+
   return Object.keys(extras ?? {})
     .filter((extra) => typeof extras[extra]?.cost === "number")
-    .reduce((total, extra) => total + extras[extra]?.cost!, 0);
+    .reduce((total, extra) => total + (extras[extra]?.cost || 0), 0);
 };
 
 export const getSuggestedDeliveryDate = () => {
@@ -36,4 +38,3 @@ export const getSuggestedDeliveryDate = () => {
 
   return futureDate;
 };
-

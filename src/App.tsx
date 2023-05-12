@@ -7,13 +7,20 @@ import {
   Outlet,
 } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import { Home, Dashboard, Week, Day, AddTrailer, TrailerDetails } from "./scenes";
+import {
+  Home,
+  Dashboard,
+  Week,
+  Day,
+  AddTrailer,
+  TrailerDetails,
+} from "./scenes";
 import Footer from "./components/Footer/Footer";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
 import Team from "./scenes/Team/Team";
-
+import EditTRailer from "./scenes/EditTrailer/EditTrailer";
 
 const App = () => {
   const router = createHashRouter(
@@ -21,8 +28,9 @@ const App = () => {
       <Route path="/" element={<Root />}>
         <Route path="/" index element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/trailers/details/:id" element={<TrailerDetails />} />
-        <Route path="/trailers/add" element={<AddTrailer />} />
+        <Route path="/trailer/:id" element={<TrailerDetails />} />
+        <Route path="/trailer/add" element={<AddTrailer />} />
+        <Route path="/trailer/:id/edit" element={<EditTRailer />} />
         <Route path="/team" element={<Team />} />
         <Route path="/week/:id" element={<Week />} />
         <Route path="/day/:id" element={<Day />} />
