@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGetTrailersDataQuery } from "../../state/api";
 import {
+  useGetTrailersDataQuery,
+  useUpdateTrailerMutation,
+} from "../../state/api";
+import {
+  Alert,
   Box,
   Button,
+  CircularProgress,
   Container,
+  Snackbar,
   Typography,
-  colors,
   useTheme,
 } from "@mui/material";
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
@@ -27,12 +32,21 @@ const EditTrailer = (props: Props) => {
     GetTrailersDataResponse | undefined
   >(trailer);
 
+  const [updateTrailer, { isLoading, isError, isSuccess }] =
+    useUpdateTrailerMutation();
+
   useEffect(() => {
     setEditTrailerData(trailer);
   }, [trailer]);
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
+
+  const handlePostTrailerDetails = async () => {
+    if (!id || !editTrailerData) return;
+    await updateTrailer({ id, details: editTrailerData });
+    console.log("updated");
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -105,15 +119,31 @@ const EditTrailer = (props: Props) => {
           color="secondary"
           sx={{
             width: "50%",
-            maxWidth: "300px",
+            maxWidth: "200px",
             padding: "10px",
             margin: "0 auto",
           }}
-          onClick={() => console.log(editTrailerData)}
+          onClick={handlePostTrailerDetails}
+          disabled={isLoading}
         >
-          Update Details
+          {isLoading ? (
+            <CircularProgress sx={{ color: colors.secondary[500] }} size={24} />
+          ) : (
+            "Update Details"
+          )}
         </Button>
       </DashboardBox>
+      {isError && (
+        <Snackbar open={isError} autoHideDuration={6000} onClose={() => {}}>
+          <Alert severity="error"> "Error updating the trailer!"</Alert>
+        </Snackbar>
+      )}
+
+      {isSuccess && (
+        <Snackbar open={isSuccess} autoHideDuration={6000} onClose={() => {}}>
+          <Alert severity="success">Trailer Updated Successfully!</Alert>
+        </Snackbar>
+      )}
     </Container>
   );
 };

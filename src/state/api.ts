@@ -23,6 +23,14 @@ export const api = createApi({
         body: formData,
       }),
     }),
+    // PUT request to update trailer details
+    updateTrailer: build.mutation<void, { id: string, details: GetTrailersDataResponse }>({
+      query: ({ id, details }) => ({
+        url: `/trailer/${id}`,
+        method: "PUT",
+        body: details,
+      }),
+    }),
   }),
 });
 
@@ -30,4 +38,5 @@ export const {
   useGetDaysDataQuery,
   useGetTrailersDataQuery,
   useCreateTrailerMutation,
+  useUpdateTrailerMutation
 } = api;

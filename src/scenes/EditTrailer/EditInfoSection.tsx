@@ -18,7 +18,6 @@ import {
   LocalizationProvider,
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { Margin } from "@mui/icons-material";
 
 type Props = {
   trailer: GetTrailersDataResponse | undefined;
@@ -60,8 +59,6 @@ const EditInfoSection = ({
 }: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
-
-  console.log(trailer?.extraCost);
 
   return (
     <Box
@@ -113,6 +110,7 @@ const EditInfoSection = ({
           <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Reference:</Typography>
             <TextField
+              label="Reference"
               name="reference"
               value={trailer?.reference || ""}
               onChange={handleChange}
@@ -190,10 +188,27 @@ const EditInfoSection = ({
               ))}
             </TextField>
           </FlexBetween>
+          {/* Contractor */}
+          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+            <Typography variant="h3">Contractor:</Typography>
+            <TextField
+              name="contractor"
+              label="Contractor"
+              value={trailer?.contractor || ""}
+              select
+              onChange={handleChange}
+              sx={{ minWidth: "200px" }}
+            >
+              {options.contractor.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
+          </FlexBetween>
           {/* Certified */}
           <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Certified:</Typography>
-            <Typography variant="h3">{trailer?.cert ? "Yes" : "No"}</Typography>
             <FormControlLabel
               control={<Checkbox checked={trailer?.cert || false} />}
               label="Certified"

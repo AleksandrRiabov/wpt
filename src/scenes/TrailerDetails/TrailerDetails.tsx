@@ -8,13 +8,17 @@ import ProductsPieChart from "./ProductsPieChart";
 import InfoSection from "./InfoSection";
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
+import { useEffect } from "react";
 
 const TrailerDetails = () => {
   const { id } = useParams();
-  const data = useGetTrailersDataQuery(`_id=${id}`);
-  const trailer = data && data.data && data.data[0];
+  const { data, isLoading, refetch } = useGetTrailersDataQuery(`_id=${id}`);
+  const trailer = data && data[0];
 
-  
+  useEffect(() => {
+    refetch();
+  }, [id, refetch]);
+
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
@@ -23,7 +27,7 @@ const TrailerDetails = () => {
       <Container maxWidth="xl">
         <PageHeader title={` Trailer Details`} />
         <Box>
-          {data.isLoading ? (
+          {isLoading ? (
             <FlexCenterCenter>
               <Typography variant="h3">Loading...</Typography>
             </FlexCenterCenter>
