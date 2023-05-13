@@ -11,7 +11,7 @@ import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { GetTrailersDataResponse } from "../../state/types";
 import TrailerTitle from "../../components/TrailerTitle/TrailerTitle";
 import { tokens } from "../../theme";
-import { countExtraCharges } from "../../helpers";
+import { countExtraCharges, formatExtraCostName } from "../../helpers";
 import {
   DatePicker,
   DateTimePicker,
@@ -249,7 +249,9 @@ const EditInfoSection = ({
                   p="10px"
                   sx={{ borderBottom: "1px solid #6c8991" }}
                 >
-                  <Typography variant="h4">{extraKey}</Typography>
+                  <Typography variant="h4">
+                    {formatExtraCostName(extraKey)}
+                  </Typography>
                   <TextField
                     name={extraKey}
                     value={trailer?.extraCost?.[extraKey]?.cost || ""}

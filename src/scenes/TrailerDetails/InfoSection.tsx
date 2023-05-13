@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { GetTrailersDataResponse } from "../../state/types";
 import TrailerTitle from "../../components/TrailerTitle/TrailerTitle";
 import { tokens } from "../../theme";
-import { countExtraCharges } from "../../helpers";
+import { countExtraCharges, formatExtraCostName } from "../../helpers";
 
 type Props = {
   trailer: GetTrailersDataResponse;
@@ -141,7 +141,9 @@ const InfoSection = ({ trailer }: Props) => {
                     p="7px"
                     sx={{ borderBottom: "1px solid #6c8991" }}
                   >
-                    <Typography variant="h4">{extraKey}</Typography>
+                    <Typography variant="h4">
+                      {formatExtraCostName(extraKey)}
+                    </Typography>
                     <Typography color={extra.cost > 0 ? "red" : ""}>
                       Cost: £{extra.cost}
                     </Typography>

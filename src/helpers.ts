@@ -38,3 +38,11 @@ export const getSuggestedDeliveryDate = () => {
 
   return futureDate;
 };
+
+// Formates extra cost name from 'nobStop' to 'Non STop'
+export const formatExtraCostName = (name: string) => {
+  const result = name.replace(/([A-Z])/g, " $1").replace(/^./, function (name) {
+    return name.toUpperCase();
+  });
+  return result;
+};
