@@ -20,24 +20,23 @@ export interface GetTrailersDataResponse {
   clearance: Date;
   loadType: string;
   freightType: string;
-  contractor: string,
+  contractor: string;
   sentDate: Date;
   deliveryDate: Date;
   alcohol: boolean;
   cert: boolean;
   extraCost: {
-    [key: string]: { cost: number;} | undefined;
+    [key: string]: { cost: number } | undefined;
   };
   crossed: string;
   comments: string;
-  products: [
-    {
-      name: string;
-      cases: number;
-      pallets: number;
-      category: string;
-    }
-  ];
+  products: {
+    name: string;
+    cases: number;
+    pallets: number;
+    category: string;
+  }[];
+
   editedBy: [
     {
       name: String;
@@ -45,7 +44,6 @@ export interface GetTrailersDataResponse {
     }
   ];
 }
-
 
 export type NewTrailer = {
   reference: string;
@@ -57,18 +55,17 @@ export type NewTrailer = {
   alcohol: boolean;
   cert: boolean;
   extraCost: {
-    [key: string]: { cost: number;} | undefined;
+    [key: string]: { cost: number } | undefined;
   };
   crossed: string;
   comments: string;
-  products?: 
-    {
-      name: string;
-      cases: number;
-      pallets: number;
-      category: string;
-    }[];
-}
+  products?: {
+    name: string;
+    cases: number;
+    pallets: number;
+    category: string;
+  }[];
+};
 
 export type Product = {
   name: string;

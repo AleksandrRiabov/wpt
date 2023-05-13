@@ -20,6 +20,7 @@ import { GetTrailersDataResponse } from "../../state/types";
 import { PageHeader } from "../../components";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import { tokens } from "../../theme";
+import EditProductsModal from "./EditProductsModal";
 
 type Props = {};
 
@@ -84,6 +85,28 @@ const EditTrailer = (props: Props) => {
     setEditTrailerData({ ...editTrailerData, [key]: date });
   };
 
+  const handleProductChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    editingProduct: string
+  ) => {
+    if (!editTrailerData) return;
+    const { name, value } = e.target;
+
+    const foundProduct = editTrailerData.products.find(
+      (product) => product.name === editingProduct
+    );
+    if (!foundProduct) return;
+    const updatedProduct = { ...foundProduct, [name]: value };
+    const filteredProducts = editTrailerData.products.filter(
+      (product) => product.name !== editingProduct
+    );
+    const newProducts = [...filteredProducts, updatedProduct];
+    setEditTrailerData({
+      ...editTrailerData,
+      products: newProducts,
+    });
+  };
+
   return (
     <Container maxWidth="xl">
       <PageHeader title="Edit Trailer" />
@@ -113,6 +136,10 @@ const EditTrailer = (props: Props) => {
               />
             </Box>
           )}
+          <EditProductsModal
+            handleProductChange={handleProductChange}
+            products={editTrailerData?.products}
+          />
         </Box>
         <Button
           variant="contained"
