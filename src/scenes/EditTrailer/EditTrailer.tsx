@@ -20,7 +20,8 @@ import { GetTrailersDataResponse } from "../../state/types";
 import { PageHeader } from "../../components";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import { tokens } from "../../theme";
-import EditProductsModal from "./EditProductsModal";
+import EditProducts from "./EditProducts";
+import AddProduct from "../AddTrailer/AddProduct";
 
 type Props = {};
 
@@ -107,11 +108,36 @@ const EditTrailer = (props: Props) => {
     });
   };
 
+  const addProduct = (product: {
+    name: string;
+    pallets: number;
+    cases: number;
+    category: string;
+  }) => {
+    if (!editTrailerData) return;
+
+    const productExist = editTrailerData?.products.find(
+      (existingProd) => product.name === existingProd.name
+    );
+    if (productExist) {
+      alert(
+        `${product.name} already exist, please change the value of existing product`
+      );
+      return;
+    }
+
+    setEditTrailerData({
+      ...editTrailerData,
+      products: [...editTrailerData.products, product],
+    });
+  };
+
+  console.log("render Edit trailer");
   return (
     <Container maxWidth="xl">
       <PageHeader title="Edit Trailer" />
       <DashboardBox>
-        <Box p="20px">
+        <Box>
           {data.isLoading ? (
             <FlexCenterCenter>
               <Typography variant="h3">Loading...</Typography>
@@ -126,7 +152,7 @@ const EditTrailer = (props: Props) => {
               </Typography>
             </FlexCenterCenter>
           ) : (
-            <Box display={"flex"}>
+            <Box display={"flex"} flexDirection="column" alignItems="center">
               <EditInfoSection
                 trailer={editTrailerData}
                 handleChange={handleChange}
@@ -134,12 +160,15 @@ const EditTrailer = (props: Props) => {
                 handleCheckbox={handleCheckbox}
                 handleExtraCostChange={handleExtraCostChange}
               />
+              <Box>
+                <AddProduct addProduct={addProduct} />
+                <EditProducts
+                  handleProductChange={handleProductChange}
+                  products={editTrailerData?.products}
+                />
+              </Box>
             </Box>
           )}
-          <EditProductsModal
-            handleProductChange={handleProductChange}
-            products={editTrailerData?.products}
-          />
         </Box>
         <Button
           variant="contained"
@@ -162,7 +191,7 @@ const EditTrailer = (props: Props) => {
       </DashboardBox>
       {isError && (
         <Snackbar open={isError} autoHideDuration={6000} onClose={() => {}}>
-          <Alert severity="error"> "Error updating the trailer!"</Alert>
+          <Alert severity="error"> {"Error updating the trailer!"}</Alert>
         </Snackbar>
       )}
 

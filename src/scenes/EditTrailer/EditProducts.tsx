@@ -9,23 +9,20 @@ type Props = {
   ) => void;
 };
 
-const EditProductsModal = ({ products, handleProductChange }: Props) => {
+const EditProducts = ({ products, handleProductChange }: Props) => {
   console.log(products);
   return (
-    <Box
-      sx={{
-        padding: "10px",
-        width: { sm: "80%" },
-        margin: "0 auto",
-      }}
-    >
-      <Typography variant="h3" p="10px 0">
-        Products:
-      </Typography>
+    <Box sx={{}}>
       {products?.map(({ name, cases, pallets }) => (
-        <Box display="flex" justifyContent="space-between">
-          <Box flex="1">
-            <Typography variant="h4">{name}</Typography>
+        <Box
+          key={name}
+          display="flex"
+          p="5px"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Box flex="1" textAlign="center">
+            <Typography variant="h4">{name.toUpperCase()}</Typography>
           </Box>
           <Box flex="1">
             <TextField
@@ -33,7 +30,6 @@ const EditProductsModal = ({ products, handleProductChange }: Props) => {
               label="Pallets"
               value={pallets}
               onChange={(e) => handleProductChange(e, name)}
-              sx={{ minWidth: "200px" }}
             />
           </Box>
           <Box flex="1">
@@ -42,7 +38,6 @@ const EditProductsModal = ({ products, handleProductChange }: Props) => {
               label="Cases"
               value={cases}
               onChange={(e) => handleProductChange(e, name)}
-              sx={{ minWidth: "200px" }}
             />
           </Box>
         </Box>
@@ -51,4 +46,4 @@ const EditProductsModal = ({ products, handleProductChange }: Props) => {
   );
 };
 
-export default EditProductsModal;
+export default EditProducts;

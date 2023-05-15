@@ -107,7 +107,7 @@ const EditInfoSection = ({
           }}
         >
           {/* Reference */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Reference:</Typography>
             <TextField
               label="Reference"
@@ -117,7 +117,7 @@ const EditInfoSection = ({
             />
           </FlexBetween>
           {/* Sent Date */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Sent Date:</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <FlexBetween>
@@ -131,7 +131,7 @@ const EditInfoSection = ({
             </LocalizationProvider>
           </FlexBetween>
           {/* Delivery Date */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Delivery Date:</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <FlexBetween>
@@ -145,7 +145,7 @@ const EditInfoSection = ({
             </LocalizationProvider>
           </FlexBetween>
           {/* Clearance Date */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Clearance</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
@@ -158,7 +158,7 @@ const EditInfoSection = ({
             </LocalizationProvider>
           </FlexBetween>
           {/* Received Date */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Received</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
@@ -171,7 +171,7 @@ const EditInfoSection = ({
             </LocalizationProvider>
           </FlexBetween>
           {/* Freight Type */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Freight Type:</Typography>
             <TextField
               name="freightType"
@@ -189,7 +189,7 @@ const EditInfoSection = ({
             </TextField>
           </FlexBetween>
           {/* Contractor */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Contractor:</Typography>
             <TextField
               name="contractor"
@@ -207,7 +207,7 @@ const EditInfoSection = ({
             </TextField>
           </FlexBetween>
           {/* Certified */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Certified:</Typography>
             <FormControlLabel
               control={<Checkbox checked={trailer?.cert || false} />}
@@ -216,7 +216,7 @@ const EditInfoSection = ({
             />
           </FlexBetween>
           {/* Alcohol */}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
+          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3"> Has Alcohol:</Typography>
             <FormControlLabel
               control={<Checkbox checked={trailer?.alcohol || false} />}

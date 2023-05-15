@@ -163,7 +163,6 @@ const AddTrailer = () => {
       const existingProduct = formState.products.find(
         (existingProduct) => product.name === existingProduct.name
       );
-      console.log(existingProduct);
       newProduct = existingProduct
         ? {
             name: product.name,
