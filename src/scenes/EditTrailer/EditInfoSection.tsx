@@ -2,8 +2,6 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
-  MenuItem,
-  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -11,13 +9,10 @@ import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { GetTrailersDataResponse } from "../../state/types";
 import TrailerTitle from "../../components/TrailerTitle/TrailerTitle";
 import { tokens } from "../../theme";
-import { countExtraCharges, formatExtraCostName } from "../../helpers";
-import {
-  DatePicker,
-  DateTimePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import CustomTextField from "../../components/CustomInputs/CustomTextField";
+import CustomSelectField from "../../components/CustomInputs/CustomSelectField";
+import EditExtraCost from "./EditExtraCost";
+import CustomDatePicker from "../../components/CustomInputs/CustomDatePicker";
 
 type Props = {
   trailer: GetTrailersDataResponse | undefined;
@@ -85,7 +80,6 @@ const EditInfoSection = ({
             : ""
         }
       />
-
       <Box
         color={colors.white[100]}
         pt="20px"
@@ -106,106 +100,80 @@ const EditInfoSection = ({
             flex: 1,
           }}
         >
+          {/* Trailer Number */}
+          <CustomTextField
+            label="Trailer Number"
+            name="trailerNumber"
+            value={trailer?.trailerNumber || ""}
+            handleChange={handleChange}
+          />
+          {/* Load Type */}
+          <CustomSelectField
+            name="loadType"
+            label="Load Type"
+            value={trailer?.loadType || ""}
+            handleChange={handleChange}
+            options={options.loadTypes || []}
+          />
           {/* Reference */}
-          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">Reference:</Typography>
-            <TextField
-              label="Reference"
-              name="reference"
-              value={trailer?.reference || ""}
-              onChange={handleChange}
-            />
-          </FlexBetween>
+          <CustomTextField
+            label="Reference"
+            name="reference"
+            value={trailer?.reference || ""}
+            handleChange={handleChange}
+          />
           {/* Sent Date */}
-          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">Sent Date:</Typography>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <FlexBetween>
-                <DatePicker
-                  label="Sent Date"
-                  value={new Date(trailer?.sentDate || "")}
-                  onChange={(date) => handleDateChange("sentDate", date)}
-                  format="dd/MM/yyyy"
-                />
-              </FlexBetween>
-            </LocalizationProvider>
-          </FlexBetween>
+          <CustomDatePicker
+            value={trailer?.sentDate}
+            handleDateChange={handleDateChange}
+            label="Select Date"
+            format="dd-MM-yyyy"
+            name="sentDate"
+            tytle="Sent Date"
+          />
           {/* Delivery Date */}
-          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">Delivery Date:</Typography>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <FlexBetween>
-                <DatePicker
-                  label="Delivery Date"
-                  value={new Date(trailer?.deliveryDate || "")}
-                  onChange={(date) => handleDateChange("deliveryDate", date)}
-                  format="dd/MM/yyyy"
-                />
-              </FlexBetween>
-            </LocalizationProvider>
-          </FlexBetween>
+          <CustomDatePicker
+            value={trailer?.deliveryDate}
+            handleDateChange={handleDateChange}
+            label="Select Date"
+            format="dd-MM-yyyy"
+            name="deliveryDate"
+            tytle="Delivery Date"
+          />
           {/* Clearance Date */}
-          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">Clearance</Typography>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                value={new Date(trailer?.clearance || "")}
-                onChange={(date) => handleDateChange("clearance", date)}
-                label="Select Date and Time"
-                ampm={false}
-                format="dd-MM-yyyy hh:mm:ss"
-              />
-            </LocalizationProvider>
-          </FlexBetween>
+          <CustomDatePicker
+            value={trailer?.clearance}
+            handleDateChange={handleDateChange}
+            label="Select Date and Time"
+            format="dd-MM-yyyy HH:mm:ss"
+            name="clearance"
+            tytle="Clearance"
+          />
           {/* Received Date */}
-          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">Received</Typography>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                value={new Date(trailer?.received || "")}
-                onChange={(date) => handleDateChange("received", date)}
-                label="Select Date and Time"
-                ampm={false}
-                format="dd-MM-yyyy hh:mm:ss"
-              />
-            </LocalizationProvider>
-          </FlexBetween>
+          <CustomDatePicker
+            value={trailer?.received || undefined}
+            handleDateChange={handleDateChange}
+            label="Select Date and Time"
+            format="dd-MM-yyyy HH:mm:ss"
+            name="received"
+            tytle="Received"
+          />
           {/* Freight Type */}
-          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">Freight Type:</Typography>
-            <TextField
-              name="freightType"
-              label="Freight Type"
-              value={trailer?.freightType || ""}
-              select
-              onChange={handleChange}
-              sx={{ minWidth: "200px" }}
-            >
-              {options.freightTypes.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FlexBetween>
+          <CustomSelectField
+            name="freightType"
+            label="Freight Type"
+            value={trailer?.freightType || ""}
+            handleChange={handleChange}
+            options={options.freightTypes || []}
+          />
           {/* Contractor */}
-          <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">Contractor:</Typography>
-            <TextField
-              name="contractor"
-              label="Contractor"
-              value={trailer?.contractor || ""}
-              select
-              onChange={handleChange}
-              sx={{ minWidth: "200px" }}
-            >
-              {options.contractor.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FlexBetween>
+          <CustomSelectField
+            name="contractor"
+            label="Contractor"
+            value={trailer?.contractor || ""}
+            handleChange={handleChange}
+            options={options.contractor || []}
+          />
           {/* Certified */}
           <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
             <Typography variant="h3">Certified:</Typography>
@@ -225,49 +193,11 @@ const EditInfoSection = ({
             />
           </FlexBetween>
         </Box>
-
         {/* Extra Cost */}
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: "400px",
-            flex: 1,
-          }}
-        >
-          {Object.keys(trailer?.extraCost ?? {}).map((extraKey) => {
-            const extra = trailer?.extraCost[extraKey];
-            if (!extra) {
-              return null;
-            }
-            return (
-              <Box
-                key={extraKey}
-                display="flex"
-                sx={{ flexDirection: "column" }}
-              >
-                <FlexBetween
-                  p="10px"
-                  sx={{ borderBottom: "1px solid #6c8991" }}
-                >
-                  <Typography variant="h4">
-                    {formatExtraCostName(extraKey)}
-                  </Typography>
-                  <TextField
-                    name={extraKey}
-                    value={trailer?.extraCost?.[extraKey]?.cost || ""}
-                    onChange={handleExtraCostChange}
-                  />
-                </FlexBetween>
-              </Box>
-            );
-          })}
-          <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
-            <Typography variant="h3">ExtraCost:</Typography>
-            <Typography variant="h3" color="red">
-              £{countExtraCharges(trailer?.extraCost)}
-            </Typography>
-          </FlexBetween>
-        </Box>
+        <EditExtraCost
+          handleExtraCostChange={handleExtraCostChange}
+          extraCost={trailer?.extraCost || {}}
+        />
       </Box>
     </Box>
   );
