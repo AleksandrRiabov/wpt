@@ -3,6 +3,7 @@ import React from "react";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { countExtraCharges, formatExtraCostName } from "../../helpers";
 import { GetTrailersDataResponse } from "../../state/types";
+import CustomTextField from "../../components/CustomInputs/CustomTextField";
 
 type Props = {
   extraCost: GetTrailersDataResponse["extraCost"];
@@ -26,22 +27,17 @@ function EditExtraCost({ extraCost, handleExtraCostChange }: Props) {
           return null;
         }
         return (
-          <Box key={extraKey} display="flex" sx={{ flexDirection: "column" }}>
-            <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
-              <Typography variant="h4">
-                {formatExtraCostName(extraKey)}
-              </Typography>
-              <TextField
-                name={extraKey}
-                value={extraCost?.[extraKey]?.cost || ""}
-                onChange={handleExtraCostChange}
-              />
-            </FlexBetween>
-          </Box>
+          <CustomTextField
+            name={extraKey}
+            value={extraCost?.[extraKey]?.cost || ""}
+            handleChange={handleExtraCostChange}
+            label="Cost"
+            tytle={formatExtraCostName(extraKey)}
+          />
         );
       })}
       <FlexBetween p="10px" sx={{ borderBottom: "1px solid #6c8991" }}>
-        <Typography variant="h3">ExtraCost:</Typography>
+        <Typography variant="h3">EXTRA COST:</Typography>
         <Typography variant="h3" color="red">
           £{countExtraCharges(extraCost)}
         </Typography>

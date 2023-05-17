@@ -93,6 +93,7 @@ const EditInfoSection = ({
           alignItems: { xs: "center", md: "flex-start" },
         }}
       >
+        {/* ========= Left Side ======== */}
         <Box
           sx={{
             width: "100%",
@@ -193,11 +194,14 @@ const EditInfoSection = ({
             />
           </FlexBetween>
         </Box>
-        {/* Extra Cost */}
-        <EditExtraCost
-          handleExtraCostChange={handleExtraCostChange}
-          extraCost={trailer?.extraCost || {}}
-        />
+        {/* ========= Right Side ====== */}
+        <Box>
+          {/* Extra Cost */}
+          <EditExtraCost
+            handleExtraCostChange={handleExtraCostChange}
+            extraCost={trailer?.extraCost || {}}
+          />
+        </Box>
       </Box>
     </Box>
   );
