@@ -160,7 +160,7 @@ const EditTrailer = () => {
   }
 
   // Wait for both API calls to complete before rendering
-  if (isLoading || isLoadingOptions || !editTrailerData || !options) {
+  if (isLoadingOptions || !editTrailerData || !options) {
     return (
       <FlexCenterCenter height="90vh">
         <CircularProgress />
@@ -192,11 +192,11 @@ const EditTrailer = () => {
               <TrailerTitle
                 title={`${editTrailerData?.trailerNumber} -  ${editTrailerData?.loadType}`}
                 className={
-                  trailer?.cert
+                  editTrailerData?.cert
                     ? "certified-row"
-                    : trailer?.alcohol
+                    : editTrailerData?.alcohol
                     ? "alcohol-row"
-                    : trailer?.freightType === "Sea"
+                    : editTrailerData?.freightType === "Sea"
                     ? "seafreight-row"
                     : ""
                 }
