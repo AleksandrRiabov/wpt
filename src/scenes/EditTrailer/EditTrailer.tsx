@@ -12,6 +12,7 @@ import {
   CircularProgress,
   Container,
   Snackbar,
+  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -26,38 +27,43 @@ import AddProduct from "../AddTrailer/AddProduct";
 import EditExtraCost from "./EditExtraCost";
 import TrailerTitle from "../../components/TrailerTitle/TrailerTitle";
 
-type Props = {};
-
-const EditTrailer = (props: Props) => {
+const EditTrailer = () => {
   const { id } = useParams();
+  // Fetch trailer data based on the 'id'
   const data = useGetTrailersDataQuery(`_id=${id}`);
+  // Extract the first trailer object from the fetched data
   const trailer = data && data.data && data.data[0];
 
+  // Define the state variable 'editTrailerData' and initialize it with the fetched trailer object
   const [editTrailerData, setEditTrailerData] = useState<
     GetTrailersDataResponse | undefined
   >(trailer);
 
+  useEffect(() => {
+    setEditTrailerData(trailer);
+  }, [trailer]);
+
   const [updateTrailer, { isLoading, isError, isSuccess }] =
     useUpdateTrailerMutation();
+
+  // Fetch options data
   const {
     data: options,
     isLoading: isLoadingOptions,
     isError: isErrorOptions,
   } = useGetOptionsDataQuery();
 
-  useEffect(() => {
-    setEditTrailerData(trailer);
-  }, [trailer]);
-
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
+  // Handle the submission of trailer details
   const handlePostTrailerDetails = async () => {
     if (!id || !editTrailerData) return;
     await updateTrailer({ id, details: editTrailerData });
     console.log("updated");
   };
 
+  // Handle changes in input fields
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -65,6 +71,7 @@ const EditTrailer = (props: Props) => {
     setEditTrailerData({ ...editTrailerData, [e.target.name]: e.target.value });
   };
 
+  // Handle changes in the extra cost fields
   const handleExtraCostChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -238,31 +245,64 @@ const EditTrailer = (props: Props) => {
             </>
           )}
         </Box>
-        <Button
-          variant="contained"
-          color="secondary"
+        {/* Bottom Section (Comments and Submit BTN) */}
+        <Container
           sx={{
-            width: "50%",
-            maxWidth: "200px",
-            padding: "10px",
-            margin: "0 auto",
+            flexDirection: { xs: "column" },
+            display: "flex",
           }}
-          onClick={handlePostTrailerDetails}
-          disabled={isLoading}
         >
-          {isLoading ? (
-            <CircularProgress sx={{ color: colors.secondary[500] }} size={24} />
-          ) : (
-            "Update Details"
-          )}
-        </Button>
+          {/* Comments */}
+          <Box flex="1" p="20px">
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              variant="outlined"
+              label="Add your comment here"
+              placeholder="Enter your text"
+              value={editTrailerData?.comments || ""}
+              onChange={handleChange}
+              name="comments"
+            />
+          </Box>
+          {/* Submit BTN (Update Details) */}
+          <Box
+            flex="1"
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
+          >
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{
+                width: "50%",
+                maxWidth: "200px",
+                padding: "10px",
+                margin: "20px auto",
+              }}
+              onClick={handlePostTrailerDetails}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <CircularProgress
+                  sx={{ color: colors.secondary[500] }}
+                  size={24}
+                />
+              ) : (
+                "Update Details"
+              )}
+            </Button>
+          </Box>
+        </Container>
       </DashboardBox>
+      {/* Notifications  */}
       {isError && (
         <Snackbar open={isError} autoHideDuration={6000} onClose={() => {}}>
           <Alert severity="error"> {"Error updating the trailer!"}</Alert>
         </Snackbar>
       )}
-
       {isSuccess && (
         <Snackbar open={isSuccess} autoHideDuration={6000} onClose={() => {}}>
           <Alert severity="success">Trailer Updated Successfully!</Alert>
