@@ -20,7 +20,7 @@ function CustomSelectField({
 }: Props) {
   return (
     <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-      <Typography variant="h3">Load Type:</Typography>
+      <Typography variant="h3">{label}</Typography>
       <TextField
         name={name}
         label={label}
