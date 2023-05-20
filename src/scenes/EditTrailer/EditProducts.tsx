@@ -1,5 +1,6 @@
 import { Box, TextField, Typography } from "@mui/material";
 import { GetTrailersDataResponse } from "../../state/types";
+import React from "react";
 
 type Props = {
   products: GetTrailersDataResponse["products"] | undefined;
@@ -9,7 +10,7 @@ type Props = {
   ) => void;
 };
 
-const EditProducts = ({ products, handleProductChange }: Props) => {
+const EditProducts = React.memo(({ products, handleProductChange }: Props) => {
   console.log(products);
   return (
     <Box sx={{}}>
@@ -44,6 +45,6 @@ const EditProducts = ({ products, handleProductChange }: Props) => {
       ))}
     </Box>
   );
-};
+});
 
 export default EditProducts;

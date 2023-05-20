@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  useGetOptionsDataQuery,
   useGetTrailersDataQuery,
   useUpdateTrailerMutation,
 } from "../../state/api";
@@ -36,6 +37,11 @@ const EditTrailer = (props: Props) => {
 
   const [updateTrailer, { isLoading, isError, isSuccess }] =
     useUpdateTrailerMutation();
+  const {
+    data: options,
+    isLoading: isLoadingOptions,
+    isError: isErrorOptions,
+  } = useGetOptionsDataQuery();
 
   useEffect(() => {
     setEditTrailerData(trailer);
@@ -132,6 +138,27 @@ const EditTrailer = (props: Props) => {
     });
   };
 
+  if (isError || isErrorOptions) {
+    return (
+      <FlexCenterCenter height="90vh">
+        <Typography variant="h4">
+          {isError
+            ? "Error.. Could not get trailer details. Please Try again later.."
+            : "Error.. Could not get options. Please Try again later.."}
+        </Typography>
+      </FlexCenterCenter>
+    );
+  }
+
+  // Wait for both API calls to complete before rendering
+  if (isLoading || isLoadingOptions || !editTrailerData || !options) {
+    return (
+      <FlexCenterCenter height="90vh">
+        <CircularProgress />
+      </FlexCenterCenter>
+    );
+  }
+
   console.log("render Edit trailer");
   return (
     <Container maxWidth="xl">
@@ -159,9 +186,13 @@ const EditTrailer = (props: Props) => {
                 handleDateChange={handleDateChange}
                 handleCheckbox={handleCheckbox}
                 handleExtraCostChange={handleExtraCostChange}
+                options={options}
               />
               <Box>
-                <AddProduct addProduct={addProduct} />
+                <AddProduct
+                  addProduct={addProduct}
+                  options={options.products}
+                />
                 <EditProducts
                   handleProductChange={handleProductChange}
                   products={editTrailerData?.products}

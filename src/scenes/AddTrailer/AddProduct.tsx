@@ -3,6 +3,7 @@ import { Add } from "@mui/icons-material";
 import { Box, Button, Grid, MenuItem, TextField } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
+import { GetOptionsDataResponse } from "../../state/types";
 
 type Props = {
   addProduct: (product: {
@@ -11,6 +12,7 @@ type Props = {
     pallets: number;
     category: string;
   }) => void;
+  options: GetOptionsDataResponse['products'];
 };
 
 type Product = {
@@ -19,9 +21,9 @@ type Product = {
   pallets: number;
   category: string;
 };
-const products = ["Chill", "Ambient", "Bread", "SV924", "Frozen"];
 
-const AddProduct = ({ addProduct }: Props) => {
+
+const AddProduct = ({ addProduct, options }: Props) => {
   const [product, setProduct] = useState<Product | undefined>(undefined);
   const [error, setError] = useState(false);
 
@@ -74,9 +76,9 @@ const AddProduct = ({ addProduct }: Props) => {
             error={error && !product?.name}
             helperText={error && !product?.name && "Select Product"}
           >
-            {products.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
+            {options.map((option) => (
+              <MenuItem key={option.name} value={option.name}>
+                {option.name}
               </MenuItem>
             ))}
           </TextField>

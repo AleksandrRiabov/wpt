@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { countExtraCharges, formatExtraCostName } from "../../helpers";
@@ -28,6 +28,7 @@ function EditExtraCost({ extraCost, handleExtraCostChange }: Props) {
         }
         return (
           <CustomTextField
+            key={extraKey}
             name={extraKey}
             value={extraCost?.[extraKey]?.cost || ""}
             handleChange={handleExtraCostChange}

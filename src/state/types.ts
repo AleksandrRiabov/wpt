@@ -45,6 +45,15 @@ export interface GetTrailersDataResponse {
   ];
 }
 
+export interface GetOptionsDataResponse {
+  freightType: string[];
+  loadType: string[];
+  contractor: string[];
+  crossed: string[];
+  products: { name: string; category: string }[];
+}
+
+
 export type NewTrailer = {
   reference: string;
   trailerNumber: string;

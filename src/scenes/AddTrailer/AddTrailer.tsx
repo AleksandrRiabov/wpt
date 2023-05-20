@@ -6,6 +6,7 @@ import {
   Container,
   Grid,
   Snackbar,
+  Typography,
 } from "@mui/material";
 import { PageHeader } from "../../components";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
@@ -15,27 +16,14 @@ import { format } from "date-fns";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import ProductsSection from "./ProductsSection";
-import { useCreateTrailerMutation } from "../../state/api";
+import {
+  useCreateTrailerMutation,
+  useGetOptionsDataQuery,
+} from "../../state/api";
 import useValidateNewTrailer from "./useValidateNewTrailer";
 import TopSection from "./TopSection";
 import MiddleSection from "./MiddleSection";
 import { Product } from "../../state/types";
-
-const options = {
-  loadTypes: [
-    "Ambient",
-    "Frozen",
-    "Chill",
-    "Produce",
-    "Frozen / Ambient",
-    "Frozen / Chill",
-    "Frozen / Produce",
-    "Chill / Ambient",
-  ],
-  freightTypes: ["Road", "Sea", "Air"],
-  crossed: ["Tunnel", "Ferry"],
-  contractor: ["JCARRION", "Yusen Logistics"],
-};
 
 export type FormState = {
   reference: string;
@@ -87,6 +75,12 @@ const AddTrailer = () => {
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const [createTrailer, { isLoading, isError, isSuccess }] =
     useCreateTrailerMutation();
+
+  const {
+    data: options,
+    isLoading: isLoadingOptions,
+    isError: isErrorOptions,
+  } = useGetOptionsDataQuery();
 
   const {
     validateData,
@@ -194,70 +188,91 @@ const AddTrailer = () => {
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ minHeight: "80vh" }}>
       <PageHeader title="Add New Trailer" />
       <DashboardBox>
         <Box p="20px">
-          <Grid container spacing={3}>
-            {/* TOP Section - TrailerNumber, LoadType, Contractor and Dates*/}
-            <TopSection
-              formState={formState}
-              handleDateChange={handleDateChange}
-              handleChange={handleChange}
-              trailerNumberError={trailerNumberError}
-              loadTypeError={loadTypeError}
-              options={options}
-            />
-
-            {/* MIDDLE Section - Reference, FreightType, Alcohol/Cert, Cooments */}
-            <MiddleSection
-              formState={formState}
-              handleChange={handleChange}
-              options={options}
-              handleCheckbox={handleCheckbox}
-              referenceError={referenceError}
-            />
-
-            {/* {PRODUCTS Section} */}
-            <Grid item xs={12} md={8}>
-              <ProductsSection
-                addProduct={addProduct}
-                removeProduct={removeProduct}
-                products={formState.products}
+          {isLoadingOptions ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              height="400px"
+            >
+              <Typography variant="h4">Loading Options..</Typography>
+            </Box>
+          ) : (
+            <Grid container spacing={3}>
+              {/* TOP Section - TrailerNumber, LoadType, Contractor and Dates*/}
+              <TopSection
+                formState={formState}
+                handleDateChange={handleDateChange}
+                handleChange={handleChange}
+                trailerNumberError={trailerNumberError}
+                loadTypeError={loadTypeError}
+                options={options}
               />
-              {productsError.error ? (
-                <Box p="5px" color="red">
-                  {productsError.message}
-                </Box>
-              ) : (
-                ""
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              {/* SUBMIT */}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handlePost}
-                disabled={isLoading}
-                sx={{ background: colors.secondary[500], width: "200px" }}
-              >
-                {isLoading ? (
-                  <CircularProgress
-                    sx={{ color: colors.secondary[500] }}
-                    size={24}
-                  />
+
+              {/* MIDDLE Section - Reference, FreightType, Alcohol/Cert, Cooments */}
+              <MiddleSection
+                formState={formState}
+                handleChange={handleChange}
+                options={options}
+                handleCheckbox={handleCheckbox}
+                referenceError={referenceError}
+              />
+
+              {/* {PRODUCTS Section} */}
+              <Grid item xs={12} md={8}>
+                <ProductsSection
+                  addProduct={addProduct}
+                  removeProduct={removeProduct}
+                  products={formState.products}
+                  options={options?.products || []}
+                />
+                {productsError.error ? (
+                  <Box p="5px" color="red">
+                    {productsError.message}
+                  </Box>
                 ) : (
-                  "Create Trailer"
+                  ""
                 )}
-              </Button>
+              </Grid>
+              <Grid item xs={12}>
+                {/* SUBMIT */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handlePost}
+                  disabled={isLoading}
+                  sx={{ background: colors.secondary[500], width: "200px" }}
+                >
+                  {isLoading ? (
+                    <CircularProgress
+                      sx={{ color: colors.secondary[500] }}
+                      size={24}
+                    />
+                  ) : (
+                    "Create Trailer"
+                  )}
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Box>
       </DashboardBox>
       {isError && (
-        <Snackbar open={isError} autoHideDuration={6000} onClose={() => {}}>
-          <Alert severity="error"> "Error creating trailer!"</Alert>
+        <Snackbar
+          open={isError || isErrorOptions}
+          autoHideDuration={6000}
+          onClose={() => {}}
+        >
+          <Alert severity="error">
+            {" "}
+            {isError
+              ? "Error creating trailer!"
+              : "Error.. Could not Load the Options"}
+          </Alert>
         </Snackbar>
       )}
 

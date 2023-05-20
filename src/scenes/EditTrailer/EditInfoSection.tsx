@@ -6,7 +6,10 @@ import {
   useTheme,
 } from "@mui/material";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
-import { GetTrailersDataResponse } from "../../state/types";
+import {
+  GetOptionsDataResponse,
+  GetTrailersDataResponse,
+} from "../../state/types";
 import TrailerTitle from "../../components/TrailerTitle/TrailerTitle";
 import { tokens } from "../../theme";
 import CustomTextField from "../../components/CustomInputs/CustomTextField";
@@ -27,22 +30,7 @@ type Props = {
   handleExtraCostChange: (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
-};
-
-const options = {
-  loadTypes: [
-    "Ambient",
-    "Frozen",
-    "Chill",
-    "Produce",
-    "Frozen / Ambient",
-    "Frozen / Chill",
-    "Frozen / Produce",
-    "Chill / Ambient",
-  ],
-  freightTypes: ["Road", "Sea", "Air"],
-  crossed: ["Tunnel", "Ferry"],
-  contractor: ["JCARRION", "Yusen Logistics"],
+  options: GetOptionsDataResponse;
 };
 
 const EditInfoSection = ({
@@ -51,6 +39,7 @@ const EditInfoSection = ({
   handleDateChange,
   handleCheckbox,
   handleExtraCostChange,
+  options,
 }: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -114,7 +103,7 @@ const EditInfoSection = ({
             label="Load Type"
             value={trailer?.loadType || ""}
             handleChange={handleChange}
-            options={options.loadTypes || []}
+            options={options.loadType || []}
           />
           {/* Reference */}
           <CustomTextField
@@ -165,7 +154,7 @@ const EditInfoSection = ({
             label="Freight Type"
             value={trailer?.freightType || ""}
             handleChange={handleChange}
-            options={options.freightTypes || []}
+            options={options.freightType || []}
           />
           {/* Contractor */}
           <CustomSelectField

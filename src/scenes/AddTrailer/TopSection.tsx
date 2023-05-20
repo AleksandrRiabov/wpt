@@ -3,6 +3,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { FormState } from "./AddTrailer";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { GetOptionsDataResponse } from "../../state/types";
 
 type ValidationError = { error: boolean; message: string };
 
@@ -13,7 +14,7 @@ type Props = {
   ) => void;
   trailerNumberError: ValidationError;
   loadTypeError: ValidationError;
-  options: { loadTypes: string[]; contractor: string[] };
+  options: GetOptionsDataResponse | undefined;
   handleDateChange: (
     key: "sentDate" | "deliveryDate",
     date: Date | null
@@ -58,7 +59,7 @@ const TopSection = ({
           error={loadTypeError?.error}
           helperText={loadTypeError?.message}
         >
-          {options.loadTypes.map((option) => (
+          {options?.loadType.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -76,7 +77,7 @@ const TopSection = ({
           select
           onChange={handleChange}
         >
-          {options.contractor.map((option) => (
+          {options?.contractor.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>

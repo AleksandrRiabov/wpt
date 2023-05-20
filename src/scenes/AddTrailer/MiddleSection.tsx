@@ -6,6 +6,7 @@ import {
   TextField,
 } from "@mui/material";
 import { FormState } from "./AddTrailer";
+import { GetOptionsDataResponse } from "../../state/types";
 type ValidationError = { error: boolean; message: string };
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
   handleChange: (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
-  options: { crossed: string[]; freightTypes: string[] };
+  options: GetOptionsDataResponse | undefined;
   handleCheckbox: (name: "alcohol" | "cert") => void;
 };
 
@@ -51,7 +52,7 @@ const MiddleSection = ({
           select
           onChange={handleChange}
         >
-          {options.freightTypes.map((option) => (
+          {options?.freightType?.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -87,7 +88,7 @@ const MiddleSection = ({
           select
           onChange={handleChange}
         >
-          {options.crossed.map((option) => (
+          {options?.crossed.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
