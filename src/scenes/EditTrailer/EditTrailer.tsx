@@ -23,6 +23,8 @@ import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import { tokens } from "../../theme";
 import EditProducts from "./EditProducts";
 import AddProduct from "../AddTrailer/AddProduct";
+import EditExtraCost from "./EditExtraCost";
+import TrailerTitle from "../../components/TrailerTitle/TrailerTitle";
 
 type Props = {};
 
@@ -164,7 +166,7 @@ const EditTrailer = (props: Props) => {
     <Container maxWidth="xl">
       <PageHeader title="Edit Trailer" />
       <DashboardBox>
-        <Box>
+        <Box p="20px">
           {data.isLoading ? (
             <FlexCenterCenter>
               <Typography variant="h3">Loading...</Typography>
@@ -179,26 +181,61 @@ const EditTrailer = (props: Props) => {
               </Typography>
             </FlexCenterCenter>
           ) : (
-            <Box display={"flex"} flexDirection="column" alignItems="center">
-              <EditInfoSection
-                trailer={editTrailerData}
-                handleChange={handleChange}
-                handleDateChange={handleDateChange}
-                handleCheckbox={handleCheckbox}
-                handleExtraCostChange={handleExtraCostChange}
-                options={options}
+            <>
+              <TrailerTitle
+                title={`${editTrailerData?.trailerNumber} -  ${editTrailerData?.loadType}`}
+                className={
+                  trailer?.cert
+                    ? "certified-row"
+                    : trailer?.alcohol
+                    ? "alcohol-row"
+                    : trailer?.freightType === "Sea"
+                    ? "seafreight-row"
+                    : ""
+                }
               />
-              <Box>
-                <AddProduct
-                  addProduct={addProduct}
-                  options={options.products}
+              <Box
+                display={"flex"}
+                sx={{ flexDirection: { xs: "column", md: "row" } }}
+              >
+                <EditInfoSection
+                  trailer={editTrailerData}
+                  handleChange={handleChange}
+                  handleDateChange={handleDateChange}
+                  handleCheckbox={handleCheckbox}
+                  handleExtraCostChange={handleExtraCostChange}
+                  options={options}
                 />
-                <EditProducts
-                  handleProductChange={handleProductChange}
-                  products={editTrailerData?.products}
-                />
+                <Box
+                  sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {/* Extra Cost */}
+                  <Box>
+                    <EditExtraCost
+                      handleExtraCostChange={handleExtraCostChange}
+                      extraCost={editTrailerData?.extraCost || {}}
+                    />
+                  </Box>
+                  {/* Products Section */}
+                  <Box mt="40px" sx={{ maxWidth: "570px" }}>
+                    <AddProduct
+                      addProduct={addProduct}
+                      options={options.products}
+                    />
+                    <Box mt="20px">
+                      <EditProducts
+                        handleProductChange={handleProductChange}
+                        products={editTrailerData?.products}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
-            </Box>
+            </>
           )}
         </Box>
         <Button
