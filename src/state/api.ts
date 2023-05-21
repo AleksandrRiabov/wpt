@@ -45,6 +45,14 @@ export const api = createApi({
         body: details,
       }),
     }),
+
+    updateOptions: build.mutation<GetOptionsDataResponse, void>({
+      query: (details) => ({
+        url: `/options`,
+        method: "PUT",
+        body: details,
+      }),
+    }),
   }),
 });
 
@@ -52,6 +60,7 @@ export const {
   useGetDaysDataQuery,
   useGetTrailersDataQuery,
   useGetOptionsDataQuery,
+  useUpdateOptionsMutation,
   useCreateTrailerMutation,
   useUpdateTrailerMutation,
 } = api;

@@ -19,8 +19,9 @@ import { useTheme } from "@mui/material";
 
 const pages = [
   { name: "Dashboard", url: "/dashboard" },
-  { name: "Contacts", url: "/contacts" },
+  { name: "Configurations", url: "/config" },
 ];
+
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
