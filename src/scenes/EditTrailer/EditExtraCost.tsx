@@ -33,7 +33,7 @@ function EditExtraCost({ extraCost, handleExtraCostChange }: Props) {
             value={extraCost?.[extraKey]?.cost || ""}
             handleChange={handleExtraCostChange}
             label="Cost"
-            tytle={formatExtraCostName(extraKey)}
+            title={formatExtraCostName(extraKey)}
           />
         );
       })}

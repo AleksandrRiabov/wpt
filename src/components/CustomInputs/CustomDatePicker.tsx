@@ -15,7 +15,7 @@ type Props = {
   label: string;
   format: string;
   name: Name;
-  tytle: string;
+  title: string;
 };
 
 function CustomDatePicker({
@@ -23,12 +23,12 @@ function CustomDatePicker({
   value,
   handleDateChange,
   label,
-  tytle,
+  title,
   format,
 }: Props) {
   return (
     <FlexBetween p="10px 0" sx={{ borderBottom: "1px solid #6c8991" }}>
-      <Typography variant="h3">{tytle}</Typography>
+      <Typography variant="h3">{title}</Typography>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         {/* Display correct Picker deppending ot required format */}
         {format.length > 11 ? (

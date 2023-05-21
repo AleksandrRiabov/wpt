@@ -71,7 +71,7 @@ const EditInfoSection = ({
           label="Select Date"
           format="dd-MM-yyyy"
           name="sentDate"
-          tytle="Sent Date"
+          title="Sent Date"
         />
         {/* Delivery Date */}
         <CustomDatePicker
@@ -80,7 +80,7 @@ const EditInfoSection = ({
           label="Select Date"
           format="dd-MM-yyyy"
           name="deliveryDate"
-          tytle="Delivery Date"
+          title="Delivery Date"
         />
         {/* Clearance Date */}
         <CustomDatePicker
@@ -89,7 +89,7 @@ const EditInfoSection = ({
           label="Select Date and Time"
           format="dd-MM-yyyy HH:mm:ss"
           name="clearance"
-          tytle="Clearance"
+          title="Clearance"
         />
         {/* Received Date */}
         <CustomDatePicker
@@ -98,7 +98,7 @@ const EditInfoSection = ({
           label="Select Date and Time"
           format="dd-MM-yyyy HH:mm:ss"
           name="received"
-          tytle="Received"
+          title="Received"
         />
         {/* Freight Type */}
         <CustomSelectField
