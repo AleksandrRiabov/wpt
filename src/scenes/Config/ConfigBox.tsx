@@ -40,6 +40,7 @@ function ConfigBox({
 }: Props) {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState({ error: false, message: "" });
+  const [successMessage, setSuccessMessage] = useState("");
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -68,11 +69,16 @@ function ConfigBox({
     }
     setError({ error: false, message: "" });
     addOption(name, inputValue);
+    setSuccessMessage(`New ${title} has been added`);
     setInputValue("");
   };
 
-  const handleCloseSnackbar = () => {
-    setError({ error: false, message: "" });
+  const handleCloseSnackbar = (name: "success" | "error") => {
+    if (name === "error") {
+      setError({ error: false, message: "" });
+    } else {
+      setSuccessMessage("");
+    }
   };
 
   return (
@@ -82,7 +88,8 @@ function ConfigBox({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        maxWidth: "350px",
+        maxWidth: "370px",
+        minWidth: "320px",
         borderRadius: "5px",
         overflow: "hidden",
         background: colors.primary[400],
@@ -153,9 +160,18 @@ function ConfigBox({
         <Snackbar
           open={error.error}
           autoHideDuration={4000}
-          onClose={handleCloseSnackbar}
+          onClose={() => handleCloseSnackbar("error")}
         >
           <Alert severity="error"> {error.message}</Alert>
+        </Snackbar>
+      )}
+      {successMessage && (
+        <Snackbar
+          open={successMessage.length > 0}
+          autoHideDuration={6000}
+          onClose={() => handleCloseSnackbar("success")}
+        >
+          <Alert severity="success">{successMessage}</Alert>
         </Snackbar>
       )}
     </Card>

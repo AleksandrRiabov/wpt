@@ -6,6 +6,7 @@ import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { PageHeader } from "../../components";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import ConfigBox from "./ConfigBox";
+import ConfigProductBox from "./ConfigProductBox";
 
 export type ConfigCategory =
   | "freightType"
@@ -42,7 +43,6 @@ const Config = () => {
       [configCategoryName]: [...updatedDataState[configCategoryName], value],
     });
   };
-  console.log("=====", updatedDataState);
 
   if (isError)
     return (
@@ -65,11 +65,17 @@ const Config = () => {
   return (
     <Container maxWidth="xl" sx={{ marginBottom: "20px" }}>
       <PageHeader title="Edit Configurations" />
-      <DashboardBox p="20px">
+      <DashboardBox sx={{ padding: { xs: "20px 5px", sm: "20px" } }}>
         <Box
           display="flex"
-          sx={{ flexDirection: { xs: "column", md: "row" }, flexWrap: "wrpap" }}
+          sx={{
+            flexDirection: { xs: "column", md: "row" },
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "2rem",
+          }}
         >
+          {/* Load Type */}
           <ConfigBox
             title="Load-Type"
             name="loadType"
@@ -77,6 +83,7 @@ const Config = () => {
             handleRemoveOption={handleRemoveOption}
             addOption={addOption}
           />
+          {/* Freight Type */}
           <ConfigBox
             title="Freight-Type"
             name="freightType"
@@ -84,6 +91,24 @@ const Config = () => {
             handleRemoveOption={handleRemoveOption}
             addOption={addOption}
           />
+          {/* Contractor */}
+          <ConfigBox
+            title="Contractors"
+            name="contractor"
+            configCategory={updatedDataState?.contractor || []}
+            handleRemoveOption={handleRemoveOption}
+            addOption={addOption}
+          />
+          {/* Crossed */}
+          <ConfigBox
+            title="Crossed"
+            name="crossed"
+            configCategory={updatedDataState?.crossed || []}
+            handleRemoveOption={handleRemoveOption}
+            addOption={addOption}
+          />
+          {/* Products */}
+          <ConfigProductBox products={updatedDataState?.products || []} />
         </Box>
       </DashboardBox>
     </Container>
