@@ -34,18 +34,21 @@ function ConfigBox({ configCategory, name, title }: Props) {
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isEdited, setIsEdited] = useState(false);
 
+  // Set initial options from props
   useEffect(() => {
-    console.log("changed state");
     setOptions(configCategory);
   }, [configCategory]);
 
+  // extract function to send PUT request
   const [updateOptions, { isLoading, isSuccess, error }] =
     useUpdateOptionsMutation();
 
   // Sends updated details to backend
   const handleSave = async () => {
     await updateOptions({ name, options });
+    setIsEdited(false);
   };
 
   const handleAddOption = () => {
@@ -63,12 +66,14 @@ function ConfigBox({ configCategory, name, title }: Props) {
       `${inputValue} added to ${title}. Please do not forget to Save  the Chages!`
     );
     setInputValue("");
+    setIsEdited(true);
   };
 
   const handleRemove = (option: string) => {
     const filtered = options.filter((item) => item !== option);
     setOptions(filtered);
     setSuccessMessage(`${option} has been removed from ${title}`);
+    setIsEdited(true);
   };
 
   const handleCloseSnackbar = (name: "success" | "error") => {
@@ -175,7 +180,7 @@ function ConfigBox({ configCategory, name, title }: Props) {
             onClick={handleSave}
             variant="contained"
             color="secondary"
-            disabled={isLoading}
+            disabled={isLoading || !isEdited}
           >
             {isLoading ? "PLEASE WAIT" : "SAVE CHANGES"}
           </Button>
