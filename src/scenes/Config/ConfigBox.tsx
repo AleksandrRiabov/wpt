@@ -10,76 +10,89 @@ import {
   ListItem,
   ListItemText,
   Snackbar,
+  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
 import { GridDeleteIcon } from "@mui/x-data-grid";
-import CustomTextField from "../../components/CustomInputs/CustomTextField";
-import { ConfigCategory } from "./Config";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Add } from "@mui/icons-material";
 import { tokens } from "../../theme";
+import { useUpdateOptionsMutation } from "../../state/api";
 
 type Props = {
   configCategory: string[];
-  handleRemoveOption: (
-    configCategoryName: ConfigCategory,
-    option: string
-  ) => void;
-  addOption: (configCategoryName: ConfigCategory, value: string) => void;
-  name: ConfigCategory;
+  name: "freightType" | "loadType" | "contractor" | "crossed" | "products";
   title: string;
 };
 
-function ConfigBox({
-  configCategory,
-  handleRemoveOption,
-  addOption,
-  name,
-  title,
-}: Props) {
-  const [inputValue, setInputValue] = useState("");
-  const [error, setError] = useState({ error: false, message: "" });
-  const [successMessage, setSuccessMessage] = useState("");
-
+function ConfigBox({ configCategory, name, title }: Props) {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setInputValue(e.target.value);
+  const [options, setOptions] = useState(configCategory);
+  const [inputValue, setInputValue] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    console.log("changed state");
+    setOptions(configCategory);
+  }, [configCategory]);
+
+  const [updateOptions, { isLoading, isSuccess, error }] =
+    useUpdateOptionsMutation();
+
+  // Sends updated details to backend
+  const handleSave = async () => {
+    await updateOptions({ name, options });
   };
 
   const handleAddOption = () => {
     // Display error message if the option already exists
     if (!inputValue.trim()) {
-      setError({
-        error: true,
-        message: `Can't be empty!`,
-      });
+      setErrorMessage("Can not be Empty!");
       return;
     }
-    if (configCategory.includes(inputValue)) {
-      setError({
-        error: true,
-        message: `${inputValue} already exist in ${title}..`,
-      });
+    if (options.includes(inputValue)) {
+      setErrorMessage(`${inputValue} already exist in ${title}..`);
       return;
     }
-    setError({ error: false, message: "" });
-    addOption(name, inputValue);
-    setSuccessMessage(`New ${title} has been added`);
+    setOptions([...options, inputValue]);
+    setSuccessMessage(
+      `${inputValue} added to ${title}. Please do not forget to Save  the Chages!`
+    );
     setInputValue("");
+  };
+
+  const handleRemove = (option: string) => {
+    const filtered = options.filter((item) => item !== option);
+    setOptions(filtered);
+    setSuccessMessage(`${option} has been removed from ${title}`);
   };
 
   const handleCloseSnackbar = (name: "success" | "error") => {
     if (name === "error") {
-      setError({ error: false, message: "" });
+      setErrorMessage("");
     } else {
       setSuccessMessage("");
     }
   };
+
+  // useEffects for updating notification messages
+  useEffect(() => {
+    if (error) {
+      if ("status" in error) {
+        setErrorMessage(`Error.. could not save changes in ${title}`);
+      }
+    }
+  }, [error, title]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setSuccessMessage(`${title} details has been updated!`);
+    }
+  }, [isSuccess, title]);
 
   return (
     <Card
@@ -108,7 +121,7 @@ function ConfigBox({
             background: colors.primary[400],
           }}
         >
-          {configCategory.map((option) => (
+          {options.map((option) => (
             <ListItem
               sx={{
                 borderBottom: "1px dashed rgba(255, 255, 255, 0.1)",
@@ -116,7 +129,7 @@ function ConfigBox({
               key={option}
               secondaryAction={
                 <IconButton
-                  onClick={() => handleRemoveOption(name, option)}
+                  onClick={() => handleRemove(option)}
                   edge="end"
                   aria-label="delete"
                 >
@@ -129,6 +142,7 @@ function ConfigBox({
           ))}
         </List>
       </CardContent>
+      {/* Card footer */}
       <Box
         sx={{
           padding: "0 20px",
@@ -136,33 +150,45 @@ function ConfigBox({
           background: colors.primary[500],
         }}
       >
-        <Box p="0 20px">
-          <CustomTextField
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignContent="center"
+          p=" 10px"
+        >
+          <TextField
             value={inputValue}
             label="Add Option"
-            title="New"
-            handleChange={handleChange}
-            name={name}
+            size="small"
+            onChange={(e) => setInputValue(e.target.value)}
           />
-        </Box>
-        <Box p="15px 0" display="flex" justifyContent="center">
           <Button
             onClick={handleAddOption}
             variant="contained"
             color="secondary"
           >
-            Add <Add />
+            <Add />
+          </Button>
+        </Box>
+        <Box p="15px 0" display="flex" justifyContent="center">
+          <Button
+            onClick={handleSave}
+            variant="contained"
+            color="secondary"
+            disabled={isLoading}
+          >
+            {isLoading ? "PLEASE WAIT" : "SAVE CHANGES"}
           </Button>
         </Box>
       </Box>
-
-      {error.error && (
+      {/* Notifications */}
+      {errorMessage && (
         <Snackbar
-          open={error.error}
+          open={errorMessage.length > 0}
           autoHideDuration={4000}
           onClose={() => handleCloseSnackbar("error")}
         >
-          <Alert severity="error"> {error.message}</Alert>
+          <Alert severity="error"> {errorMessage}</Alert>
         </Snackbar>
       )}
       {successMessage && (
