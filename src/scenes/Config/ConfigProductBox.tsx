@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -8,22 +9,33 @@ import {
   List,
   ListItem,
   ListItemText,
+  Snackbar,
+  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
 import { tokens } from "../../theme";
 import { GridDeleteIcon } from "@mui/x-data-grid";
-import CustomTextField from "../../components/CustomInputs/CustomTextField";
 import { Add } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   products: { name: string; category: string }[];
 };
 
 const ConfigProductBox = ({ products }: Props) => {
+  const [productsState, setProductsState] = useState(products);
   const [inputValue, setInputValue] = useState({ product: "", category: "" });
-  const [error, setError] = useState({ error: false, message: "" });
+  const [validationError, setValidationError] = useState<
+    "product" | "category" | null
+  >(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // Set initial productsData state
+  useEffect(() => {
+    setProductsState(products);
+  }, [products]);
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -34,7 +46,46 @@ const ConfigProductBox = ({ products }: Props) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
 
-  console.log(products);
+  const handelAddProduct = () => {
+    const { product, category } = inputValue;
+    const productAlreadyExist = productsState.find(
+      (existingProduct) => existingProduct.name === product
+    );
+
+    if (productAlreadyExist)
+      return setErrorMessage(
+        `Product with the nam "${product}" already exist!`
+      );
+    if (!product) return setValidationError("product");
+    if (!category) return setValidationError("category");
+
+    setValidationError(null);
+
+    setProductsState([
+      ...productsState,
+      { name: inputValue.product, category: inputValue.category },
+    ]);
+    setInputValue({ product: "", category: "" });
+    setSuccessMessage(`${product} added to the product list.`);
+  };
+
+  const handleRemoveProduct = (name: string) => {
+    const withoutProduct = productsState.filter(
+      (existingProduct) => existingProduct.name !== name
+    );
+
+    setProductsState(withoutProduct);
+    setSuccessMessage(`${name} has been removed from the products list.`);
+  };
+
+  const handleCloseSnackbar = (name: "success" | "error") => {
+    if (name === "error") {
+      setErrorMessage("");
+    } else {
+      setSuccessMessage("");
+    }
+  };
+  console.log(productsState);
   return (
     <Card
       sx={{
@@ -64,14 +115,13 @@ const ConfigProductBox = ({ products }: Props) => {
           <ListItem
             sx={{
               borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
-              background: "pink",
             }}
           >
             <ListItemText primary={"PRODUCT NAME:"} />
             <ListItemText primary={"PRODUCT CATEGORY:"} />
           </ListItem>
           <Box sx={{ overflowY: "scroll", maxHeight: "315px" }}>
-            {products.map(({ name, category }) => (
+            {productsState.map(({ name, category }) => (
               <ListItem
                 sx={{
                   borderBottom: "1px dashed rgba(255, 255, 255, 0.1)",
@@ -79,7 +129,7 @@ const ConfigProductBox = ({ products }: Props) => {
                 key={name}
                 secondaryAction={
                   <IconButton
-                    // onClick={() => handleRemoveProduct(name)}
+                    onClick={() => handleRemoveProduct(name)}
                     edge="end"
                     aria-label="delete"
                   >
@@ -102,32 +152,57 @@ const ConfigProductBox = ({ products }: Props) => {
           background: colors.primary[500],
         }}
       >
-        <Box>
-          <Box p="0 20px">
-            <CustomTextField
+        <Box p="20px 0" display="flex" justifyContent="space-around">
+          <Box p="5px">
+            <TextField
               value={inputValue.product}
               label="Add product"
-              title="Neqw Product"
-              handleChange={handleChange}
+              onChange={handleChange}
               name={"product"}
+              error={validationError === "product"}
+              color="secondary"
             />
           </Box>
-          <Box p="0 20px">
-            <CustomTextField
+          <Box p="5px">
+            <TextField
               value={inputValue.category}
               label="Add Category"
-              title="Category"
-              handleChange={handleChange}
+              onChange={handleChange}
               name={"category"}
+              error={validationError === "category"}
+              color="secondary"
             />
           </Box>
         </Box>
         <Box p="15px 0" display="flex" justifyContent="center">
-          <Button variant="contained" color="secondary">
+          <Button
+            onClick={handelAddProduct}
+            variant="contained"
+            color="secondary"
+          >
             Add <Add />
           </Button>
         </Box>
       </Box>
+      {/* Notifications */}
+      {errorMessage && (
+        <Snackbar
+          open={errorMessage.length > 0}
+          autoHideDuration={4000}
+          onClose={() => handleCloseSnackbar("error")}
+        >
+          <Alert severity="error"> {errorMessage}</Alert>
+        </Snackbar>
+      )}
+      {successMessage && (
+        <Snackbar
+          open={successMessage.length > 0}
+          autoHideDuration={6000}
+          onClose={() => handleCloseSnackbar("success")}
+        >
+          <Alert severity="success">{successMessage}</Alert>
+        </Snackbar>
+      )}
     </Card>
   );
 };
