@@ -18,6 +18,7 @@ import { tokens } from "../../theme";
 import { GridDeleteIcon } from "@mui/x-data-grid";
 import { Add } from "@mui/icons-material";
 import { useEffect, useState } from "react";
+import { useUpdateOptionsMutation } from "../../state/api";
 
 type Props = {
   products: { name: string; category: string }[];
@@ -31,6 +32,7 @@ const ConfigProductBox = ({ products }: Props) => {
   >(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isEdited, setIsEdited] = useState(false);
 
   // Set initial productsData state
   useEffect(() => {
@@ -39,6 +41,17 @@ const ConfigProductBox = ({ products }: Props) => {
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
+
+ // extract function to send PUT request
+ const [updateOptions, { isLoading, isSuccess, error }] =
+ useUpdateOptionsMutation();
+
+
+  // Sends updated details to backend
+  const handleSave = async () => {
+    await updateOptions({ name: 'products', options: productsState });
+    setIsEdited(false);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -67,6 +80,7 @@ const ConfigProductBox = ({ products }: Props) => {
     ]);
     setInputValue({ product: "", category: "" });
     setSuccessMessage(`${product} added to the product list.`);
+    setIsEdited(true);
   };
 
   const handleRemoveProduct = (name: string) => {
@@ -76,6 +90,7 @@ const ConfigProductBox = ({ products }: Props) => {
 
     setProductsState(withoutProduct);
     setSuccessMessage(`${name} has been removed from the products list.`);
+    setIsEdited(true);
   };
 
   const handleCloseSnackbar = (name: "success" | "error") => {
@@ -85,6 +100,9 @@ const ConfigProductBox = ({ products }: Props) => {
       setSuccessMessage("");
     }
   };
+
+
+  // need to add save btn 
   console.log(productsState);
   return (
     <Card
@@ -174,6 +192,7 @@ const ConfigProductBox = ({ products }: Props) => {
             />
           </Box>
         </Box>
+        <Box>
         <Box p="15px 0" display="flex" justifyContent="center">
           <Button
             onClick={handelAddProduct}
@@ -182,6 +201,17 @@ const ConfigProductBox = ({ products }: Props) => {
           >
             Add <Add />
           </Button>
+        </Box>
+        <Box p="15px 0" display="flex" justifyContent="center">
+          <Button
+            onClick={handleSave}
+            variant="contained"
+            color="secondary"
+            disabled={isLoading || !isEdited}
+          >
+            {isLoading ? "PLEASE WAIT" : "SAVE CHANGES"}
+          </Button>
+        </Box>
         </Box>
       </Box>
       {/* Notifications */}

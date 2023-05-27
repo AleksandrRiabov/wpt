@@ -46,7 +46,10 @@ export const api = createApi({
       }),
     }),
 
-    updateOptions: build.mutation<void, { name: string, options:string[] }>({
+    updateOptions: build.mutation<
+      void,
+      { name: string; options: string[] | { name: string; category: string }[] }
+    >({
       query: (details) => ({
         url: `/options`,
         method: "PUT",
