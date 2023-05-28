@@ -42,15 +42,23 @@ const ConfigProductBox = ({ products }: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
- // extract function to send PUT request
- const [updateOptions, { isLoading, isSuccess, error }] =
- useUpdateOptionsMutation();
-
+  // extract function to send PUT request
+  const [updateOptions, { isLoading, isSuccess, error }] =
+    useUpdateOptionsMutation();
 
   // Sends updated details to backend
   const handleSave = async () => {
-    await updateOptions({ name: 'products', options: productsState });
-    setIsEdited(false);
+    try {
+      await updateOptions({ name: "products", options: productsState });
+      setIsEdited(false);
+      setSuccessMessage("Product list has been updated!");
+    } catch (error) {
+      // Handle network error
+      setErrorMessage(
+        "Error: Could not update products. Please make sure you are connected to the internet."
+      );
+      console.error(error);
+    }
   };
 
   const handleChange = (
@@ -62,12 +70,13 @@ const ConfigProductBox = ({ products }: Props) => {
   const handelAddProduct = () => {
     const { product, category } = inputValue;
     const productAlreadyExist = productsState.find(
-      (existingProduct) => existingProduct.name === product
+      (existingProduct) =>
+        existingProduct.name.toUpperCase() === product.toUpperCase()
     );
 
     if (productAlreadyExist)
       return setErrorMessage(
-        `Product with the nam "${product}" already exist!`
+        `Product with the name "${product}" already exist!`
       );
     if (!product) return setValidationError("product");
     if (!category) return setValidationError("category");
@@ -101,9 +110,21 @@ const ConfigProductBox = ({ products }: Props) => {
     }
   };
 
+  // useEffects for updating notification messages
+  useEffect(() => {
+    if (error) {
+      if ("status" in error) {
+        setErrorMessage(`Error.. could not updated products`);
+      }
+    }
+  }, [error]);
 
-  // need to add save btn 
-  console.log(productsState);
+  useEffect(() => {
+    if (isSuccess) {
+      setSuccessMessage(`Product list has been updated!`);
+    }
+  }, [isSuccess]);
+
   return (
     <Card
       sx={{
@@ -120,7 +141,7 @@ const ConfigProductBox = ({ products }: Props) => {
       }}
     >
       <CardHeader
-        title={<Typography variant="h3">{"title"}</Typography>}
+        title={<Typography variant="h3">Products</Typography>}
         p="20px"
         sx={{ background: colors.secondary[600] }}
       />
@@ -193,25 +214,25 @@ const ConfigProductBox = ({ products }: Props) => {
           </Box>
         </Box>
         <Box>
-        <Box p="15px 0" display="flex" justifyContent="center">
-          <Button
-            onClick={handelAddProduct}
-            variant="contained"
-            color="secondary"
-          >
-            Add <Add />
-          </Button>
-        </Box>
-        <Box p="15px 0" display="flex" justifyContent="center">
-          <Button
-            onClick={handleSave}
-            variant="contained"
-            color="secondary"
-            disabled={isLoading || !isEdited}
-          >
-            {isLoading ? "PLEASE WAIT" : "SAVE CHANGES"}
-          </Button>
-        </Box>
+          <Box p="15px 0" display="flex" justifyContent="center">
+            <Button
+              onClick={handelAddProduct}
+              variant="contained"
+              color="secondary"
+            >
+              Add <Add />
+            </Button>
+          </Box>
+          <Box p="15px 0" display="flex" justifyContent="center">
+            <Button
+              onClick={handleSave}
+              variant="contained"
+              color="secondary"
+              disabled={isLoading || !isEdited}
+            >
+              {isLoading ? "PLEASE WAIT" : "SAVE CHANGES"}
+            </Button>
+          </Box>
         </Box>
       </Box>
       {/* Notifications */}
