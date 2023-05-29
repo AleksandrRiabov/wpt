@@ -47,15 +47,9 @@ const Config = () => {
             flexDirection: { xs: "column", md: "row" },
             flexWrap: "wrap",
             justifyContent: "center",
-            gap: "2rem",
+            gap: "3rem",
           }}
         >
-          {/* Load Type */}
-          <ConfigBox
-            title="Load-Type"
-            name="loadType"
-            configCategory={updatedDataState?.loadType || []}
-          />
           {/* Freight Type */}
           <ConfigBox
             title="Freight-Type"
@@ -73,6 +67,12 @@ const Config = () => {
             title="Crossed"
             name="crossed"
             configCategory={updatedDataState?.crossed || []}
+          />
+          {/* Load Type */}
+          <ConfigBox
+            title="Load-Type"
+            name="loadType"
+            configCategory={updatedDataState?.loadType || []}
           />
           {/* Products */}
           <ConfigProductBox products={updatedDataState?.products || []} />

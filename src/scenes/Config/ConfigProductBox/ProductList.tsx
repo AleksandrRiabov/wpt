@@ -26,7 +26,7 @@ const ProductList = ({ productsState, handleRemoveProduct }: Props) => {
     >
       <ListItem
         sx={{
-          borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
         }}
       >
         <ListItemText primary={"PRODUCT NAME:"} />
@@ -37,6 +37,9 @@ const ProductList = ({ productsState, handleRemoveProduct }: Props) => {
           <ListItem
             sx={{
               borderBottom: "1px dashed rgba(255, 255, 255, 0.1)",
+              "&:hover": {
+                background: colors.primary[300],
+              },
             }}
             key={name}
             secondaryAction={

@@ -107,7 +107,7 @@ function ConfigBox({ configCategory, name, title }: Props) {
         flexDirection: "column",
         justifyContent: "space-between",
         maxWidth: "370px",
-        minWidth: "320px",
+        minWidth: { md: "350px" },
         borderRadius: "5px",
         overflow: "hidden",
         background: colors.primary[400],
@@ -121,7 +121,7 @@ function ConfigBox({ configCategory, name, title }: Props) {
       <CardContent sx={{ padding: 0 }}>
         <List
           sx={{
-            maxHeight: "315px",
+            maxHeight: "445px",
             overflow: "scroll",
             background: colors.primary[400],
           }}
@@ -130,6 +130,9 @@ function ConfigBox({ configCategory, name, title }: Props) {
             <ListItem
               sx={{
                 borderBottom: "1px dashed rgba(255, 255, 255, 0.1)",
+                "&:hover": {
+                  background: colors.primary[300],
+                },
               }}
               key={option}
               secondaryAction={
