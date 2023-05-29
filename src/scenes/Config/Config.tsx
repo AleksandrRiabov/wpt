@@ -6,7 +6,7 @@ import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { PageHeader } from "../../components";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import ConfigBox from "./ConfigBox";
-import ConfigProductBox from "./ConfigProductBox";
+import ConfigProductBox from "./ConfigProductBox/ConfigProductBox";
 
 const Config = () => {
   const [updatedDataState, setUpdatedDataState] =
