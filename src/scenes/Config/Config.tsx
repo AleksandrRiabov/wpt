@@ -47,7 +47,9 @@ const Config = () => {
             flexDirection: { xs: "column", md: "row" },
             flexWrap: "wrap",
             justifyContent: "center",
-            gap: "3rem",
+            gap: "2rem",
+            padding: { md: "20px 0" },
+            margin: "0 auto",
           }}
         >
           {/* Freight Type */}
