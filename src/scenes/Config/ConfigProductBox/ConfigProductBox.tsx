@@ -134,7 +134,7 @@ const ConfigProductBox = ({ products }: Props) => {
       />
       <CardContent sx={{ padding: 0 }}>
         <ProductList
-          productsState={productsState}
+          productsState={[...productsState].reverse()}
           handleRemoveProduct={handleRemoveProduct}
         />
       </CardContent>

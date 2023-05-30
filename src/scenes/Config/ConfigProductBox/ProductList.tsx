@@ -29,8 +29,8 @@ const ProductList = ({ productsState, handleRemoveProduct }: Props) => {
           borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
         }}
       >
-        <ListItemText primary={"PRODUCT NAME:"} />
-        <ListItemText primary={"PRODUCT CATEGORY:"} />
+        <ListItemText sx={{ width: "50%" }} primary={"PRODUCT NAME:"} />
+        <ListItemText sx={{ width: "50%" }} primary={"PRODUCT CATEGORY:"} />
       </ListItem>
       <Box sx={{ overflowY: "scroll", maxHeight: "315px" }}>
         {productsState.map(({ name, category }) => (
@@ -52,8 +52,8 @@ const ProductList = ({ productsState, handleRemoveProduct }: Props) => {
               </IconButton>
             }
           >
-            <ListItemText primary={name} />
-            <ListItemText primary={category} />
+            <ListItemText sx={{ width: "50%" }} primary={name} />
+            <ListItemText sx={{ width: "50%" }} primary={category} />
           </ListItem>
         ))}
       </Box>

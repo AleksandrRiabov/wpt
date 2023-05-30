@@ -120,7 +120,10 @@ function ConfigBox({ configCategory, name, title }: Props) {
         sx={{ background: colors.secondary[600] }}
       />
       <CardContent sx={{ padding: 0 }}>
-        <OptionsList options={options} handleRemove={handleRemove} />
+        <OptionsList
+          options={[...options].reverse()}
+          handleRemove={handleRemove}
+        />
       </CardContent>
       {/* Card footer */}
       <Box
