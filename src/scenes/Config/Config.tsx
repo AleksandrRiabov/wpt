@@ -5,7 +5,7 @@ import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { PageHeader } from "../../components";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
-import ConfigBox from "./ConfigBox";
+import ConfigBox from "./ConfigBox/ConfigBox";
 import ConfigProductBox from "./ConfigProductBox/ConfigProductBox";
 
 const Config = () => {

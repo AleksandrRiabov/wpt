@@ -1,24 +1,19 @@
 import {
-  Alert,
   Box,
   Button,
   Card,
   CardContent,
   CardHeader,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Snackbar,
   TextField,
   Typography,
   useTheme,
 } from "@mui/material";
-import { GridDeleteIcon } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Add } from "@mui/icons-material";
-import { tokens } from "../../theme";
-import { useUpdateOptionsMutation } from "../../state/api";
+import { tokens } from "../../../theme";
+import { useUpdateOptionsMutation } from "../../../state/api";
+import Notifications from "../../../components/Notifications/Notifications";
+import OptionsList from "./OptionsList";
 
 type Props = {
   configCategory: string[];
@@ -26,6 +21,8 @@ type Props = {
   title: string;
 };
 
+//Renders a configuration box with a list of options, the ability to add and remove options,
+// and the button to save changes
 function ConfigBox({ configCategory, name, title }: Props) {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -52,18 +49,22 @@ function ConfigBox({ configCategory, name, title }: Props) {
   };
 
   const handleAddOption = () => {
-    // Display error message if the option already exists
     if (!inputValue.trim()) {
       setErrorMessage("Can not be Empty!");
       return;
     }
-    if (options.includes(inputValue)) {
+    // Display error message if the option already exists
+    const productExist = options.find(
+      (product) => product.toUpperCase() === inputValue.toUpperCase()
+    );
+    if (productExist) {
       setErrorMessage(`${inputValue} already exist in ${title}..`);
       return;
     }
+
     setOptions([...options, inputValue]);
     setSuccessMessage(
-      `${inputValue} added to ${title}. Please do not forget to Save  the Chages!`
+      `${inputValue} added to ${title}. Please do not forget to SAVE THE CHANGES!`
     );
     setInputValue("");
     setIsEdited(true);
@@ -119,36 +120,7 @@ function ConfigBox({ configCategory, name, title }: Props) {
         sx={{ background: colors.secondary[600] }}
       />
       <CardContent sx={{ padding: 0 }}>
-        <List
-          sx={{
-            maxHeight: "445px",
-            overflow: "scroll",
-            background: colors.primary[400],
-          }}
-        >
-          {options.map((option) => (
-            <ListItem
-              sx={{
-                borderBottom: "1px dashed rgba(255, 255, 255, 0.1)",
-                "&:hover": {
-                  background: colors.primary[300],
-                },
-              }}
-              key={option}
-              secondaryAction={
-                <IconButton
-                  onClick={() => handleRemove(option)}
-                  edge="end"
-                  aria-label="delete"
-                >
-                  <GridDeleteIcon />
-                </IconButton>
-              }
-            >
-              <ListItemText primary={option} />
-            </ListItem>
-          ))}
-        </List>
+        <OptionsList options={options} handleRemove={handleRemove} />
       </CardContent>
       {/* Card footer */}
       <Box
@@ -158,6 +130,7 @@ function ConfigBox({ configCategory, name, title }: Props) {
           background: colors.primary[500],
         }}
       >
+        {/* Input Group */}
         <Box
           display="flex"
           justifyContent="space-between"
@@ -178,6 +151,7 @@ function ConfigBox({ configCategory, name, title }: Props) {
             <Add />
           </Button>
         </Box>
+        {/* SAVE CHANGES */}
         <Box p="15px 0" display="flex" justifyContent="center">
           <Button
             onClick={handleSave}
@@ -190,24 +164,11 @@ function ConfigBox({ configCategory, name, title }: Props) {
         </Box>
       </Box>
       {/* Notifications */}
-      {errorMessage && (
-        <Snackbar
-          open={errorMessage.length > 0}
-          autoHideDuration={4000}
-          onClose={() => handleCloseSnackbar("error")}
-        >
-          <Alert severity="error"> {errorMessage}</Alert>
-        </Snackbar>
-      )}
-      {successMessage && (
-        <Snackbar
-          open={successMessage.length > 0}
-          autoHideDuration={6000}
-          onClose={() => handleCloseSnackbar("success")}
-        >
-          <Alert severity="success">{successMessage}</Alert>
-        </Snackbar>
-      )}
+      <Notifications
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+        handleCloseSnackbar={handleCloseSnackbar}
+      />
     </Card>
   );
 }
