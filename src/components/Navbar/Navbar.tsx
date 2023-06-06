@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,25 +12,31 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { LightModeOutlined, DarkModeOutlined } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ColorModeContext, tokens } from "../../theme";
 import { useTheme } from "@mui/material";
+import { useContext, useState } from "react";
+import { UserAuth } from "../../context/AuthContext";
 
 const pages = [
   { name: "Dashboard", url: "/dashboard" },
   { name: "Configurations", url: "/config" },
 ];
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
 function Navbar() {
-  const [anchorElNav, setAnchorElNav] =
-    React.useState<HTMLButtonElement | null>(null);
-  const [anchorElUser, setAnchorElUser] =
-    React.useState<HTMLButtonElement | null>(null);
+  const [anchorElNav, setAnchorElNav] = useState<HTMLButtonElement | null>(
+    null
+  );
+  const [anchorElUser, setAnchorElUser] = useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const navigate = useNavigate();
+  const { user, signOutUser } = UserAuth();
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const colorMode = React.useContext(ColorModeContext);
+  const colorMode = useContext(ColorModeContext);
 
   const isDarkMode = theme.palette.mode === "dark";
 
@@ -48,6 +53,16 @@ function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
+      navigate("/");
+      console.log("User logged out!");
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -158,11 +173,26 @@ function Navbar() {
                 {isDarkMode ? <LightModeOutlined /> : <DarkModeOutlined />}
               </IconButton>
             </Tooltip>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {user ? (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={user.photoURL || "/static/images/avatar/2.jpg"}
+                  />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Link to={"/login"}>
+                <Typography
+                  variant="h4"
+                  sx={{ color: colors.secondary[500], display: "inline" }}
+                >
+                  {" "}
+                  LOGIN
+                </Typography>
+              </Link>
+            )}
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -179,11 +209,11 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography onClick={handleSignOut} textAlign="center">
+                  Logout
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

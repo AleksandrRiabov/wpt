@@ -22,13 +22,24 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
 import Team from "./scenes/Team/Team";
 import EditTRailer from "./scenes/EditTrailer/EditTrailer";
+import Login from "./scenes/Login/Login";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import Signup from "./scenes/Signup/Signup";
 
 const App = () => {
   const router = createHashRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route path="/" index element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/trailer/:id" element={<TrailerDetails />} />
         <Route path="/trailer/add" element={<AddTrailer />} />
         <Route path="/trailer/:id/edit" element={<EditTRailer />} />
@@ -38,7 +49,9 @@ const App = () => {
         <Route path="/team" element={<Team />} />
         <Route path="/week/:id" element={<Week />} />
         <Route path="/day/:id" element={<Day />} />
-        <Route path="*" element={<Home />} /> 
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<Home />} />
       </Route>
     )
   );

@@ -46,3 +46,13 @@ export const formatExtraCostName = (name: string) => {
   });
   return result;
 };
+
+export const setAccessTokenToCookie = (
+  token: string,
+  expirationInDays: number
+) => {
+  const date = new Date();
+  date.setTime(date.getTime() + expirationInDays * 24 * 60 * 60 * 1000);
+  const expires = `expires=${date.toUTCString()}`;
+  document.cookie = `accessToken=${token}; ${expires}; path=/`;
+};
