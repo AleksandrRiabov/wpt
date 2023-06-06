@@ -14,5 +14,8 @@ The front-end is being developed using ReactJS, Redux Toolkit (RTK), TypeScript,
 
 [Link to Back-End of this App](https://github.com/AleksandrRiabov/wptbackend)
 
-<img width="1488" alt="WPT Dashboard" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/bcd790d1-fd6b-4ad8-94a9-254623864c49">
+![Preview Image](https://github.com/AleksandrRiabov/wpt/assets/61385379/bcd790d1-fd6b-4ad8-94a9-254623864c49)
 <img width="1490" alt="WPT Trailer Details" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/199bb214-368b-42d0-b8f5-c81a7f2b9f70">
+
+
+
