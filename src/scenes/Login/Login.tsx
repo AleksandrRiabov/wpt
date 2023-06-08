@@ -1,19 +1,28 @@
-import { useState } from "react";
-import { Container, TextField, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import LoginWithGoogle from "./LoginWithGoogle";
 import { UserAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Notifications from "../../components/Notifications/Notifications";
+import DashboardBox from "../../components/dashboardBox/DashboardBox";
+import { PageHeader } from "../../components";
+import FlexBetween from "../../components/FlexBetween/FlexBetween";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("")
+  const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
 
   const { signInUser, user } = UserAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,8 +30,7 @@ const Login = () => {
 
     try {
       await signInUser(email, password);
-      setSuccessMessage(`Successfully ${user?.displayName} Signed in`)
-      navigate("/dashboard");
+      setSuccessMessage(`Successfully ${user?.displayName} Signed in`);
     } catch (error: any) {
       console.log(error);
       setErrorMessage(error.message);
@@ -38,40 +46,65 @@ const Login = () => {
   };
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: 2,
-      }}
-      maxWidth="xs"
-    >
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          fullWidth
-        />
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          fullWidth
-        />
-        <Button type="submit" variant="contained" color="secondary" fullWidth>
-          Login
-        </Button>
-      </form>
-      <LoginWithGoogle />
-      <Notifications 
-      errorMessage={errorMessage}
-      successMessage={successMessage}
-      handleCloseSnackbar={handleCloseSnackbar}
-      />
+    <Container>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="80vh"
+      >
+        <DashboardBox sx={{ padding: { xs: "15px", md: "40px" } }}>
+          <form onSubmit={handleSubmit}>
+            <Typography variant="h3" textAlign={"center"} p="10px 0 25px">
+              Login
+            </Typography>
+            <TextField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+              sx={{
+                margin: "10px 0",
+              }}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              fullWidth
+            />
+            <FlexBetween p="30px 0">
+              <Button type="submit" variant="contained" color="secondary">
+                Login
+              </Button>
+            </FlexBetween>
+          </form>
+          <LoginWithGoogle />
+
+          <Box pt="30px">
+            <Typography
+              variant="h5"
+              sx={{ color: "#fff" }}
+              textAlign="center"
+              pb="10px"
+            >
+              Don't have an account?
+            </Typography>
+            <Link to="/signup">
+              <Typography variant="h4" color="secondary" textAlign="center">
+                SIGN UP
+              </Typography>
+            </Link>
+          </Box>
+          <Notifications
+            errorMessage={errorMessage}
+            successMessage={successMessage}
+            handleCloseSnackbar={handleCloseSnackbar}
+          />
+        </DashboardBox>
+      </Box>
     </Container>
   );
 };
