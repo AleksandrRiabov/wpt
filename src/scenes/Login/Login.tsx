@@ -5,7 +5,6 @@ import { UserAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Notifications from "../../components/Notifications/Notifications";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
-import { PageHeader } from "../../components";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
 
 const Login = () => {
@@ -53,7 +52,9 @@ const Login = () => {
         alignItems="center"
         height="80vh"
       >
-        <DashboardBox sx={{ padding: { xs: "15px", md: "40px" } }}>
+        <DashboardBox
+          sx={{ padding: { xs: "15px", md: "40px", maxWidth: "400px" } }}
+        >
           <form onSubmit={handleSubmit}>
             <Typography variant="h3" textAlign={"center"} p="10px 0 25px">
               Login
