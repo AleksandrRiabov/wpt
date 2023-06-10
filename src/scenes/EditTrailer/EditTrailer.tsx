@@ -147,156 +147,149 @@ const EditTrailer = () => {
     });
   };
 
-  if (isError || isErrorOptions) {
-    return (
-      <FlexCenterCenter height="90vh">
-        <Typography variant="h4">
-          {isError
-            ? "Error.. Could not get trailer details. Please Try again later.."
-            : "Error.. Could not get options. Please Try again later.."}
-        </Typography>
-      </FlexCenterCenter>
-    );
-  }
-
-  // Wait for both API calls to complete before rendering
-  if (isLoadingOptions || !editTrailerData || !options) {
-    return (
-      <FlexCenterCenter height="90vh">
-        <CircularProgress />
-      </FlexCenterCenter>
-    );
-  }
-
   console.log("render Edit trailer");
   return (
     <Container maxWidth="xl">
       <PageHeader title="Edit Trailer" />
-      <DashboardBox>
-        <Box p="20px">
-          {data.isLoading ? (
-            <FlexCenterCenter>
-              <Typography variant="h3">Loading...</Typography>
-            </FlexCenterCenter>
-          ) : !trailer ? (
-            <FlexCenterCenter>
-              <Typography variant="h4">
-                We're sorry, but the trailer you're trying to access is not
-                available. It may have been removed or may have never existed.
-                Please check the ID and try again, or contact our support team
-                if you need further assistance.
-              </Typography>
-            </FlexCenterCenter>
-          ) : (
-            <>
-              <TrailerTitle
-                title={`${editTrailerData?.trailerNumber} -  ${editTrailerData?.loadType}`}
-                className={
-                  editTrailerData?.cert
-                    ? "certified-row"
-                    : editTrailerData?.alcohol
-                    ? "alcohol-row"
-                    : editTrailerData?.freightType === "Sea"
-                    ? "seafreight-row"
-                    : ""
-                }
-              />
-              <Box
-                display={"flex"}
-                sx={{ flexDirection: { xs: "column", md: "row" } }}
-              >
-                <EditInfoSection
-                  trailer={editTrailerData}
-                  handleChange={handleChange}
-                  handleDateChange={handleDateChange}
-                  handleCheckbox={handleCheckbox}
-                  handleExtraCostChange={handleExtraCostChange}
-                  options={options}
+      {isLoadingOptions || !editTrailerData || !options ? (
+        <FlexCenterCenter height="90vh">
+          <CircularProgress />
+        </FlexCenterCenter>
+      ) : isError || isErrorOptions ? (
+        <FlexCenterCenter height="90vh">
+          <Typography variant="h4">
+            {isError
+              ? "Error.. Could not get trailer details. Please Try again later.."
+              : "Error.. Could not get options. Please Try again later.."}
+          </Typography>
+        </FlexCenterCenter>
+      ) : (
+        <DashboardBox>
+          <Box p="20px">
+            {data.isLoading ? (
+              <FlexCenterCenter>
+                <Typography variant="h3">Loading...</Typography>
+              </FlexCenterCenter>
+            ) : !trailer ? (
+              <FlexCenterCenter>
+                <Typography variant="h4">
+                  We're sorry, but the trailer you're trying to access is not
+                  available. It may have been removed or may have never existed.
+                  Please check the ID and try again, or contact our support team
+                  if you need further assistance.
+                </Typography>
+              </FlexCenterCenter>
+            ) : (
+              <>
+                <TrailerTitle
+                  title={`${editTrailerData?.trailerNumber} -  ${editTrailerData?.loadType}`}
+                  className={
+                    editTrailerData?.cert
+                      ? "certified-row"
+                      : editTrailerData?.alcohol
+                      ? "alcohol-row"
+                      : editTrailerData?.freightType === "Sea"
+                      ? "seafreight-row"
+                      : ""
+                  }
                 />
                 <Box
-                  sx={{
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
+                  display={"flex"}
+                  sx={{ flexDirection: { xs: "column", md: "row" } }}
                 >
-                  {/* Extra Cost */}
-                  <Box>
-                    <EditExtraCost
-                      handleExtraCostChange={handleExtraCostChange}
-                      extraCost={editTrailerData?.extraCost || {}}
-                    />
-                  </Box>
-                  {/* Products Section */}
-                  <Box mt="40px" sx={{ maxWidth: "570px" }}>
-                    <AddProduct
-                      addProduct={addProduct}
-                      options={options.products}
-                    />
-                    <Box mt="20px">
-                      <EditProducts
-                        handleProductChange={handleProductChange}
-                        products={editTrailerData?.products}
+                  <EditInfoSection
+                    trailer={editTrailerData}
+                    handleChange={handleChange}
+                    handleDateChange={handleDateChange}
+                    handleCheckbox={handleCheckbox}
+                    handleExtraCostChange={handleExtraCostChange}
+                    options={options}
+                  />
+                  <Box
+                    sx={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    {/* Extra Cost */}
+                    <Box>
+                      <EditExtraCost
+                        handleExtraCostChange={handleExtraCostChange}
+                        extraCost={editTrailerData?.extraCost || {}}
                       />
+                    </Box>
+                    {/* Products Section */}
+                    <Box mt="40px" sx={{ maxWidth: "570px" }}>
+                      <AddProduct
+                        addProduct={addProduct}
+                        options={options.products}
+                      />
+                      <Box mt="20px">
+                        <EditProducts
+                          handleProductChange={handleProductChange}
+                          products={editTrailerData?.products}
+                        />
+                      </Box>
                     </Box>
                   </Box>
                 </Box>
-              </Box>
-            </>
-          )}
-        </Box>
-        {/* Bottom Section (Comments and Submit BTN) */}
-        <Container
-          sx={{
-            flexDirection: { xs: "column" },
-            display: "flex",
-          }}
-        >
-          {/* Comments */}
-          <Box flex="1" p="20px">
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              variant="outlined"
-              label="Add your comment here"
-              placeholder="Enter your text"
-              value={editTrailerData?.comments || ""}
-              onChange={handleChange}
-              name="comments"
-            />
+              </>
+            )}
           </Box>
-          {/* Submit BTN (Update Details) */}
-          <Box
-            flex="1"
-            justifyContent="center"
-            alignItems="center"
-            display="flex"
+          {/* Bottom Section (Comments and Submit BTN) */}
+          <Container
+            sx={{
+              flexDirection: { xs: "column" },
+              display: "flex",
+            }}
           >
-            <Button
-              variant="contained"
-              color="secondary"
-              sx={{
-                width: "50%",
-                maxWidth: "200px",
-                padding: "10px",
-                margin: "20px auto",
-              }}
-              onClick={handlePostTrailerDetails}
-              disabled={isLoading}
+            {/* Comments */}
+            <Box flex="1" p="20px">
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                variant="outlined"
+                label="Add your comment here"
+                placeholder="Enter your text"
+                value={editTrailerData?.comments || ""}
+                onChange={handleChange}
+                name="comments"
+              />
+            </Box>
+            {/* Submit BTN (Update Details) */}
+            <Box
+              flex="1"
+              justifyContent="center"
+              alignItems="center"
+              display="flex"
             >
-              {isLoading ? (
-                <CircularProgress
-                  sx={{ color: colors.secondary[500] }}
-                  size={24}
-                />
-              ) : (
-                "Update Details"
-              )}
-            </Button>
-          </Box>
-        </Container>
-      </DashboardBox>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{
+                  width: "50%",
+                  maxWidth: "200px",
+                  padding: "10px",
+                  margin: "20px auto",
+                }}
+                onClick={handlePostTrailerDetails}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <CircularProgress
+                    sx={{ color: colors.secondary[500] }}
+                    size={24}
+                  />
+                ) : (
+                  "Update Details"
+                )}
+              </Button>
+            </Box>
+          </Container>
+        </DashboardBox>
+      )}
       {/* Notifications  */}
       {isError && (
         <Snackbar open={isError} autoHideDuration={6000} onClose={() => {}}>
