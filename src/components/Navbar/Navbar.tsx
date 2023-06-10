@@ -174,7 +174,7 @@ function Navbar() {
               </IconButton>
             </Tooltip>
             {user ? (
-              <Tooltip title="Open settings">
+              <Tooltip title={user.displayName || user.email}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="Remy Sharp"
