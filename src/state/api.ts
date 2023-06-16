@@ -6,10 +6,28 @@ import {
   NewTrailer,
 } from "./types";
 
+import { getAuth, getIdToken } from "firebase/auth";
+
+const auth = getAuth();
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
-    credentials: "include",
+    prepareHeaders: async (headers) => {
+      const user = auth.currentUser;
+      const getAccessToken = async () => {
+        if (user) {
+          return await getIdToken(user);
+        } else return null;
+      };
+      const accessToken = await getAccessToken();
+
+      if (accessToken) {
+        headers.set("Authorization", `Bearer ${accessToken}`);
+      }
+
+      return headers;
+    },
   }),
   reducerPath: "main",
   endpoints: (build) => ({
