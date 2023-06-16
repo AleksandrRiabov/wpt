@@ -12,7 +12,7 @@ type Props = {
     pallets: number;
     category: string;
   }) => void;
-  options: GetOptionsDataResponse['products'];
+  options: GetOptionsDataResponse["products"];
 };
 
 type Product = {
@@ -21,7 +21,6 @@ type Product = {
   pallets: number;
   category: string;
 };
-
 
 const AddProduct = ({ addProduct, options }: Props) => {
   const [product, setProduct] = useState<Product | undefined>(undefined);
@@ -56,7 +55,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
   return (
     <Box
       sx={{
-        background: "rgba(255, 255, 255, 0.1)",
+        background: colors.primary[400],
         display: "flex",
         alignItems: "center",
         padding: "5px",

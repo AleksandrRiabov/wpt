@@ -89,7 +89,7 @@ export const tokens = (mode: PaletteMode) => ({
           200: "#2e000f",
           300: "#440017",
           400: "#5b001e",
-          500: "#720026",
+          500: "#cc7123",
           600: "#8e3351",
           700: "#aa667d",
           800: "#c799a8",
@@ -169,9 +169,12 @@ export const getDesignTokens = (mode: PaletteMode) => {
           }
         : {
             primary: {
-              main: colors.primary[100],
+              ...colors.primary,
+              main: colors.primary[700],
+              dark: colors.primary[700],
             },
             secondary: {
+              ...colors.secondary,
               main: colors.teal[500],
             },
             neutral: {
@@ -180,7 +183,7 @@ export const getDesignTokens = (mode: PaletteMode) => {
               light: colors.lightBlue[100],
             },
             background: {
-              default: colors.white[700],
+              default: colors.white[900],
             },
           }),
     },

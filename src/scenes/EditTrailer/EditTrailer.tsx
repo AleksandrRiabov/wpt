@@ -147,7 +147,6 @@ const EditTrailer = () => {
     });
   };
 
-  console.log("render Edit trailer");
   return (
     <Container maxWidth="xl">
       <PageHeader title="Edit Trailer" />

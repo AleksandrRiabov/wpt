@@ -188,7 +188,7 @@ const AddTrailer = () => {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ minHeight: "80vh" }}>
+    <Container maxWidth="xl" sx={{ minHeight: "85vh" }}>
       <PageHeader title="Add New Trailer" />
       <DashboardBox>
         <Box p="20px">

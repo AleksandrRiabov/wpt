@@ -6,9 +6,9 @@ const Home = () => {
     <Box
       className="page home-page"
       sx={{
-        bgcolor: "primary.main",
         width: "100%",
         display: "flex",
+        marginBottom: "-30px",
       }}
     >
       <Container

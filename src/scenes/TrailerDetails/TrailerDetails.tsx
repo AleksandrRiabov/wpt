@@ -24,7 +24,7 @@ const TrailerDetails = () => {
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ minHeight: "85vh" }}>
         <PageHeader title={` Trailer Details`} />
         <Box>
           {isLoading ? (

@@ -45,7 +45,7 @@ const gridTemplateSmallScreen = `
 const Dashboard = () => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 1200px)");
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ paddingBottom: "40px" }}>
       <PageHeader title="Dashboard" />
       <Box
         width="100%"

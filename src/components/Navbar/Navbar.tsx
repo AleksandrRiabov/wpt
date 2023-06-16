@@ -127,7 +127,15 @@ function Navbar() {
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Link to={page.url}>
-                    <Typography textAlign="center">{page.name}</Typography>
+                    <Typography
+                      sx={{
+                        color: colors.secondary[500],
+                        textTransform: "uppercase",
+                      }}
+                      textAlign="center"
+                    >
+                      {page.name}
+                    </Typography>
                   </Link>
                 </MenuItem>
               ))}
@@ -159,7 +167,12 @@ function Navbar() {
               <Link key={page.name} to={page.url}>
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    color: colors.secondary[300],
+                    display: "block",
+                    fontWeight: 500,
+                  }}
                 >
                   {page.name}
                 </Button>
