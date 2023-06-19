@@ -22,7 +22,7 @@ function OptionsList({ options, handleRemove }: Props) {
     <List
       sx={{
         maxHeight: "445px",
-        overflow: "scroll",
+        overflowY: "auto",
         background: colors.primary[400],
       }}
     >
