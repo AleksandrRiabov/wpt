@@ -108,11 +108,14 @@ const EditTrailer = () => {
     if (!editTrailerData) return;
     const { name, value } = e.target;
 
+    const cleanValue = !value.length ? " " : parseInt(value.trim());
+    if (!cleanValue) return;
+
     const foundProduct = editTrailerData.products.find(
       (product) => product.name === editingProduct
     );
     if (!foundProduct) return;
-    const updatedProduct = { ...foundProduct, [name]: value };
+    const updatedProduct = { ...foundProduct, [name]: cleanValue };
     const filteredProducts = editTrailerData.products.filter(
       (product) => product.name !== editingProduct
     );
@@ -144,6 +147,18 @@ const EditTrailer = () => {
     setEditTrailerData({
       ...editTrailerData,
       products: [...editTrailerData.products, product],
+    });
+  };
+
+  const handleRemoveProduct = (name: string) => {
+    if (!editTrailerData) return;
+    const filteredProducts = editTrailerData.products.filter(
+      (product) => product.name !== name
+    );
+
+    setEditTrailerData({
+      ...editTrailerData,
+      products: filteredProducts,
     });
   };
 
@@ -226,6 +241,7 @@ const EditTrailer = () => {
                       />
                       <Box mt="20px">
                         <EditProducts
+                          removeProduct={handleRemoveProduct}
                           handleProductChange={handleProductChange}
                           products={editTrailerData?.products}
                         />

@@ -32,7 +32,7 @@ const ProductList = ({ productsState, handleRemoveProduct }: Props) => {
         <ListItemText sx={{ width: "50%" }} primary={"PRODUCT NAME:"} />
         <ListItemText sx={{ width: "50%" }} primary={"PRODUCT CATEGORY:"} />
       </ListItem>
-      <Box sx={{ overflowY: "scroll", maxHeight: "315px" }}>
+      <Box sx={{ overflowY: "auto", maxHeight: "315px" }}>
         {productsState.map(({ name, category }) => (
           <ListItem
             sx={{

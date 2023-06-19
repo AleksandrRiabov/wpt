@@ -23,6 +23,7 @@ function OptionsList({ options, handleRemove }: Props) {
       sx={{
         maxHeight: "445px",
         overflowY: "auto",
+        scrollbarColor: "red green",
         background: colors.primary[400],
       }}
     >

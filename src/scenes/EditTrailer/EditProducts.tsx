@@ -1,5 +1,6 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Tooltip, Typography, useTheme } from "@mui/material";
 import { GetTrailersDataResponse } from "../../state/types";
+import { RemoveCircleOutline } from "@mui/icons-material";
 
 type Props = {
   products: GetTrailersDataResponse["products"] | undefined;
@@ -7,9 +8,15 @@ type Props = {
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     name: string
   ) => void;
+  removeProduct: (name: string) => void;
 };
 
-const EditProducts = ({ products, handleProductChange }: Props) => {
+const EditProducts = ({
+  products,
+  handleProductChange,
+  removeProduct,
+}: Props) => {
+  const theme = useTheme();
   return (
     <Box>
       {products?.map(({ name, cases, pallets }) => (
@@ -38,6 +45,14 @@ const EditProducts = ({ products, handleProductChange }: Props) => {
               value={cases}
               onChange={(e) => handleProductChange(e, name)}
             />
+          </Box>
+          <Box flex="0.3" display="flex" justifyContent="center">
+            <Tooltip title="Remove product">
+              <RemoveCircleOutline
+                onClick={() => removeProduct(name)}
+                sx={{ cursor: "pointer", color: theme.palette.error.main }}
+              />
+            </Tooltip>
           </Box>
         </Box>
       ))}
