@@ -36,13 +36,8 @@ export interface GetTrailersDataResponse {
     pallets: number;
     category: string;
   }[];
-
-  editedBy: [
-    {
-      name: String;
-      date: Date;
-    }
-  ];
+  createdBy: {name: string, email: string},
+  editedBy: {name: string, email: string},
 }
 
 export interface GetOptionsDataResponse {
@@ -51,6 +46,8 @@ export interface GetOptionsDataResponse {
   contractor: string[];
   crossed: string[];
   products: { name: string; category: string }[];
+  createdBy: {name: string, email: string},
+  editedBy: {name: string, email: string},
 }
 
 

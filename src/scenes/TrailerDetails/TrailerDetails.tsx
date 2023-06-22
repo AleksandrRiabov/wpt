@@ -7,7 +7,6 @@ import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import ProductsPieChart from "./ProductsPieChart";
 import InfoSection from "./InfoSection";
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
-import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { useEffect } from "react";
 
 const TrailerDetails = () => {
@@ -78,15 +77,34 @@ const TrailerDetails = () => {
                   ))}
                 </Box>
               </Box>
-              {/* comments section */}
-              <FlexBetween flex="1" mb="40px">
+              {/* Bottom section */}
+              <Box
+                flex="1"
+                mb="40px"
+                sx={{
+                  display: "flex",
+                  justifyContent: { md: "space-between", xs: "center" },
+                  alignItems: "center",
+                  flexDirection: { xs: "column", md: "row" },
+                }}
+              >
                 <Container>
                   <Typography variant="h4">Comments:</Typography>
                   <Typography variant="body1" color={colors.secondary[300]}>
                     {trailer.comments}
                   </Typography>
                 </Container>
-                <Container sx={{ display: "flex" }}>
+                <Container
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    pt: { xs: "20px" },
+                    mt: "10px",
+                    flexDirection: { xs: "column", md: "row" },
+                    borderTop: { xs: "1px dashed  #6c8991", sm: "none" },
+                  }}
+                >
                   <Link to={`/trailer/${id}/edit`}>
                     <Button
                       sx={{
@@ -101,8 +119,22 @@ const TrailerDetails = () => {
                       Edit
                     </Button>
                   </Link>
+                  <Box display="flex">
+                    <Box p="15px">
+                      <Typography>Created By:</Typography>
+                      <Typography>
+                        {trailer?.createdBy.name || trailer?.editedBy.email}
+                      </Typography>
+                    </Box>
+                    <Box p="15px">
+                      <Typography>Last Edited By:</Typography>
+                      <Typography>
+                        {trailer?.editedBy.name || trailer?.editedBy.email}
+                      </Typography>
+                    </Box>
+                  </Box>
                 </Container>
-              </FlexBetween>
+              </Box>
             </DashboardBox>
           )}
         </Box>
