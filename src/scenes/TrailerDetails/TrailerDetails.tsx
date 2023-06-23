@@ -122,14 +122,14 @@ const TrailerDetails = () => {
                   <Box display="flex">
                     <Box p="15px">
                       <Typography>Created By:</Typography>
-                      <Typography>
-                        {trailer?.createdBy.name || trailer?.editedBy.email}
+                      <Typography variant="overline">
+                        {trailer?.createdBy?.name || trailer?.createdBy?.email}
                       </Typography>
                     </Box>
                     <Box p="15px">
                       <Typography>Last Edited By:</Typography>
-                      <Typography>
-                        {trailer?.editedBy.name || trailer?.editedBy.email}
+                      <Typography variant="overline">
+                        {trailer?.editedBy?.name || trailer?.editedBy?.email}
                       </Typography>
                     </Box>
                   </Box>
