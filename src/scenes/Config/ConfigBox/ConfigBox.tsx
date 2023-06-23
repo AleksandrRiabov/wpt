@@ -14,6 +14,7 @@ import { tokens } from "../../../theme";
 import { useUpdateOptionsMutation } from "../../../state/api";
 import Notifications from "../../../components/Notifications/Notifications";
 import OptionsList from "./OptionsList";
+import OptionForm from "./OptionForm";
 
 type Props = {
   configCategory: string[];
@@ -28,7 +29,6 @@ function ConfigBox({ configCategory, name, title }: Props) {
   const colors = tokens(palette.mode);
 
   const [options, setOptions] = useState(configCategory);
-  const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isEdited, setIsEdited] = useState(false);
@@ -48,25 +48,25 @@ function ConfigBox({ configCategory, name, title }: Props) {
     setIsEdited(false);
   };
 
-  const handleAddOption = () => {
-    if (!inputValue.trim()) {
+  const handleAddOption = (newOption: string) => {
+    if (!newOption.trim()) {
       setErrorMessage("Can not be Empty!");
       return;
     }
     // Display error message if the option already exists
     const productExist = options.find(
-      (product) => product.toUpperCase() === inputValue.toUpperCase()
+      (product) => product.toUpperCase() === newOption.toUpperCase()
     );
     if (productExist) {
-      setErrorMessage(`${inputValue} already exist in ${title}..`);
+      setErrorMessage(`${newOption} already exist in ${title}..`);
       return;
     }
 
-    setOptions([...options, inputValue]);
+    setOptions([...options, newOption]);
     setSuccessMessage(
-      `${inputValue} added to ${title}. Please do not forget to SAVE THE CHANGES!`
+      `${newOption} added to ${title}. Please do not forget to SAVE THE CHANGES!`
     );
-    setInputValue("");
+
     setIsEdited(true);
   };
 
@@ -133,27 +133,8 @@ function ConfigBox({ configCategory, name, title }: Props) {
           background: colors.primary[500],
         }}
       >
-        {/* Input Group */}
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignContent="center"
-          p=" 10px"
-        >
-          <TextField
-            value={inputValue}
-            label="Add Option"
-            size="small"
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <Button
-            onClick={handleAddOption}
-            variant="contained"
-            color="secondary"
-          >
-            <Add />
-          </Button>
-        </Box>
+        {/* Options Form / Input*/}
+        <OptionForm handleAddOption={handleAddOption} />
         {/* SAVE CHANGES */}
         <Box p="15px 0" display="flex" justifyContent="center">
           <Button

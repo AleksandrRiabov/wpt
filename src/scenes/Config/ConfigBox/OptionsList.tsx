@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { GridDeleteIcon } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
+import { useEffect, useRef } from "react";
 
 type Props = {
   options: string[];
@@ -14,9 +15,22 @@ type Props = {
 };
 
 // Renders a list of options with a delete button for each option.
-function OptionsList({ options, handleRemove }: Props) {
+const OptionsList = ({ options, handleRemove }: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
+
+  const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    // Scroll to the top with animation when productsState changes
+    if (listRef.current) {
+      const scrollOptions: ScrollToOptions = {
+        top: 0,
+        behavior: "smooth",
+      };
+      listRef.current.scrollTo(scrollOptions);
+    }
+  }, [options]);
 
   return (
     <List
@@ -26,6 +40,7 @@ function OptionsList({ options, handleRemove }: Props) {
         scrollbarColor: "red green",
         background: colors.primary[400],
       }}
+      ref={listRef}
     >
       {options.map((option) => (
         <ListItem
@@ -51,6 +66,6 @@ function OptionsList({ options, handleRemove }: Props) {
       ))}
     </List>
   );
-}
+};
 
 export default OptionsList;
