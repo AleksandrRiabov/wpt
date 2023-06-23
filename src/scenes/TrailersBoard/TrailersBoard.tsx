@@ -122,6 +122,12 @@ const TrailersBoard = () => {
           columns={trailerColumns}
           getRowClassName={rowClassName}
           onRowDoubleClick={handleRowDoubleClick}
+          sortModel={[
+            {
+              field: "sentDate",
+              sort: "desc",
+            },
+          ]}
         />
       </Box>
       <style>
