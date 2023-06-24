@@ -1,5 +1,5 @@
 import "./style.css";
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import { DataGrid, GridCellParams, GridRowParams } from "@mui/x-data-grid";
 import { useGetTrailersDataQuery } from "../../state/api";
 import { useTheme } from "@mui/material";
@@ -97,18 +97,17 @@ const TrailersBoard = () => {
         <FlexBetween>
           {" "}
           <Typography variant="h4" pb="5px">
-            Recent trailers
+            Recent Trailers
           </Typography>
           <MuiDateRangePicker
             onDateChange={handleDateRangeChange}
             sessionStorageKey="trailersBoard"
           />
-          <Link to="/trailer/add">
-            {" "}
-            <Typography variant="h3" color={colors.secondary[500]}>
-              <AddBox fontSize="large" />
-            </Typography>
-          </Link>
+          <Tooltip title="Add new trailer">
+            <Link to="/trailer/add">
+              <AddBox sx={{ color: colors.secondary[500] }} fontSize="large" />
+            </Link>
+          </Tooltip>
         </FlexBetween>
       </Box>
       <Box
