@@ -14,17 +14,18 @@ import {
   AddTrailer,
   TrailerDetails,
   Config,
+  EditTrailer,
+  Login,
+  Signup,
+  Team,
 } from "./scenes";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer/Footer";
+
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
-import Team from "./scenes/Team/Team";
-import EditTRailer from "./scenes/EditTrailer/EditTrailer";
-import Login from "./scenes/Login/Login";
-
-import ProtectedRoute from "./components/ProtectedRoute";
-import Signup from "./scenes/Signup/Signup";
 
 const App = () => {
   const router = createHashRouter(
@@ -39,11 +40,39 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/trailer/:id" element={<TrailerDetails />} />
-        <Route path="/trailer/add" element={<AddTrailer />} />
-        <Route path="/trailer/:id/edit" element={<EditTRailer />} />
+        <Route
+          path="/trailer/:id"
+          element={
+            <ProtectedRoute>
+              <TrailerDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/trailer/add"
+          element={
+            <ProtectedRoute>
+              <AddTrailer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/trailer/:id/edit"
+          element={
+            <ProtectedRoute>
+              <EditTrailer />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/config" element={<Config />} />
+        <Route
+          path="/config"
+          element={
+            <ProtectedRoute>
+              <Config />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/team" element={<Team />} />
 
         <Route path="/week/:id" element={<Week />} />

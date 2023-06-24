@@ -4,6 +4,23 @@ import Week from "./Week/Week";
 import Day from "./Day/Day";
 import AddTrailer from "./AddTrailer/AddTrailer";
 import TrailerDetails from "./TrailerDetails/TrailerDetails";
+import EditTrailer from "./EditTrailer/EditTrailer";
 import Config from "./Config/Config";
+import Login from "./Login/Login";
+import Signup from "./Signup/Signup";
 
-export { Home, Dashboard, Week, Day, AddTrailer, TrailerDetails, Config };
+import Team from "./Team/Team";
+
+export {
+  Home,
+  Dashboard,
+  Week,
+  Day,
+  AddTrailer,
+  TrailerDetails,
+  EditTrailer,
+  Config,
+  Login,
+  Signup,
+  Team,
+};
