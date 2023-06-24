@@ -10,7 +10,7 @@ const OptionForm = ({ handleAddOption }: Props) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleBtnClick = () => {
-    handleAddOption(inputValue);
+    handleAddOption(inputValue.toUpperCase());
     setInputValue("");
   };
 

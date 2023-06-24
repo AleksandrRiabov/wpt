@@ -20,7 +20,10 @@ const ProductForm = ({ handleAddProduct }: Props) => {
     const { product, category } = inputValue;
     if (!product) return setValidationError("product");
     if (!category) return setValidationError("category");
-    handleAddProduct(inputValue);
+    handleAddProduct({
+      product: product.toUpperCase(),
+      category: category.toUpperCase(),
+    });
     setValidationError(null);
     setInputValue({ product: "", category: "" });
   };
