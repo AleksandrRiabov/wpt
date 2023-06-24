@@ -11,7 +11,7 @@ import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import MuiDateRangePicker from "../../components/DateRangePicker/MuiDateRangePicker";
 import { DateRange } from "../../state/types";
 import { formateDateRange } from "../../helpers";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Default date from in the query
 const today = new Date();
@@ -20,10 +20,15 @@ const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
 const TrailersBoard = () => {
   // Use the `useState` hook to manage date range query for fetching
   const [dateRangeQuery, setDateRangeQuery] = useState(defaultDateFrom);
-  const { data } = useGetTrailersDataQuery(dateRangeQuery);
+  const { data, isLoading, isError, refetch } =
+    useGetTrailersDataQuery(dateRangeQuery);
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
   const history = useNavigate();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   // function to handle row double-click
   const handleRowDoubleClick = (params: GridRowParams) => {
@@ -128,6 +133,13 @@ const TrailersBoard = () => {
               sort: "desc",
             },
           ]}
+          localeText={{
+            noRowsLabel: isLoading
+              ? "Loading..."
+              : isError
+              ? "Error.. Please try again later."
+              : "No trailers have been found for selected Dates.",
+          }}
         />
       </Box>
       <style>

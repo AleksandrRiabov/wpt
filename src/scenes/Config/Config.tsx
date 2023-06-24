@@ -12,12 +12,16 @@ const Config = () => {
   const [updatedDataState, setUpdatedDataState] =
     useState<GetOptionsDataResponse | null>(null);
 
-  const { data, isLoading, isError } = useGetOptionsDataQuery();
+  const { data, isLoading, isError, refetch } = useGetOptionsDataQuery();
 
   useEffect(() => {
     if (!data) return;
     setUpdatedDataState(data);
   }, [data]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   console.log("render");
 
