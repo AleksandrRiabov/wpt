@@ -21,9 +21,7 @@ const Config = () => {
 
   useEffect(() => {
     refetch();
-  }, []);
-
-  console.log("render");
+  }, [refetch]);
 
   return (
     <Container maxWidth="xl" sx={{ marginBottom: "20px" }}>
