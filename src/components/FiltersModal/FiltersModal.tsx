@@ -33,7 +33,17 @@ function FiltersModal({ children, open, handleClose }: Props) {
         <Box sx={style}>
           <Close
             onClick={handleClose}
-            style={{ position: "absolute", top: 10, right: 10 }}
+            sx={{
+              position: "absolute",
+              top: 10,
+              right: 10,
+              cursor: "pointer",
+              "&:hover": {
+                background: "rgba(255, 255, 255, 0.1)",
+                borderRadius: "50%",
+                padding: "3px",
+              },
+            }}
             color="secondary"
           />
           {children}
