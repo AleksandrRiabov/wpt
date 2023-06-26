@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Tooltip, Typography, useTheme } from "@mui/material";
 import FlexBetween from "../FlexBetween/FlexBetween";
 import { tokens } from "../../theme";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -15,14 +15,16 @@ const BoxHeader = ({ icon, title, subtitle, handleOpen }: Props) => {
   const colors = tokens(palette.mode);
 
   return (
-    <Box onClick={handleOpen} sx={{ cursor: "pointer" }}>
+    <Box>
       <FlexBetween color={colors.white[100]} margin="1.5rem 1rem 0 1rem">
         <FlexBetween>
           {icon}
           <Box width="100%">
-            <Typography variant="h4" mb="-0.1rem">
-              {title}
-            </Typography>
+            <Tooltip title="Selected Products / Categories">
+              <Typography variant="h4" mb="-0.1rem">
+                {title}
+              </Typography>
+            </Tooltip>
             <Typography variant="h6" mb="-0.1rem">
               {subtitle}
             </Typography>
@@ -34,10 +36,12 @@ const BoxHeader = ({ icon, title, subtitle, handleOpen }: Props) => {
             fontWeight="700"
             color={colors.secondary[500]}
           >
-            <FlexBetween>
-              <SettingsIcon />
-              Settings{" "}
-            </FlexBetween>
+            <Tooltip title="Open Chart Settings">
+              <FlexBetween onClick={handleOpen} sx={{ cursor: "pointer" }}>
+                <SettingsIcon />
+                Settings{" "}
+              </FlexBetween>
+            </Tooltip>
           </Typography>
         </FlexBetween>
       </FlexBetween>
