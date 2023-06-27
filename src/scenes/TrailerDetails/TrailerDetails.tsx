@@ -1,6 +1,6 @@
 import { Box, Button, Container, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { PageHeader } from "../../components";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import { useGetTrailersDataQuery } from "../../state/api";
 import { Link, useParams } from "react-router-dom";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
@@ -8,6 +8,7 @@ import ProductsPieChart from "./ProductsPieChart";
 import InfoSection from "./InfoSection";
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
 import { useEffect } from "react";
+
 
 const TrailerDetails = () => {
   const { id } = useParams();

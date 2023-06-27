@@ -28,10 +28,8 @@ const ProductsSection = ({
       <AddProduct addProduct={addProduct} options={options} />
 
       {/* Render Products */}
-      {products?.length ? (
+      {products?.length && (
         <ProductsTable products={products} removeProduct={removeProduct} />
-      ) : (
-        ""
       )}
     </>
   );

@@ -23,7 +23,7 @@ type Product = {
 };
 
 const AddProduct = ({ addProduct, options }: Props) => {
-  const [product, setProduct] = useState<Product | undefined>(undefined);
+  const [product, setProduct] = useState<Product>({} as Product);
   const [error, setError] = useState(false);
 
   const { palette } = useTheme();
@@ -39,7 +39,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
     setProduct({ ...product!, [name]: value });
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!product?.name || !product.cases) {
       setError(true);
@@ -68,12 +68,13 @@ const AddProduct = ({ addProduct, options }: Props) => {
           <TextField
             name="name"
             label="Product Name"
-            value={product?.name || ""}
+            value={product.name || ""}
             fullWidth
             select
             onChange={handleChange}
             error={error && !product?.name}
             helperText={error && !product?.name && "Select Product"}
+            required
           >
             {options.map((option) => (
               <MenuItem key={option.name} value={option.name}>
@@ -88,7 +89,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
             autoComplete="off"
             name="pallets"
             label="Pallets"
-            value={product?.pallets || ""}
+            value={product.pallets || ""}
             fullWidth
             onChange={handleChange}
           />
@@ -99,7 +100,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
             autoComplete="off"
             name="cases"
             label="Cases"
-            value={product?.cases || ""}
+            value={product.cases || ""}
             fullWidth
             onChange={handleChange}
             error={error && !product?.cases}

@@ -19,13 +19,14 @@ import {
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
 import EditInfoSection from "./EditInfoSection";
 import { GetTrailersDataResponse } from "../../state/types";
-import { PageHeader } from "../../components";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import { tokens } from "../../theme";
 import EditProducts from "./EditProducts";
 import AddProduct from "../AddTrailer/AddProduct";
 import EditExtraCost from "./EditExtraCost";
 import TrailerTitle from "../../components/TrailerTitle/TrailerTitle";
+
 
 const EditTrailer = () => {
   const { id } = useParams();

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormState } from "./AddTrailer";
+import { FormState } from "./types";
 
 type Props = {
   trailerNumber: FormState["trailerNumber"];

@@ -1,9 +1,10 @@
 import { Grid, MenuItem, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import FlexBetween from "../../components/FlexBetween/FlexBetween";
-import { FormState } from "./AddTrailer";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { GetOptionsDataResponse } from "../../state/types";
+import FlexBetween from "../../components/FlexBetween/FlexBetween";
+
+import { FormState } from "./types";
 
 type ValidationError = { error: boolean; message: string };
 

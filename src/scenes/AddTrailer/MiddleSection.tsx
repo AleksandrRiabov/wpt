@@ -5,8 +5,8 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
-import { FormState } from "./AddTrailer";
 import { GetOptionsDataResponse } from "../../state/types";
+import { FormState } from "./types";
 type ValidationError = { error: boolean; message: string };
 
 type Props = {
@@ -36,7 +36,7 @@ const MiddleSection = ({
           value={formState.reference}
           fullWidth
           onChange={handleChange}
-          disabled={formState.contractor === "JCARRION" ? true : false}
+          disabled={formState.contractor === "JCARRION"}
           error={referenceError?.error}
           helperText={referenceError?.message}
         />

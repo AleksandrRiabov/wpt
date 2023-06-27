@@ -3,10 +3,11 @@ import { GetOptionsDataResponse } from "../../state/types";
 import { useGetOptionsDataQuery } from "../../state/api";
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
-import { PageHeader } from "../../components";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import ConfigBox from "./ConfigBox/ConfigBox";
 import ConfigProductBox from "./ConfigProductBox/ConfigProductBox";
+
 
 const Config = () => {
   const [updatedDataState, setUpdatedDataState] =
