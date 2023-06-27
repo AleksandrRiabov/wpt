@@ -1,17 +1,21 @@
 import "./style.css";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useGetTrailersDataQuery } from "../../../../state/api";
+import { tokens } from "../../../../theme";
+
+import FlexBetween from "../../../../components/FlexBetween/FlexBetween";
+import MuiDateRangePicker from "../../../../components/DateRangePicker/MuiDateRangePicker";
+
 import { Box, Tooltip, Typography } from "@mui/material";
 import { DataGrid, GridCellParams, GridRowParams } from "@mui/x-data-grid";
-import { useGetTrailersDataQuery } from "../../state/api";
 import { useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import { format, subDays } from "date-fns";
-import { Link, useNavigate } from "react-router-dom";
 import { AddBox } from "@mui/icons-material";
-import FlexBetween from "../../components/FlexBetween/FlexBetween";
-import MuiDateRangePicker from "../../components/DateRangePicker/MuiDateRangePicker";
-import { DateRange } from "../../state/types";
-import { formateDateRange } from "../../helpers";
-import { useEffect, useState } from "react";
+
+import { DateRange } from "../../../../state/types";
+import { format, subDays } from "date-fns";
+import { formateDateRange } from "../../../../helpers";
 
 // Default date from in the query
 const today = new Date();
