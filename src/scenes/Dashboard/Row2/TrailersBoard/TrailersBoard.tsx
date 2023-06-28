@@ -33,7 +33,7 @@ const TrailersBoard = () => {
 
   useEffect(() => {
     refetch();
-  }, [refetch]);
+  }, [refetch, dateRangeQuery]);
 
   // function to handle row double-click
   const handleRowDoubleClick = (params: GridRowParams) => {
