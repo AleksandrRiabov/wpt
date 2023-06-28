@@ -21,7 +21,7 @@ type Props = {
   handleClose: () => void;
 };
 
-function FiltersModal({ children, open, handleClose }: Props) {
+function ModalWrapper({ children, open, handleClose }: Props) {
   return (
     <div>
       <Modal
@@ -53,4 +53,4 @@ function FiltersModal({ children, open, handleClose }: Props) {
   );
 }
 
-export default FiltersModal;
+export default ModalWrapper;

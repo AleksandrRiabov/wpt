@@ -12,7 +12,7 @@ import {
 import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 import ChartFilters from "../ChartFilters";
-import FiltersModal from "../../../components/FiltersModal/FiltersModal";
+import FiltersModal from "../../../components/ModalWrapper/ModalWrapper";
 import useGetCategories from "../../../hooks/useGetCategories";
 import useFormatChartData from "../../../hooks/useFormatChartData";
 import { DateRange } from "../../../state/types";

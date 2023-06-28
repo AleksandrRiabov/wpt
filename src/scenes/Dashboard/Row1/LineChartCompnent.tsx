@@ -13,7 +13,7 @@ import {
 } from "recharts";
 import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
-import FiltersModal from "../../../components/FiltersModal/FiltersModal";
+import FiltersModal from "../../../components/ModalWrapper/ModalWrapper";
 import ChartFilters from "../ChartFilters";
 import useGetCategories from "../../../hooks/useGetCategories";
 import useFormatChartData from "../../../hooks/useFormatChartData";
