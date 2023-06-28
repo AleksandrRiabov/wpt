@@ -67,6 +67,7 @@ export const api = createApi({
       }),
     }),
 
+    // PUT request to update options
     updateOptions: build.mutation<
       void,
       { name: string; options: string[] | { name: string; category: string }[] }
@@ -75,6 +76,14 @@ export const api = createApi({
         url: `/options`,
         method: "PUT",
         body: details,
+      }),
+    }),
+
+    // DELETE request to delete a trailer
+    deleteTrailer: build.mutation<void, string>({
+      query: (trailerId) => ({
+        url: `/trailer/${trailerId}`,
+        method: "DELETE",
       }),
     }),
   }),
@@ -87,4 +96,5 @@ export const {
   useUpdateOptionsMutation,
   useCreateTrailerMutation,
   useUpdateTrailerMutation,
+  useDeleteTrailerMutation,
 } = api;

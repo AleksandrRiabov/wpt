@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Container, Typography, useTheme } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useGetTrailersDataQuery } from "../../state/api";
@@ -8,12 +8,14 @@ import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter
 import PageHeader from "../../components/PageHeader/PageHeader";
 import InfoSection from "./InfoSection";
 import ProductsPieChart from "./ProductsPieChart";
+import DeleteModalPopUp from "./DeleteModalPopUp";
 
 const TrailerDetails = () => {
   const { id } = useParams();
   const { data, isLoading, isError, refetch } = useGetTrailersDataQuery(
     `_id=${id}`
   );
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const trailer = data && data[0];
 
   useEffect(() => {
@@ -118,7 +120,6 @@ const TrailerDetails = () => {
                       sx={{
                         width: "80%",
                         maxWidth: "300px",
-                        padding: "10px",
                         margin: "0 auto",
                       }}
                       variant="contained"
@@ -127,6 +128,19 @@ const TrailerDetails = () => {
                       Edit
                     </Button>
                   </Link>
+                  <Button
+                    onClick={() => setOpenDeleteModal(true)}
+                    variant="contained"
+                    sx={{ color: "red" }}
+                  >
+                    Delete
+                  </Button>
+                  <DeleteModalPopUp
+                    trailerId={id!}
+                    trailerNumber={trailer.trailerNumber}
+                    open={openDeleteModal}
+                    handleClose={() => setOpenDeleteModal(false)}
+                  />
                   <Box display="flex">
                     <Box p="15px">
                       <Typography>Created By:</Typography>
