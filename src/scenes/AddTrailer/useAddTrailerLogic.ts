@@ -31,7 +31,7 @@ const initialFormState: Omit<FormState, "products"> = {
 
 const useAddTrailerLogic = () => {
   const [formState, setFormState] = useState<FormState>(initialFormState);
-  const [createTrailer, { isLoading, isError, isSuccess }] =
+  const [createTrailer, { isLoading, isError, error, isSuccess }] =
     useCreateTrailerMutation();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -60,16 +60,29 @@ const useAddTrailerLogic = () => {
     if (isValidated) {
       try {
         await createTrailer(formState);
-        setSuccessMessage(
-          `New trailer ${formState.trailerNumber} has been created.`
-        );
         setFormState(initialFormState);
       } catch (error) {
-        setErrorMessage("Error. Please try again later..");
         console.log(error);
       }
     }
   };
+
+  // useEffects for updating notification messages
+  useEffect(() => {
+    if (error) {
+      if ("status" in error) {
+        setErrorMessage("Error. Please try again later..");
+      }
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setSuccessMessage(
+        `New trailer ${formState.trailerNumber} has been created.`
+      );
+    }
+  }, [isSuccess, formState.trailerNumber]);
 
   // Generate Reference if Contractor JCARRION
   useEffect(() => {
