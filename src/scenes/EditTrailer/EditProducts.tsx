@@ -1,6 +1,7 @@
 import { Box, TextField, Tooltip, Typography, useTheme } from "@mui/material";
-import { GetTrailersDataResponse } from "../../state/types";
 import { RemoveCircleOutline } from "@mui/icons-material";
+
+import { GetTrailersDataResponse } from "../../state/types";
 
 type Props = {
   products: GetTrailersDataResponse["products"] | undefined;

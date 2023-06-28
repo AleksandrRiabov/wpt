@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   IconButton,
   List,
@@ -7,7 +8,6 @@ import {
 } from "@mui/material";
 import { GridDeleteIcon } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
-import { useEffect, useRef } from "react";
 
 type Props = {
   options: string[];
@@ -23,13 +23,13 @@ const OptionsList = ({ options, handleRemove }: Props) => {
 
   useEffect(() => {
     // Scroll to the top with animation when productsState changes
-    if (listRef.current) {
-      const scrollOptions: ScrollToOptions = {
-        top: 0,
-        behavior: "smooth",
-      };
-      listRef.current.scrollTo(scrollOptions);
-    }
+    const scrollToTop = () => {
+      if (listRef.current) {
+        listRef.current.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+
+    scrollToTop();
   }, [options]);
 
   return (

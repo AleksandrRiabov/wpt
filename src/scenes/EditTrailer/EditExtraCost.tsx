@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import { Box, Typography } from "@mui/material";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { countExtraCharges, formatExtraCostName } from "../../helpers";
 import { GetTrailersDataResponse } from "../../state/types";
@@ -12,7 +12,7 @@ type Props = {
   ) => void;
 };
 
-function EditExtraCost({ extraCost, handleExtraCostChange }: Props) {
+const EditExtraCost = ({ extraCost, handleExtraCostChange }: Props) => {
   return (
     <Box
       sx={{
@@ -45,6 +45,6 @@ function EditExtraCost({ extraCost, handleExtraCostChange }: Props) {
       </FlexBetween>
     </Box>
   );
-}
+};
 
 export default EditExtraCost;

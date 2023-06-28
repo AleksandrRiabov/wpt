@@ -20,6 +20,7 @@ import { formateDateRange } from "../../../../helpers";
 // Default date from in the query
 const today = new Date();
 const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
+const dateFormat = "EEE dd/MM/yy";
 
 const TrailersBoard = () => {
   // Use the `useState` hook to manage date range query for fetching
@@ -50,7 +51,7 @@ const TrailersBoard = () => {
       renderCell: (params: GridCellParams) => {
         const sentDate = params.row.sentDate;
         if (!sentDate) return "N/A";
-        const formattedDate = format(new Date(sentDate), "EEE dd/MM/yy");
+        const formattedDate = format(new Date(sentDate), dateFormat);
         return formattedDate;
       },
     },
@@ -61,7 +62,7 @@ const TrailersBoard = () => {
       renderCell: (params: GridCellParams) => {
         const deliveryDate = params.row.deliveryDate;
         if (!deliveryDate) return "N/A";
-        const formattedDate = format(new Date(deliveryDate), "EEE dd/MM/yy");
+        const formattedDate = format(new Date(deliveryDate), dateFormat);
         return formattedDate;
       },
     },
@@ -72,7 +73,7 @@ const TrailersBoard = () => {
       renderCell: (params: GridCellParams) => {
         const clearance = params.row.clearance;
         if (!clearance) return "N/A";
-        const formattedDate = format(new Date(clearance), "EEE dd/MM/yy");
+        const formattedDate = format(new Date(clearance), dateFormat);
         return formattedDate;
       },
     },
