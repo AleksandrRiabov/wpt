@@ -8,6 +8,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import InfoSection from "./InfoSection";
 import ProductsPieChart from "./ProductsPieChart";
 import BottomSection from "./BottomSection";
+import ProductsInfoSection from "./ProductsInfoSection";
 
 const TrailerDetails = () => {
   const { id } = useParams();
@@ -64,25 +65,8 @@ const TrailerDetails = () => {
                   </Box>
                 </Box>
               </Box>
-
-              <Box
-                display="flex"
-                sx={{
-                  alignSelf: { lg: "flex-end" },
-                  width: { lg: "50%" },
-                  textAlign: "center",
-                }}
-              >
-                {/* Products section */}
-                <Box flex="1" sx={{}} p="20px">
-                  {trailer?.products.map((product) => (
-                    <Typography
-                      variant="subtitle1"
-                      key={product.name}
-                    >{`- ${product.name}: ${product.pallets} pallets - ${product.cases} cases`}</Typography>
-                  ))}
-                </Box>
-              </Box>
+              {/* Products section */}
+              <ProductsInfoSection trailer={trailer} />
               {/* Bottom section */}
               <BottomSection
                 id={id!}
