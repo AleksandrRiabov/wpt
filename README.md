@@ -14,6 +14,12 @@ The front-end is being developed using ReactJS, Redux Toolkit (RTK), TypeScript,
 
 [Link to Back-End of this App](https://github.com/AleksandrRiabov/wptbackend)
 
+### Deployed
+Not 100% ready yet.. Also, keep in mind that it might take a while until you get the first response from the server due to Free hosting.
+
+Link to [Deployed ](https://warehouse-planning-tool.onrender.com/) 
+
+
 ![Preview Image](https://github.com/AleksandrRiabov/wpt/assets/61385379/bcd790d1-fd6b-4ad8-94a9-254623864c49)
 <img width="1490" alt="WPT Trailer Details" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/199bb214-368b-42d0-b8f5-c81a7f2b9f70">
 
