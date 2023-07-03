@@ -1,5 +1,10 @@
 import { Button, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
+import { format } from "date-fns";
+import { Link } from "react-router-dom";
+
+// Default date from in the query
+const today = format(new Date(), "dd-MM-yyyy");
 
 const Home = () => {
   return (
@@ -41,22 +46,24 @@ const Home = () => {
             >
               WPT - Warehouse Planning Tool
             </Typography>
-            <Typography variant="h6">
+            <Typography variant="h4">
               Designed to assist warehouse managers in streamlining the process
               of estimating the required number of trailers at the time of
               receiving an order.
             </Typography>
             <Box sx={{ padding: "30px 0" }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{
-                  color: "primary.contrastText",
-                  marginRight: "50px",
-                }}
-              >
-                Today
-              </Button>
+              <Link to={`/day/${today}`}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    color: "primary.contrastText",
+                    marginRight: "50px",
+                  }}
+                >
+                  Today
+                </Button>
+              </Link>
               <Button
                 variant="contained"
                 color="secondary"
