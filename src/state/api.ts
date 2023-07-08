@@ -36,6 +36,10 @@ export const api = createApi({
       query: (range) => `day/?${range}`,
     }),
 
+    // WakeUp SERVER
+    getWakeUpServer: build.query<void, void>({
+      query: () => `server-wake-up-alarm`,
+    }),
     // Get trailers data within the date range
     getTrailersData: build.query<Array<GetTrailersDataResponse>, string>({
       query: (query) => `trailers/?${query}`,
@@ -93,6 +97,7 @@ export const {
   useGetDaysDataQuery,
   useGetTrailersDataQuery,
   useGetOptionsDataQuery,
+  useGetWakeUpServerQuery,
   useUpdateOptionsMutation,
   useCreateTrailerMutation,
   useUpdateTrailerMutation,
