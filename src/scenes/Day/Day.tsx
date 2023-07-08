@@ -1,6 +1,5 @@
 import { Box, Container } from "@mui/material";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import { useCallback, useState } from "react";
 import EditableProductsList from "./EditableProductList/EditableProductsList";
 import { DataRow } from "./types";
@@ -15,6 +14,7 @@ const initialData = [
     expectedPallets: 12,
     expectedCases: 120,
     expectedTrailers: "Trailer 2",
+    coefficient: 33,
   },
   {
     id: 2,
@@ -25,6 +25,7 @@ const initialData = [
     expectedPallets: 8,
     expectedCases: 80,
     expectedTrailers: "Trailer 4",
+    coefficient: 33,
   },
   {
     id: 3,
@@ -35,6 +36,7 @@ const initialData = [
     expectedPallets: 12,
     expectedCases: 120,
     expectedTrailers: "Trailer 2",
+    coefficient: 33,
   },
   {
     id: 4,
@@ -45,12 +47,13 @@ const initialData = [
     expectedPallets: 8,
     expectedCases: 80,
     expectedTrailers: "Trailer 4",
+    coefficient: 33,
   },
   // Add more rows as needed
 ];
 
 const Day = () => {
-  const [tableData, setTableData] = useState(initialData);
+  const [tableData, setTableData] = useState<DataRow[]>(initialData);
 
   const updateProduct = useCallback(
     ({
@@ -93,20 +96,15 @@ const Day = () => {
   return (
     <Container maxWidth="xl" sx={{ minHeight: "85vh" }}>
       <PageHeader title={`Day `} />
-      <DashboardBox>
+      <Box maxWidth="xs">
         <Box
           sx={{
-            width: { xs: "100%", lg: "80%" },
             overflowX: "auto",
-            padding: "20px",
           }}
         >
-          <EditableProductsList
-            updateProduct={updateProduct}
-            tableData={tableData}
-          />
+          <EditableProductsList updateProduct={updateProduct} />
         </Box>
-      </DashboardBox>
+      </Box>
     </Container>
   );
 };

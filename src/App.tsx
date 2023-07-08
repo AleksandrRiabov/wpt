@@ -77,7 +77,7 @@ const App = () => {
         <Route path="/team" element={<Team />} />
 
         <Route path="/week/:id" element={<Week />} />
-        <Route path="/day/:id" element={<Day />} />
+        <Route path="/day/:date" element={<Day />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

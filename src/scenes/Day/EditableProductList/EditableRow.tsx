@@ -1,8 +1,9 @@
 import { Box, Tooltip, Typography, useTheme } from "@mui/material";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import SingleCell from "./SingleCell";
 import { DataRow } from "../types";
 import { tokens } from "../../../theme";
+import { useParams } from "react-router-dom";
 
 type Props = {
   row: DataRow;
@@ -23,6 +24,15 @@ const EditableRow = ({ row, updateProduct }: Props) => {
     cases: row.cases,
   });
 
+  const { date } = useParams();
+
+  useEffect(() => {
+    setInputsValue({
+      pallets: row.pallets,
+      cases: row.cases,
+    });
+  }, [date, row.pallets, row.cases]);
+
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
@@ -38,78 +48,80 @@ const EditableRow = ({ row, updateProduct }: Props) => {
   const handleProductChange = () => {
     updateProduct({
       name: row.name,
-      pallets: inputsValue.pallets,
-      cases: inputsValue.cases,
+      pallets: +inputsValue.pallets,
+      cases: +inputsValue.cases,
     });
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        border: "1px solid #dedede",
-        "&:hover": { border: "1px solid #fff", color: colors.secondary[500] },
-      }}
-    >
-      <Box display="flex" flex="1">
-        <SingleCell flex="1" sx={{ background: colors.primary[700] }}>
-          <Typography>{row.name}</Typography>
-        </SingleCell>
-        {/* Editable Cells */}
-        <SingleCell
-          flex="1"
-          sx={{
-            borderRight: `1px dashed ${colors.primary[400]}`,
-            borderLeft: `1px solid ${colors.primary[400]}`,
-          }}
-        >
-          <input
-            name="cases"
-            type="number"
-            value={inputsValue.cases}
-            onChange={handleChange}
-            onBlur={handleProductChange}
-            style={{ width: "50px" }}
-          />
-        </SingleCell>
-        <SingleCell flex="1">
-          <input
-            name="pallets"
-            type="number"
-            value={inputsValue.pallets}
-            onChange={handleChange}
-            onBlur={handleProductChange}
-            style={{ width: "60px" }}
-          />
-        </SingleCell>
-        {/* ========== */}
-        <Tooltip title="Trailers">
-          <SingleCell flex="1" sx={{ background: colors.primary[300] }}>
-            0.25
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          border: "1px solid #dedede",
+          "&:hover": { border: "1px solid #fff", color: colors.secondary[500] },
+        }}
+      >
+        <Box display="flex" flex="1">
+          <SingleCell flex="1" sx={{ background: colors.primary[700] }}>
+            <Typography>{row.name}</Typography>
           </SingleCell>
-        </Tooltip>
-      </Box>
-      {/* Expected data */}
-      <Box display="flex" flex="1">
-        <Tooltip title="Expected Cases">
-          <SingleCell flex="1">{row.cases}</SingleCell>
-        </Tooltip>
-        <Tooltip title="Expected Pallets">
+          {/* Editable Cells */}
           <SingleCell
             flex="1"
             sx={{
               borderRight: `1px dashed ${colors.primary[400]}`,
-              borderLeft: `1px dashed ${colors.primary[400]}`,
+              borderLeft: `1px solid ${colors.primary[400]}`,
             }}
           >
-            {row.pallets}
+            <input
+              name="cases"
+              type="number"
+              value={inputsValue.cases}
+              onChange={handleChange}
+              onBlur={handleProductChange}
+              style={{ width: "60px" }}
+            />
           </SingleCell>
-        </Tooltip>
-        <Tooltip title="Expected Trailers">
-          <SingleCell flex="1" sx={{ background: colors.primary[300] }}>
-            {row.trailers}
+          <SingleCell flex="1">
+            <input
+              name="pallets"
+              type="number"
+              value={inputsValue.pallets}
+              onChange={handleChange}
+              onBlur={handleProductChange}
+              style={{ width: "50px" }}
+            />
           </SingleCell>
-        </Tooltip>
+          {/* ========== */}
+          <Tooltip title="Trailers">
+            <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
+              {row.trailers}
+            </SingleCell>
+          </Tooltip>
+        </Box>
+        {/* =====  Expected data  ========*/}
+        <Box display="flex" flex="1">
+          <Tooltip title="Expected Cases">
+            <SingleCell flex="1">{row.expectedCases}</SingleCell>
+          </Tooltip>
+          <Tooltip title="Expected Pallets">
+            <SingleCell
+              flex="1"
+              sx={{
+                borderRight: `1px dashed ${colors.primary[400]}`,
+                borderLeft: `1px dashed ${colors.primary[400]}`,
+              }}
+            >
+              {row.expectedPallets}
+            </SingleCell>
+          </Tooltip>
+          <Tooltip title="Expected Trailers">
+            <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
+              {row.trailers}
+            </SingleCell>
+          </Tooltip>
+        </Box>
       </Box>
     </Box>
   );

@@ -16,7 +16,7 @@ const ProductsTableFooter = (props: Props) => {
         border: "1px solid",
       }}
     >
-      <Box flex="1">
+      <Box flex="1" sx={{ color: colors.secondary[500] }}>
         <Box display="flex" flex="1">
           <SingleCell flex="1" sx={{ background: colors.primary[700] }}>
             <Typography>
@@ -44,7 +44,7 @@ const ProductsTableFooter = (props: Props) => {
               </Typography>
             </Tooltip>
           </SingleCell>
-          <SingleCell flex="1" sx={{ background: colors.primary[300] }}>
+          <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
             <Tooltip title="Total Trailers">
               <Typography>
                 <strong>122</strong>
@@ -55,7 +55,7 @@ const ProductsTableFooter = (props: Props) => {
         <Box p="5px" sx={{ background: colors.secondary[500] }}></Box>
       </Box>
       {/* Expected data */}
-      <Box flex="1">
+      <Box flex="1" sx={{ color: colors.secondary[500] }}>
         <Box display="flex" flex="1">
           <SingleCell flex="1" sx={{ height: "60px" }}>
             <Tooltip title="Total Expected Cases">
@@ -71,7 +71,7 @@ const ProductsTableFooter = (props: Props) => {
               </Typography>
             </Tooltip>
           </SingleCell>
-          <SingleCell flex="1" sx={{ background: colors.primary[300] }}>
+          <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
             <Tooltip title="Total Expected Trilers">
               <Typography>
                 <strong>221</strong>

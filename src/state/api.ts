@@ -31,26 +31,23 @@ export const api = createApi({
   }),
   reducerPath: "main",
   endpoints: (build) => ({
+    // WakeUp SERVER
+    getWakeUpServer: build.query<void, void>({
+      query: () => `server-wake-up-alarm`,
+    }),
+
+    //=========  Products Day's demand =======
     // Get days data within the date range
     getDaysData: build.query<Array<GetDaysDataResponse>, string>({
       query: (range) => `day/?${range}`,
     }),
 
-    // WakeUp SERVER
-    getWakeUpServer: build.query<void, void>({
-      query: () => `server-wake-up-alarm`,
-    }),
+    // =========  Traailer ===========
     // Get trailers data within the date range
     getTrailersData: build.query<Array<GetTrailersDataResponse>, string>({
       query: (query) => `trailers/?${query}`,
     }),
-
-    // Get options (Product names, Load Types, Freight Types)
-    getOptionsData: build.query<GetOptionsDataResponse, void>({
-      query: () => `options`,
-    }),
-
-    // POST request with form data
+    // POST request with Trailer form data
     createTrailer: build.mutation<void, NewTrailer>({
       query: (formData) => ({
         url: "/trailer",
@@ -58,7 +55,6 @@ export const api = createApi({
         body: formData,
       }),
     }),
-
     // PUT request to update trailer details
     updateTrailer: build.mutation<
       void,
@@ -70,7 +66,18 @@ export const api = createApi({
         body: details,
       }),
     }),
-
+    // DELETE request to delete a trailer
+    deleteTrailer: build.mutation<void, string>({
+      query: (trailerId) => ({
+        url: `/trailer/${trailerId}`,
+        method: "DELETE",
+      }),
+    }),
+    // =============  Options =============
+    // Get options (Product names, Load Types, Freight Types)
+    getOptionsData: build.query<GetOptionsDataResponse, void>({
+      query: () => `options`,
+    }),
     // PUT request to update options
     updateOptions: build.mutation<
       void,
@@ -80,14 +87,6 @@ export const api = createApi({
         url: `/options`,
         method: "PUT",
         body: details,
-      }),
-    }),
-
-    // DELETE request to delete a trailer
-    deleteTrailer: build.mutation<void, string>({
-      query: (trailerId) => ({
-        url: `/trailer/${trailerId}`,
-        method: "DELETE",
       }),
     }),
   }),

@@ -8,6 +8,8 @@ export interface GetDaysDataResponse {
       cases: number;
       pallets: number;
       category: string;
+      coefficient: number;
+      expectedCases: number
     }
   ];
 }
