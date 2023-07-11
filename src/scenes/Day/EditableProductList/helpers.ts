@@ -1,4 +1,5 @@
 import { parse, format, addDays, subDays } from "date-fns";
+import { DataRow } from "../types";
 
 export const palletsToTrailers = (pallets: number) => {
   if (!pallets || isNaN(pallets)) return 0;
@@ -51,4 +52,28 @@ export const getFormattedDateWithAdjacentDays = (
     console.error("Error occurred while formatting date:", error);
     return { current: "Error Occurred", previous: "", next: "" };
   }
+};
+
+export const getDayTotals = (tableData: DataRow[]) => {
+  const initialTotals = {
+    cases: 0,
+    pallets: 0,
+    trailers: 0,
+    expectedCases: 0,
+    expectedPallets: 0,
+    expectedTrailers: 0,
+  };
+
+  const totals = tableData.reduce((prev, current) => {
+    return {
+      cases: +prev.cases + +current.cases,
+      pallets: +prev.pallets + +current.pallets,
+      trailers: +prev.trailers + +current.trailers,
+      expectedCases: +prev.expectedCases + +current.expectedCases,
+      expectedPallets: +prev.expectedPallets + +current.expectedPallets,
+      expectedTrailers: +prev.expectedTrailers + +current.expectedTrailers,
+    };
+  }, initialTotals);
+
+  return totals;
 };

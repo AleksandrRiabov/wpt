@@ -3,11 +3,29 @@ import { Box, Tooltip, Typography, useTheme } from "@mui/material";
 import SingleCell from "./SingleCell";
 import { tokens } from "../../../theme";
 
-type Props = {};
+type Props = {
+  dayTotals: {
+    cases: number;
+    pallets: number;
+    trailers: number;
+    expectedCases: number;
+    expectedPallets: number;
+    expectedTrailers: number;
+  };
+};
 
-const ProductsTableFooter = (props: Props) => {
+const ProductsTableFooter = ({ dayTotals }: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
+
+  const {
+    cases,
+    pallets,
+    trailers,
+    expectedCases,
+    expectedPallets,
+    expectedTrailers,
+  } = dayTotals;
 
   return (
     <Box
@@ -33,21 +51,21 @@ const ProductsTableFooter = (props: Props) => {
           >
             <Tooltip title="Total Cases">
               <Typography>
-                <strong>33333</strong>
+                <strong>{cases}</strong>
               </Typography>
             </Tooltip>
           </SingleCell>
           <SingleCell flex="1">
             <Tooltip title="Total Pallets">
               <Typography>
-                <strong>244</strong>
+                <strong>{pallets}</strong>
               </Typography>
             </Tooltip>
           </SingleCell>
           <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
             <Tooltip title="Total Trailers">
               <Typography>
-                <strong>122</strong>
+                <strong>{trailers}</strong>
               </Typography>
             </Tooltip>
           </SingleCell>
@@ -60,21 +78,21 @@ const ProductsTableFooter = (props: Props) => {
           <SingleCell flex="1" sx={{ height: "60px" }}>
             <Tooltip title="Total Expected Cases">
               <Typography>
-                <strong>27272</strong>
+                <strong>{expectedCases}</strong>
               </Typography>
             </Tooltip>
           </SingleCell>
           <SingleCell flex="1">
             <Tooltip title="Total Expected Pallets">
               <Typography>
-                <strong>332</strong>
+                <strong>{expectedPallets}</strong>
               </Typography>
             </Tooltip>
           </SingleCell>
           <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
             <Tooltip title="Total Expected Trilers">
               <Typography>
-                <strong>221</strong>
+                <strong>{expectedTrailers}</strong>
               </Typography>
             </Tooltip>
           </SingleCell>

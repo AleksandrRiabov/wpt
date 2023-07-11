@@ -13,8 +13,8 @@ type Props = {
     cases,
   }: {
     name: string;
-    pallets: number;
-    cases: number;
+    pallets: number | string;
+    cases: number | string;
   }) => void;
 };
 
@@ -39,17 +39,18 @@ const EditableRow = ({ row, updateProduct }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // Validate if the value is a number
+    // If the value is a number set state
     if (!isNaN(Number(value))) {
-      setInputsValue((prev) => ({ ...prev, [name]: value.trim() }));
+      const positiveValue = +value.trim() > 0 ? value : "";
+      setInputsValue((prev) => ({ ...prev, [name]: positiveValue }));
     }
   };
 
   const handleProductChange = () => {
     updateProduct({
       name: row.name,
-      pallets: +inputsValue.pallets,
-      cases: +inputsValue.cases,
+      pallets: inputsValue.pallets,
+      cases: inputsValue.cases,
     });
   };
 
