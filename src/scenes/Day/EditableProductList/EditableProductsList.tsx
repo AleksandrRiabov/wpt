@@ -16,7 +16,6 @@ import {
   palletsToTrailers,
 } from "./helpers";
 import { useParams } from "react-router-dom";
-import FlexCenterCenter from "../../../components/FlexCenterCenter/FlexCenterCenter";
 
 const EditableProductsList = () => {
   const [tableData, setTableData] = useState<DataRow[]>([] as DataRow[]);
@@ -141,15 +140,31 @@ const EditableProductsList = () => {
   const dayTotals = getDayTotals(tableData);
   const isError = optionsError || dayDataError;
   const errorMessage =
-    "Apologies for the inconvenience. We're unable to retrieve the products at the moment. The app server may be in sleep mode due to free hosting. Please wait for about 10-15 seconds. Thank you for your patience.";
+    "Unable to retrieve the products at the moment. The app server may be in sleep mode due to free hosting. Please wait for about 10-15 seconds. Thank you for your patience.";
   console.log("render");
   return (
     <Box minWidth="600px">
       <ProductsTableHeader />
       {loadingOptions || loadingDayData ? (
-        <FlexCenterCenter height="400px">Loading...</FlexCenterCenter>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="400px"
+          border="1px solid #dedede"
+        >
+          Loading...
+        </Box>
       ) : isError ? (
-        <FlexCenterCenter height="400px">{errorMessage}</FlexCenterCenter>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="400px"
+          border="1px solid #dedede"
+        >
+          {errorMessage}
+        </Box>
       ) : (
         tableData?.map((row) => (
           <Box key={row.name}>
