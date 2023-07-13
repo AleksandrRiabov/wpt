@@ -27,7 +27,7 @@ const today = new Date();
 const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
 
 // Default category array for the chart
-const defaultCategory = ["781"];
+const defaultCategory = ["AMBIENT"];
 
 const LineChartCompnent = () => {
   // Use the `useState` hook to manage date range query for fetching

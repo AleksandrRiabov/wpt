@@ -25,7 +25,7 @@ const today = new Date();
 const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
 
 // Default category array for the chart
-const defaultCategory = ["Fresh"];
+const defaultCategory = ["FRESH"];
 
 const BarChartComponent = () => {
   // Use the `useState` hook to manage date range query for fetching
