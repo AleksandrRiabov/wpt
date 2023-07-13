@@ -6,6 +6,7 @@ import ProductsTableHeader from "./ProductsTableHeader";
 import ProductsTableFooter from "./ProductsTableFooter";
 
 import {
+  useCreateDayMutation,
   useGetDaysDataQuery,
   useGetOptionsDataQuery,
 } from "../../../state/api";
@@ -35,6 +36,13 @@ const EditableProductsList = () => {
     isError: dayDataError,
   } = useGetDaysDataQuery(`dateFrom=${date}&dateTo=${date}`);
   const day = data?.length ? data[0] : ({} as GetDaysDataResponse);
+
+  // =============   Create Day Post request =============
+  const [createDay, { isLoading }] = useCreateDayMutation();
+  const handleCreateDay = () => {
+    if (!date || !tableData) return;
+    createDay({ products: tableData, date });
+  };
 
   console.log(day);
   // Go through the options (possible products) and if it exist on current day then keep the value of current day,
@@ -172,7 +180,10 @@ const EditableProductsList = () => {
           </Box>
         ))
       )}
-      <ProductsTableFooter dayTotals={dayTotals} />
+      <ProductsTableFooter
+        dayTotals={dayTotals}
+        handleCreateDay={handleCreateDay}
+      />
     </Box>
   );
 };

@@ -3,11 +3,9 @@ import { DataRow } from "../types";
 
 export const palletsToTrailers = (pallets: number) => {
   if (!pallets || isNaN(pallets)) return 0;
-  const trailers = Math.floor(pallets / 26);
-  const palletsBalance = +(pallets % 26).toFixed(1);
+  const trailers = pallets / 26;
 
-  const balance = palletsBalance > 0 ? `& ${palletsBalance}p` : "";
-  return `${trailers}t ${balance}`;
+  return trailers.toFixed(2);
 };
 
 export const countExpectedPallets = (cases: number, coefficient: number) => {
@@ -69,7 +67,9 @@ export const getDayTotals = (tableData: DataRow[]) => {
       cases: +prev.cases + +current.cases,
       pallets: +prev.pallets + +current.pallets,
       trailers: +prev.trailers + +current.trailers,
-      expectedCases: +prev.expectedCases + +current.expectedCases,
+      expectedCases: +current.expectedCases
+        ? +prev.expectedCases + +current.expectedCases
+        : 0,
       expectedPallets: +prev.expectedPallets + +current.expectedPallets,
       expectedTrailers: +prev.expectedTrailers + +current.expectedTrailers,
     };

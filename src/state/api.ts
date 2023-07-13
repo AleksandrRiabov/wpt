@@ -7,6 +7,7 @@ import {
 } from "./types";
 
 import { getAuth, getIdToken } from "firebase/auth";
+import { DataRow } from "../scenes/Day/types";
 
 const auth = getAuth();
 
@@ -40,6 +41,15 @@ export const api = createApi({
     // Get days data within the date range
     getDaysData: build.query<Array<GetDaysDataResponse>, string>({
       query: (range) => `day/?${range}`,
+    }),
+
+    // POST request with Day products data
+    createDay: build.mutation<void, { products: DataRow[]; date: string }>({
+      query: (dayProductsFormData) => ({
+        url: "/day",
+        method: "POST",
+        body: dayProductsFormData,
+      }),
     }),
 
     // =========  Traailer ===========
@@ -94,6 +104,7 @@ export const api = createApi({
 
 export const {
   useGetDaysDataQuery,
+  useCreateDayMutation,
   useGetTrailersDataQuery,
   useGetOptionsDataQuery,
   useGetWakeUpServerQuery,
