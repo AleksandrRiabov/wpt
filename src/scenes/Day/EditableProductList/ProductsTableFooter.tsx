@@ -13,9 +13,14 @@ type Props = {
     expectedTrailers: number;
   };
   handleCreateDay: () => void;
+  updating: boolean;
 };
 
-const ProductsTableFooter = ({ dayTotals, handleCreateDay }: Props) => {
+const ProductsTableFooter = ({
+  dayTotals,
+  handleCreateDay,
+  updating,
+}: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
@@ -103,9 +108,20 @@ const ProductsTableFooter = ({ dayTotals, handleCreateDay }: Props) => {
           <Box p="5px" sx={{ background: colors.secondary[900] }}></Box>
         </Box>
       </Box>
-      <Box display="flex" justifyContent="center" alignItems="center" p="30px">
-        <Button onClick={handleCreateDay} variant="contained" color="secondary">
-          Save
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        p="30px"
+        sx={{ background: colors.primary[700] }}
+      >
+        <Button
+          onClick={handleCreateDay}
+          variant="contained"
+          color="secondary"
+          disabled={updating}
+        >
+          {!updating ? "SAVE" : "PLEASE WAIT"}
         </Button>
       </Box>
     </Box>

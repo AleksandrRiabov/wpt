@@ -1,26 +1,25 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataRow } from "../types";
 import EditableRow from "./EditableRow";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ProductsTableHeader from "./ProductsTableHeader";
 import ProductsTableFooter from "./ProductsTableFooter";
 
 import {
-  useCreateDayMutation,
   useGetDaysDataQuery,
   useGetOptionsDataQuery,
 } from "../../../state/api";
 import { GetDaysDataResponse } from "../../../state/types";
-import {
-  countExpectedPallets,
-  getDayTotals,
-  palletsToTrailers,
-} from "./helpers";
+import { getDayTotals } from "./helpers";
 import { useParams } from "react-router-dom";
+import usePostDayData from "../usePostDayData";
+import Notifications from "../../../components/Notifications/Notifications";
+import useEditableProductsLogic from "./useEditableProductsLogic";
 
 const EditableProductsList = () => {
-  const [tableData, setTableData] = useState<DataRow[]>([] as DataRow[]);
+  const [tableData, setTableData] = useState<DataRow[]>([]);
   const { date } = useParams();
+
   // Get All Possible Products from options
   const {
     data: options,
@@ -30,128 +29,44 @@ const EditableProductsList = () => {
 
   // Get all products data for requested day
   const {
-    data,
+    data: dayData,
     isLoading: loadingDayData,
+    isFetching: fetchingDayData,
     refetch: refetchDayProducts,
     isError: dayDataError,
   } = useGetDaysDataQuery(`dateFrom=${date}&dateTo=${date}`);
-  const day = data?.length ? data[0] : ({} as GetDaysDataResponse);
+  const day = dayData?.length ? dayData[0] : ({} as GetDaysDataResponse);
 
-  // =============   Create Day Post request =============
-  const [createDay, { isLoading }] = useCreateDayMutation();
-  const handleCreateDay = () => {
-    if (!date || !tableData) return;
-    createDay({ products: tableData, date });
-  };
-
-  console.log(day);
-  // Go through the options (possible products) and if it exist on current day then keep the value of current day,
-  //  if not exist on requested day then format with empty values
-  const combinedData = useCallback(() => {
-    if (!options?.products) {
-      return [];
-    }
-
-    return options?.products.map((optionProduct) => {
-      const existingProduct = day.products?.find(
-        (product) =>
-          product.name.toLowerCase() === optionProduct.name.toLowerCase()
-      );
-      if (existingProduct) {
-        return existingProduct;
-      } else {
-        const newProduct = {
-          name: optionProduct.name,
-          cases: "",
-          pallets: "",
-          category: optionProduct.category,
-          expectedCases: 0,
-          coefficient: 0,
-        };
-        return newProduct;
-      }
-    });
-  }, [options?.products, day.products]);
-
+  // UseEffect to refetch if date changes to avoid using cached data
   useEffect(() => {
-    if (!data || !options || !combinedData) return;
+    refetchDayProducts();
+  }, [date, refetchDayProducts]);
 
-    const getEstimates = () => {
-      return combinedData().map((product) => {
-        const { pallets, cases, coefficient, expectedCases } = product;
+  // Hook to Create day data / Update if day exists
+  const {
+    handleCreateDay,
+    handleCloseSnackbar,
+    successMessage,
+    errorMessage,
+    updating,
+  } = usePostDayData({ tableData, date });
 
-        const expectedCasesNumber = +cases > 0 ? +cases : expectedCases;
-        const trailers = palletsToTrailers(+pallets);
-        // if no actual cases useExpectedCases to predict trailers
-        const expectedPallets = countExpectedPallets(
-          expectedCasesNumber,
-          coefficient
-        );
-        const expectedTrailers = palletsToTrailers(expectedPallets);
-
-        return {
-          ...product,
-          trailers,
-          expectedCases: expectedCasesNumber,
-          expectedPallets,
-          expectedTrailers,
-        };
-      });
-    };
-
-    setTableData(getEstimates());
-  }, [data, options, combinedData]);
-
-  // =============   HANDLE UPDATE TABLE DATA =========
-  const updateProduct = useCallback(
-    ({
-      name,
-      pallets,
-      cases,
-    }: {
-      name: string;
-      pallets: number | string;
-      cases: number | string;
-    }) => {
-      const updateData = (tableData: DataRow[]): DataRow[] => {
-        console.log("Trying to update state");
-        const currentProduct = tableData.find(
-          (product) => product.name === name
-        );
-
-        if (!currentProduct) {
-          // Handle error when current product is not found
-          console.error(`Product with name ${name} not found.`);
-          return tableData; // Return the original data unchanged
-        }
-
-        const updatedProduct = {
-          ...currentProduct,
-          cases,
-          pallets,
-          trailers: palletsToTrailers(+pallets),
-          expectedCases: +cases < 1 ? currentProduct.expectedCases : cases,
-          expectedTrailers: palletsToTrailers(+currentProduct.expectedCases),
-        };
-
-        const updatedData = tableData.map((product) =>
-          product.name === name ? updatedProduct : product
-        );
-        return updatedData;
-      };
-
-      setTableData((prevState) => updateData(prevState));
-    },
-    []
-  );
+  // Formats the tableData from options and day data and returns handle functions
+  const { updateProduct } = useEditableProductsLogic({
+    options,
+    day,
+    dayData,
+    setTableData,
+  });
 
   const dayTotals = getDayTotals(tableData);
+
   const isError = optionsError || dayDataError;
-  const errorMessage =
+  const getRequestErrorMessage =
     "Unable to retrieve the products at the moment. The app server may be in sleep mode due to free hosting. Please wait for about 10-15 seconds. Thank you for your patience.";
-  console.log("render");
+
   return (
-    <Box minWidth="600px">
+    <Box minWidth="600px" position="relative">
       <ProductsTableHeader />
       {loadingOptions || loadingDayData ? (
         <Box
@@ -171,7 +86,7 @@ const EditableProductsList = () => {
           height="400px"
           border="1px solid #dedede"
         >
-          {errorMessage}
+          {getRequestErrorMessage}
         </Box>
       ) : (
         tableData?.map((row) => (
@@ -183,7 +98,37 @@ const EditableProductsList = () => {
       <ProductsTableFooter
         dayTotals={dayTotals}
         handleCreateDay={handleCreateDay}
+        updating={updating}
       />
+      {/* POST Request Notifications */}
+      <Notifications
+        handleCloseSnackbar={handleCloseSnackbar}
+        successMessage={successMessage}
+        errorMessage={errorMessage}
+      />
+      {/* Display loading message when refetch other day */}
+      {fetchingDayData && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box p="15px" sx={{ background: "rgba(0, 0, 0, 0.6)" }}>
+            <strong>
+              <Typography variant="h3" color="secondary">
+                Please Wait..
+              </Typography>
+            </strong>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };
