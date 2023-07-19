@@ -20,16 +20,16 @@ type Props = {
 
 const EditableRow = ({ row, updateProduct }: Props) => {
   const [inputsValue, setInputsValue] = useState({
-    pallets: row.pallets,
-    cases: row.cases,
+    pallets: row.pallets || "",
+    cases: row.cases || "",
   });
 
   const { date } = useParams();
 
   useEffect(() => {
     setInputsValue({
-      pallets: row.pallets,
-      cases: row.cases,
+      pallets: row.pallets || "",
+      cases: row.cases || "",
     });
   }, [date, row.pallets, row.cases]);
 

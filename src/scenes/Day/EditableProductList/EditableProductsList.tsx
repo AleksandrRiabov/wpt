@@ -62,8 +62,7 @@ const EditableProductsList = () => {
   const dayTotals = getDayTotals(tableData);
 
   const isError = optionsError || dayDataError;
-  const getRequestErrorMessage =
-    "Unable to retrieve the products at the moment. The app server may be in sleep mode due to free hosting. Please wait for about 10-15 seconds. Thank you for your patience.";
+  const getRequestErrorMessage = "Error.. Please try again, later.";
 
   return (
     <Box minWidth="600px" position="relative">

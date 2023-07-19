@@ -58,9 +58,7 @@ export const getDayTotals = (tableData: DataRow[]) => {
     return {
       cases: (+prev.cases || 0) + (+current.cases || 0),
       pallets: (+prev.pallets || 0) + (+current.pallets || 0),
-      expectedCases: +current.expectedCases
-        ? +prev.expectedCases + +current.expectedCases
-        : 0,
+      expectedCases: prev.expectedCases + +current.calculatedCases,
       expectedPallets: +prev.expectedPallets + +current.calculatedPallets,
     };
   }, initialTotals);
@@ -107,9 +105,6 @@ export const getEstimates = (data: CombinedData | DataRow[]) => {
   return data.map((product) => {
     const { pallets, cases, coefficient, expectedCases } = product;
 
-    if (product.name === "CHILL") {
-      console.log(!!cases);
-    }
     const calculatedCases = !!cases ? +cases : +expectedCases;
 
     const trailers = palletsToTrailers(+pallets);
