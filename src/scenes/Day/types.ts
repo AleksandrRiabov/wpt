@@ -4,8 +4,9 @@ export type DataRow = {
   pallets: number | string;
   cases: number | string;
   trailers: string | number;
-  expectedPallets: string | number;
   expectedCases: string | number;
   expectedTrailers: string | number;
   coefficient: number;
+  calculatedCases: number;
+  calculatedPallets: number;
 };

@@ -54,6 +54,11 @@ const EditableRow = ({ row, updateProduct }: Props) => {
     });
   };
 
+  const errorBackground =
+    !inputsValue.cases && inputsValue.pallets ? "red" : "";
+  const warningBackground =
+    row.calculatedCases && row.calculatedPallets === 0 ? "orange" : "";
+
   return (
     <Box>
       <Box
@@ -73,6 +78,7 @@ const EditableRow = ({ row, updateProduct }: Props) => {
             sx={{
               borderRight: `1px dashed ${colors.primary[400]}`,
               borderLeft: `1px solid ${colors.primary[400]}`,
+              background: errorBackground,
             }}
           >
             <input
@@ -104,22 +110,29 @@ const EditableRow = ({ row, updateProduct }: Props) => {
         {/* =====  Expected data  ========*/}
         <Box display="flex" flex="1">
           <Tooltip title="Expected Cases">
-            <SingleCell flex="1">{row.expectedCases}</SingleCell>
+            <SingleCell flex="1">{row.calculatedCases}</SingleCell>
           </Tooltip>
-          <Tooltip title="Expected Pallets">
+          <Tooltip
+            title={`${
+              warningBackground
+                ? "Not enough data to calculate"
+                : "Expected Pallets"
+            }`}
+          >
             <SingleCell
               flex="1"
               sx={{
                 borderRight: `1px dashed ${colors.primary[400]}`,
                 borderLeft: `1px dashed ${colors.primary[400]}`,
+                background: warningBackground,
               }}
             >
-              {row.expectedPallets}
+              {row.calculatedPallets}
             </SingleCell>
           </Tooltip>
           <Tooltip title="Expected Trailers">
             <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
-              {row.trailers}
+              {row.expectedTrailers}
             </SingleCell>
           </Tooltip>
         </Box>

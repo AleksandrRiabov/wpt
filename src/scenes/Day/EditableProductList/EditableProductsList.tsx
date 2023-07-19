@@ -34,7 +34,7 @@ const EditableProductsList = () => {
     isFetching: fetchingDayData,
     refetch: refetchDayProducts,
     isError: dayDataError,
-  } = useGetDaysDataQuery(`dateFrom=${date}&dateTo=${date}`);
+  } = useGetDaysDataQuery(`dateFrom=${date}&dateTo=${date}&withStats=true`);
   const day = dayData?.length ? dayData[0] : ({} as GetDaysDataResponse);
 
   // UseEffect to refetch if date changes to avoid using cached data

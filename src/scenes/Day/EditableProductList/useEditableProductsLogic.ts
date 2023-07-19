@@ -4,7 +4,7 @@ import {
   GetDaysDataResponse,
   GetOptionsDataResponse,
 } from "../../../state/types";
-import { countExpectedPallets, palletsToTrailers } from "./helpers";
+import { getEstimates, palletsToTrailers } from "./helpers";
 
 type Props = {
   options: GetOptionsDataResponse | undefined;
@@ -32,7 +32,13 @@ function useEditableProductsLogic({
           product.name.toLowerCase() === optionProduct.name.toLowerCase()
       );
       if (existingProduct) {
-        return existingProduct;
+        return {
+          ...existingProduct,
+          calculatedCases: 0,
+          calculatedPallets: 0,
+          trailers: 0,
+          expectedTrailers: 0,
+        };
       } else {
         const newProduct = {
           name: optionProduct.name,
@@ -41,39 +47,19 @@ function useEditableProductsLogic({
           category: optionProduct.category,
           expectedCases: 0,
           coefficient: 0,
+          calculatedPallets: 0,
+          calculatedCases: 0,
         };
         return newProduct;
       }
     });
   }, [options?.products, day.products]);
 
+  // UseEffect to calculate estimates if day changed
   useEffect(() => {
     if (!dayData || !options || !combinedData) return;
 
-    const getEstimates = () => {
-      return combinedData().map((product) => {
-        const { pallets, cases, coefficient, expectedCases } = product;
-
-        const expectedCasesNumber = +cases > 0 ? +cases : expectedCases;
-        const trailers = palletsToTrailers(+pallets);
-        // if no actual cases useExpectedCases to predict trailers
-        const expectedPallets = countExpectedPallets(
-          expectedCasesNumber,
-          coefficient
-        );
-        const expectedTrailers = palletsToTrailers(expectedPallets);
-
-        return {
-          ...product,
-          trailers,
-          expectedCases: expectedCasesNumber,
-          expectedPallets,
-          expectedTrailers,
-        };
-      });
-    };
-
-    setTableData(getEstimates());
+    setTableData(getEstimates(combinedData()));
   }, [dayData, options, combinedData, setTableData]);
 
   // =============   HANDLE UPDATE TABLE DATA =========
@@ -103,8 +89,6 @@ function useEditableProductsLogic({
           cases,
           pallets,
           trailers: palletsToTrailers(+pallets),
-          expectedCases: +cases < 1 ? currentProduct.expectedCases : cases,
-          expectedTrailers: palletsToTrailers(+currentProduct.expectedCases),
         };
 
         const updatedData = tableData.map((product) =>
@@ -113,7 +97,8 @@ function useEditableProductsLogic({
         return updatedData;
       };
 
-      setTableData((prevState) => updateData(prevState));
+      setTableData((prevState) => getEstimates(updateData(prevState)));
+      // getEstimates()
     },
     [setTableData]
   );

@@ -2,15 +2,14 @@ import { Box, Button, Tooltip, Typography, useTheme } from "@mui/material";
 
 import SingleCell from "./SingleCell";
 import { tokens } from "../../../theme";
+import { displayTrailersAndPallets } from "./helpers";
 
 type Props = {
   dayTotals: {
     cases: number;
     pallets: number;
-    trailers: number;
     expectedCases: number;
     expectedPallets: number;
-    expectedTrailers: number;
   };
   handleCreateDay: () => void;
   updating: boolean;
@@ -24,14 +23,7 @@ const ProductsTableFooter = ({
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
-  const {
-    cases,
-    pallets,
-    trailers,
-    expectedCases,
-    expectedPallets,
-    expectedTrailers,
-  } = dayTotals;
+  const { cases, pallets, expectedCases, expectedPallets } = dayTotals;
 
   return (
     <Box
@@ -73,7 +65,7 @@ const ProductsTableFooter = ({
             <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
               <Tooltip title="Total Trailers">
                 <Typography>
-                  <strong>{trailers.toFixed(1)}</strong>
+                  <strong>{displayTrailersAndPallets(pallets)}</strong>
                 </Typography>
               </Tooltip>
             </SingleCell>
@@ -100,7 +92,7 @@ const ProductsTableFooter = ({
             <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
               <Tooltip title="Total Expected Trilers">
                 <Typography>
-                  <strong>{expectedTrailers.toFixed(1)}</strong>
+                  <strong>{displayTrailersAndPallets(expectedPallets)}</strong>
                 </Typography>
               </Tooltip>
             </SingleCell>
