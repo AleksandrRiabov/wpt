@@ -38,6 +38,7 @@ function useEditableProductsLogic({
           calculatedPallets: 0,
           trailers: 0,
           expectedTrailers: 0,
+          category: optionProduct.category,
         };
       } else {
         const newProduct = {
@@ -94,11 +95,11 @@ function useEditableProductsLogic({
         const updatedData = tableData.map((product) =>
           product.name === name ? updatedProduct : product
         );
+
         return updatedData;
       };
 
       setTableData((prevState) => getEstimates(updateData(prevState)));
-      // getEstimates()
     },
     [setTableData]
   );
