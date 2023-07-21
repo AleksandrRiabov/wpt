@@ -23,13 +23,12 @@ const useFormatChartData = ({ data, checkedProducts }: Props) => {
           selectedSet.has(product.category) ||
           selectedSet.has(product.name)
         ) {
-          totalCases += Number(product.cases);
-          totalPallets += Number(product.pallets);
+          totalCases += Number(product.cases) || 0; // If no cases, add zero.
+          totalPallets += Number(product.pallets) || 0;
         }
       }
-
       // If the totals are greater than 0, add the day's data to the result array and add name (Date)
-      if (totalCases > 0 && totalPallets > 0) {
+      if (totalCases > 0) {
         result.push({
           cases: totalCases,
           pallets: totalPallets,
