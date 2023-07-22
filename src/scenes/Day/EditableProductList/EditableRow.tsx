@@ -70,7 +70,16 @@ const EditableRow = ({ row, updateProduct }: Props) => {
       >
         <Box display="flex" flex="1">
           <SingleCell flex="1" sx={{ background: colors.primary[700] }}>
-            <Typography>{row.name}</Typography>
+            <Typography
+              sx={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxWidth: { xs: "70px", md: "140px" },
+              }}
+            >
+              {row.name}
+            </Typography>
           </SingleCell>
           {/* Editable Cells */}
           <SingleCell

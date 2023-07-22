@@ -10,7 +10,7 @@ const SingleCell = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   padding: "10px",
-  minWidth: "80px",
+  minWidth: "90px",
 }));
 
 export default SingleCell;

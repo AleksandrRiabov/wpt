@@ -69,76 +69,70 @@ const EditableProductsList = ({ handleOpenChart }: Props) => {
   const getRequestErrorMessage = "Error.. Please try again, later.";
 
   return (
-    <Box
-      sx={{
-        overflowX: "auto",
-      }}
-    >
-      <Box minWidth="600px" position="relative">
-        <ProductsTableHeader />
-        {loadingOptions || loadingDayData ? (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="400px"
-            border="1px solid #dedede"
-          >
-            Loading...
+    <Box minWidth="650px" position="relative">
+      <ProductsTableHeader />
+      {loadingOptions || loadingDayData ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="400px"
+          border="1px solid #dedede"
+        >
+          Loading...
+        </Box>
+      ) : isError ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="400px"
+          border="1px solid #dedede"
+        >
+          {getRequestErrorMessage}
+        </Box>
+      ) : (
+        tableData?.map((row) => (
+          <Box key={row.name}>
+            <EditableRow updateProduct={updateProduct} row={row} />
           </Box>
-        ) : isError ? (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="400px"
-            border="1px solid #dedede"
-          >
-            {getRequestErrorMessage}
+        ))
+      )}
+      <ProductsTableFooter
+        dayTotals={dayTotals}
+        handleCreateDay={handleCreateDay}
+        updating={updating}
+        handleOpenChart={handleOpenChart}
+      />
+      {/* POST Request Notifications */}
+      <Notifications
+        handleCloseSnackbar={handleCloseSnackbar}
+        successMessage={successMessage}
+        errorMessage={errorMessage}
+      />
+      {/* Display loading message when refetch other day */}
+      {fetchingDayData && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box p="15px" sx={{ background: "rgba(0, 0, 0, 0.6)" }}>
+            <strong>
+              <Typography variant="h3" color="secondary">
+                Please Wait..
+              </Typography>
+            </strong>
           </Box>
-        ) : (
-          tableData?.map((row) => (
-            <Box key={row.name}>
-              <EditableRow updateProduct={updateProduct} row={row} />
-            </Box>
-          ))
-        )}
-        <ProductsTableFooter
-          dayTotals={dayTotals}
-          handleCreateDay={handleCreateDay}
-          updating={updating}
-          handleOpenChart={handleOpenChart}
-        />
-        {/* POST Request Notifications */}
-        <Notifications
-          handleCloseSnackbar={handleCloseSnackbar}
-          successMessage={successMessage}
-          errorMessage={errorMessage}
-        />
-        {/* Display loading message when refetch other day */}
-        {fetchingDayData && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Box p="15px" sx={{ background: "rgba(0, 0, 0, 0.6)" }}>
-              <strong>
-                <Typography variant="h3" color="secondary">
-                  Please Wait..
-                </Typography>
-              </strong>
-            </Box>
-          </Box>
-        )}
-      </Box>
+        </Box>
+      )}
     </Box>
   );
 };

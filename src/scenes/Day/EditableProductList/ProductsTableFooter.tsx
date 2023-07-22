@@ -3,6 +3,7 @@ import { Box, Button, Tooltip, Typography, useTheme } from "@mui/material";
 import SingleCell from "./SingleCell";
 import { tokens } from "../../../theme";
 import { displayTrailersAndPallets } from "./helpers";
+import { Save, ShowChart } from "@mui/icons-material";
 
 type Props = {
   dayTotals: {
@@ -114,15 +115,27 @@ const ProductsTableFooter = ({
           variant="contained"
           color="secondary"
           disabled={updating}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            marginLeft: "15px",
+          }}
         >
-          {!updating ? "SAVE" : "PLEASE WAIT"}
+          <Save /> {!updating ? "SAVE" : "PLEASE WAIT"}
         </Button>
         <Button
           onClick={handleOpenChart}
           variant="contained"
           color="secondary"
-          sx={{ marginLeft: "15px" }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            marginLeft: "15px",
+          }}
         >
+          <ShowChart />
           Open Chart
         </Button>
       </Box>

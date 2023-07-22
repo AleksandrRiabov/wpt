@@ -16,7 +16,11 @@ const Day = () => {
     <Container maxWidth="xl" sx={{ minHeight: "85vh" }}>
       <PageHeader title={`Day `} />
       <Box maxWidth="xs">
-        <Box>
+        <Box
+          sx={{
+            overflowX: "auto",
+          }}
+        >
           <EditableProductsList handleOpenChart={handleOpenChart} />
           <ModalWrapper open={openChart} handleClose={handleCloseChart}>
             <DayChart />
