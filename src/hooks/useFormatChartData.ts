@@ -21,7 +21,8 @@ const useFormatChartData = ({ data, checkedProducts }: Props) => {
         // If the product category or name is included in the selected products set, add its cases and pallets to the totals
         if (
           selectedSet.has(product.category) ||
-          selectedSet.has(product.name)
+          selectedSet.has(product.name) || 
+          !checkedProducts.length
         ) {
           totalCases += Number(product.cases) || 0; // If no cases, add zero.
           totalPallets += Number(product.pallets) || 0;

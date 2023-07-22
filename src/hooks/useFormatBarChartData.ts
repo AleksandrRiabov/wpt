@@ -18,7 +18,8 @@ const useFormatBarChartData = ({ data, checkedProducts }: Props) => {
       products.forEach((product) => {
         if (
           checkedProducts.includes(product.name) ||
-          checkedProducts.includes(product.category)
+          checkedProducts.includes(product.category) ||
+          !checkedProducts.length
         ) {
           if (!totalsForThePeriod[product.name]) {
             totalsForThePeriod[product.name] = { cases: 0, pallets: 0 };

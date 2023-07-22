@@ -60,10 +60,14 @@ const BarChartComponent = () => {
   const dateFrom = dateRangeQuery.slice(9, 19);
   const dateTo = dateRangeQuery.slice(27) || format(today, "dd-MM-yyyy");
 
+  const selectedProducts = checkedProducts.join(", ").length
+    ? checkedProducts.join(", ")
+    : "ALL";
+
   return (
     <>
       <BoxHeader
-        title={`Product: ${checkedProducts.join(", ")}`}
+        title={`Product: ${selectedProducts}`}
         subtitle={`From ${dateFrom} - To ${dateTo}`}
         handleOpen={handleOpen}
       />
