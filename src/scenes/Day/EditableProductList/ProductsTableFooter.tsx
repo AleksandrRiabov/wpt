@@ -12,6 +12,7 @@ type Props = {
     expectedPallets: number;
   };
   handleCreateDay: () => void;
+  handleOpenChart: () => void;
   updating: boolean;
 };
 
@@ -19,6 +20,7 @@ const ProductsTableFooter = ({
   dayTotals,
   handleCreateDay,
   updating,
+  handleOpenChart,
 }: Props) => {
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -114,6 +116,14 @@ const ProductsTableFooter = ({
           disabled={updating}
         >
           {!updating ? "SAVE" : "PLEASE WAIT"}
+        </Button>
+        <Button
+          onClick={handleOpenChart}
+          variant="contained"
+          color="secondary"
+          sx={{ marginLeft: "15px" }}
+        >
+          Open Chart
         </Button>
       </Box>
     </Box>

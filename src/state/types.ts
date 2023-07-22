@@ -1,3 +1,19 @@
+export type DayDataResponse = {
+  _id: string;
+  date: string;
+  day: string;
+  products: [
+    {
+      name: string;
+      cases: number;
+      pallets: number;
+      category: string;
+      coefficient: number;
+      expectedCases: number
+    }
+  ];
+}
+
 export interface GetDaysDataResponse {
   _id: string;
   date: string;
@@ -12,6 +28,7 @@ export interface GetDaysDataResponse {
       expectedCases: number
     }
   ];
+  pastData?: DayDataResponse[] 
 }
 
 export interface GetTrailersDataResponse {

@@ -16,7 +16,11 @@ import usePostDayData from "../usePostDayData";
 import Notifications from "../../../components/Notifications/Notifications";
 import useEditableProductsLogic from "./useEditableProductsLogic";
 
-const EditableProductsList = () => {
+type Props = {
+  handleOpenChart: () => void;
+};
+
+const EditableProductsList = ({ handleOpenChart }: Props) => {
   const [tableData, setTableData] = useState<DataRow[]>([]);
   const { date } = useParams();
 
@@ -65,69 +69,76 @@ const EditableProductsList = () => {
   const getRequestErrorMessage = "Error.. Please try again, later.";
 
   return (
-    <Box minWidth="600px" position="relative">
-      <ProductsTableHeader />
-      {loadingOptions || loadingDayData ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="400px"
-          border="1px solid #dedede"
-        >
-          Loading...
-        </Box>
-      ) : isError ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="400px"
-          border="1px solid #dedede"
-        >
-          {getRequestErrorMessage}
-        </Box>
-      ) : (
-        tableData?.map((row) => (
-          <Box key={row.name}>
-            <EditableRow updateProduct={updateProduct} row={row} />
+    <Box
+      sx={{
+        overflowX: "auto",
+      }}
+    >
+      <Box minWidth="600px" position="relative">
+        <ProductsTableHeader />
+        {loadingOptions || loadingDayData ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="400px"
+            border="1px solid #dedede"
+          >
+            Loading...
           </Box>
-        ))
-      )}
-      <ProductsTableFooter
-        dayTotals={dayTotals}
-        handleCreateDay={handleCreateDay}
-        updating={updating}
-      />
-      {/* POST Request Notifications */}
-      <Notifications
-        handleCloseSnackbar={handleCloseSnackbar}
-        successMessage={successMessage}
-        errorMessage={errorMessage}
-      />
-      {/* Display loading message when refetch other day */}
-      {fetchingDayData && (
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Box p="15px" sx={{ background: "rgba(0, 0, 0, 0.6)" }}>
-            <strong>
-              <Typography variant="h3" color="secondary">
-                Please Wait..
-              </Typography>
-            </strong>
+        ) : isError ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="400px"
+            border="1px solid #dedede"
+          >
+            {getRequestErrorMessage}
           </Box>
-        </Box>
-      )}
+        ) : (
+          tableData?.map((row) => (
+            <Box key={row.name}>
+              <EditableRow updateProduct={updateProduct} row={row} />
+            </Box>
+          ))
+        )}
+        <ProductsTableFooter
+          dayTotals={dayTotals}
+          handleCreateDay={handleCreateDay}
+          updating={updating}
+          handleOpenChart={handleOpenChart}
+        />
+        {/* POST Request Notifications */}
+        <Notifications
+          handleCloseSnackbar={handleCloseSnackbar}
+          successMessage={successMessage}
+          errorMessage={errorMessage}
+        />
+        {/* Display loading message when refetch other day */}
+        {fetchingDayData && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Box p="15px" sx={{ background: "rgba(0, 0, 0, 0.6)" }}>
+              <strong>
+                <Typography variant="h3" color="secondary">
+                  Please Wait..
+                </Typography>
+              </strong>
+            </Box>
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };
