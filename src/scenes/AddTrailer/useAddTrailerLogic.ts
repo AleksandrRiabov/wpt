@@ -16,7 +16,7 @@ const initialFormState: Omit<FormState, "products"> = {
   contractor: "JCARRION",
   sentDate: new Date(),
   deliveryDate: getSuggestedDeliveryDate(),
-  freightType: "Road",
+  freightType: "ROAD",
   alcohol: false,
   cert: false,
   extraCost: {
@@ -25,7 +25,7 @@ const initialFormState: Omit<FormState, "products"> = {
     holdOver: { cost: 0 },
     nonStop: { cost: 0 },
   },
-  crossed: "Tunnel",
+  crossed: "TUNNEL",
   comments: "",
 };
 
