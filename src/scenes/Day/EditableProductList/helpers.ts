@@ -125,3 +125,26 @@ export const getEstimates = (data: CombinedData | DataRow[]) => {
     };
   });
 };
+
+// Return number of the day of the week. Monday 1, Tuesday 2. ..
+export const getDayOfWeekNumber = (dateStr: string | undefined) => {
+  if (!dateStr) {
+    return -1; // Return -1 to indicate that the date is undefined
+  }
+
+  const date = parse(dateStr, "dd-MM-yyyy", new Date());
+  const dayOfWeekNumber = date.getDay();
+  return dayOfWeekNumber;
+};
+
+//get default dates for the chart, requested date - 30 days - requested date
+export const getDefaultDates = (dateStr: string | undefined) => {
+  if (!dateStr) {
+    dateStr = format(new Date(), "dd-MM-yyyy");
+  }
+
+  const date = parse(dateStr, "dd-MM-yyyy", new Date());
+  const defaultDateFrom = `dateFrom=${format(subDays(date, 30), "dd-MM-yyyy")}`;
+
+  return { defaultDateFrom, defaultDateTo: date };
+};

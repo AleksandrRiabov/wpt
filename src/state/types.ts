@@ -9,10 +9,10 @@ export type DayDataResponse = {
       pallets: number;
       category: string;
       coefficient: number;
-      expectedCases: number
+      expectedCases: number;
     }
   ];
-}
+};
 
 export interface GetDaysDataResponse {
   _id: string;
@@ -25,10 +25,10 @@ export interface GetDaysDataResponse {
       pallets: number;
       category: string;
       coefficient: number;
-      expectedCases: number
+      expectedCases: number;
     }
   ];
-  pastData?: DayDataResponse[] 
+  pastData?: DayDataResponse[];
 }
 
 export interface GetTrailersDataResponse {
@@ -55,8 +55,8 @@ export interface GetTrailersDataResponse {
     pallets: number;
     category: string;
   }[];
-  createdBy: {name: string, email: string},
-  editedBy: {name: string, email: string},
+  createdBy: { name: string; email: string };
+  editedBy: { name: string; email: string };
 }
 
 export interface GetOptionsDataResponse {
@@ -65,10 +65,9 @@ export interface GetOptionsDataResponse {
   contractor: string[];
   crossed: string[];
   products: { name: string; category: string }[];
-  createdBy: {name: string, email: string},
-  editedBy: {name: string, email: string},
+  createdBy: { name: string; email: string };
+  editedBy: { name: string; email: string };
 }
-
 
 export type NewTrailer = {
   reference: string;

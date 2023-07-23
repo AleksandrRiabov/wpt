@@ -1,5 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   AreaChart,
@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useGetDaysDataQuery } from "../../state/api";
-import { DateRange, DayDataResponse } from "../../state/types";
+import { DateRange } from "../../state/types";
 import { tokens } from "../../theme";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import useFormatChartData from "../../hooks/useFormatChartData";
@@ -20,15 +20,19 @@ import useGetCategories from "../../hooks/useGetCategories";
 import ChartFilters from "../Dashboard/ChartFilters";
 import ModalWrapper from "../../components/ModalWrapper/ModalWrapper";
 import BoxHeader from "../../components/BoxHeader/BoxHeader";
-
-// Default date from in the query
-const today = new Date();
-const defaultDateFrom = `dateFrom=${format(subDays(today, 30), "dd-MM-yyyy")}`;
+import {
+  getDayOfWeekNumber,
+  getDefaultDates,
+} from "./EditableProductList/helpers";
 
 // Default category array for the chart
 const defaultCategory = [] as string[];
 
 const DayChart = () => {
+  const { date } = useParams();
+
+  const { defaultDateFrom, defaultDateTo } = getDefaultDates(date);
+
   // Use the `useState` hook to manage date range query for fetching
   const [dateRangeQuery, setDateRangeQuery] = useState(defaultDateFrom);
 
@@ -36,15 +40,13 @@ const DayChart = () => {
   const [checkedProducts, setCheckedProducts] =
     useState<string[]>(defaultCategory);
 
-  const { date } = useParams();
-  // Get all products data for requested day
-  const { data: dayData } = useGetDaysDataQuery(
-    `dateFrom=${date}&dateTo=${date}&withStats=true`
-  );
+  const day = getDayOfWeekNumber(date);
 
-  const data = dayData?.length
-    ? dayData[0].pastData
-    : ([] as DayDataResponse[]);
+  // Get all products data for requested day
+  const { data, refetch } = useGetDaysDataQuery(`${dateRangeQuery}&day=${day}`);
+  useEffect(() => {
+    refetch();
+  }, [date, refetch]);
 
   // Use the `useTheme` hook to access the MUI theme object
   const { palette } = useTheme();
@@ -66,7 +68,8 @@ const DayChart = () => {
   };
 
   const dateFrom = dateRangeQuery.slice(9, 19);
-  const dateTo = dateRangeQuery.slice(27) || format(today, "dd-MM-yyyy");
+  const dateTo =
+    dateRangeQuery.slice(27) || format(defaultDateTo, "dd-MM-yyyy");
 
   const selectedProducts = checkedProducts.join(", ").length
     ? checkedProducts.join(", ")
