@@ -14,7 +14,7 @@ import { DateRange } from "../../state/types";
 import { tokens } from "../../theme";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import useFormatChartData from "../../hooks/useFormatChartData";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
 import { formateDateRange } from "../../helpers";
 import useGetCategories from "../../hooks/useGetCategories";
 import ChartFilters from "../Dashboard/ChartFilters";
