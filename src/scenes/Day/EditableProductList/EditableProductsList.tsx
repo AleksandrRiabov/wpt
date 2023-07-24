@@ -1,26 +1,30 @@
+import { memo, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { Box, Typography } from "@mui/material";
 import { DataRow } from "../types";
 import EditableRow from "./EditableRow";
-import { memo, useEffect, useState } from "react";
 import ProductsTableHeader from "./ProductsTableHeader";
 import ProductsTableFooter from "./ProductsTableFooter";
+import Notifications from "../../../components/Notifications/Notifications";
 
 import {
   useGetDaysDataQuery,
   useGetOptionsDataQuery,
 } from "../../../state/api";
 import { GetDaysDataResponse } from "../../../state/types";
-import { getDayTotals } from "./helpers";
-import { useParams } from "react-router-dom";
 import usePostDayData from "../usePostDayData";
-import Notifications from "../../../components/Notifications/Notifications";
 import useEditableProductsLogic from "./useEditableProductsLogic";
 
+import { getDayTotals } from "./helpers";
+
+// Props type for the component
 type Props = {
   handleOpenChart: () => void;
 };
 
 const EditableProductsList = ({ handleOpenChart }: Props) => {
+  // State to store the table data
   const [tableData, setTableData] = useState<DataRow[]>([]);
   const { date } = useParams();
 
@@ -31,7 +35,7 @@ const EditableProductsList = ({ handleOpenChart }: Props) => {
     isError: optionsError,
   } = useGetOptionsDataQuery();
 
-  // Get all products data for requested day
+  // Get all products data for the requested day
   const {
     data: dayData,
     isLoading: loadingDayData,
@@ -46,7 +50,7 @@ const EditableProductsList = ({ handleOpenChart }: Props) => {
     refetchDayProducts();
   }, [date, refetchDayProducts]);
 
-  // Hook to Create day data / Update if day exists
+  // Hook to Create day data / Update if the day exists
   const {
     handleCreateDay,
     handleCloseSnackbar,
@@ -63,14 +67,19 @@ const EditableProductsList = ({ handleOpenChart }: Props) => {
     setTableData,
   });
 
+  // Calculate day totals based on the table data
   const dayTotals = getDayTotals(tableData);
 
+  // Determine if there is an error in fetching options or day data
   const isError = optionsError || dayDataError;
   const getRequestErrorMessage = "Error.. Please try again, later.";
 
   return (
     <Box minWidth="650px" position="relative">
+      {/* Display the products table header */}
       <ProductsTableHeader />
+
+      {/* Show loading or error messages or the table data */}
       {loadingOptions || loadingDayData ? (
         <Box
           display="flex"
@@ -98,19 +107,23 @@ const EditableProductsList = ({ handleOpenChart }: Props) => {
           </Box>
         ))
       )}
+
+      {/* Display the products table footer */}
       <ProductsTableFooter
         dayTotals={dayTotals}
         handleCreateDay={handleCreateDay}
         updating={updating}
         handleOpenChart={handleOpenChart}
       />
+
       {/* POST Request Notifications */}
       <Notifications
         handleCloseSnackbar={handleCloseSnackbar}
         successMessage={successMessage}
         errorMessage={errorMessage}
       />
-      {/* Display loading message when refetch other day */}
+
+      {/* Display loading message when refetching data for other days */}
       {fetchingDayData && (
         <Box
           sx={{

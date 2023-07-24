@@ -1,18 +1,21 @@
 import { parse, format, addDays, subDays } from "date-fns";
 import { DataRow } from "../types";
 
+// Function to count expected pallets based on cases and coefficient
 export const countExpectedPallets = (cases: number, coefficient: number) => {
+  // Check for invalid input or missing values
   if (!cases || !coefficient || isNaN(cases) || isNaN(coefficient)) return 0;
-  return +(cases / coefficient).toFixed(1);
+  return +(cases / coefficient).toFixed(1); // Calculate expected pallets and return with one decimal point
 };
 
+// Interface for formatted dates
 interface FormattedDates {
   current: string;
   previous: string;
   next: string;
 }
 
-//Returnes Formated date "DAY dd-mm-yyyy" with previous and next day (using in table header)
+// Function to get formatted date with adjacent days
 export const getFormattedDateWithAdjacentDays = (
   date: string | undefined
 ): FormattedDates => {
@@ -25,6 +28,7 @@ export const getFormattedDateWithAdjacentDays = (
       return { current: "Invalid Date", previous: "", next: "" };
     }
 
+    // Function to format date as "DAY dd-MM-yyyy"
     const formattedDate = (d: Date) => format(d, "EEEE dd-MM-yyyy");
 
     const previousDate = subDays(dateObject, 1);
@@ -46,6 +50,7 @@ export const getFormattedDateWithAdjacentDays = (
   }
 };
 
+// Function to get day totals from the table data
 export const getDayTotals = (tableData: DataRow[]) => {
   const initialTotals = {
     cases: 0,
@@ -55,6 +60,7 @@ export const getDayTotals = (tableData: DataRow[]) => {
   };
 
   const totals = tableData.reduce((prev, current) => {
+    // Calculate the sum of cases, pallets, expected cases, and expected pallets
     return {
       cases: (+prev.cases || 0) + (+current.cases || 0),
       pallets: (+prev.pallets || 0) + (+current.pallets || 0),
@@ -66,13 +72,16 @@ export const getDayTotals = (tableData: DataRow[]) => {
   return totals;
 };
 
+// Function to convert pallets to trailers
 export const palletsToTrailers = (pallets: number) => {
+  // Check for invalid input or missing values
   if (!pallets || isNaN(pallets)) return 0;
-  const trailers = pallets / 26;
+  const trailers = pallets / 26; // Convert pallets to trailers using a conversion factor
 
-  return trailers.toFixed(2);
+  return trailers.toFixed(2); // Return trailers with two decimal points
 };
 
+// Function to display trailers and pallets as text
 export const displayTrailersAndPallets = (trailersQty: number) => {
   const fullTrailers = Math.floor(trailersQty / 26);
   const balancePallets = Math.ceil(trailersQty % 26);
@@ -101,6 +110,7 @@ type CombinedData = {
   calculatedPallets: number;
 }[];
 
+// Function to get estimates based on the combined data
 export const getEstimates = (data: CombinedData | DataRow[]) => {
   return data.map((product) => {
     const { pallets, cases, coefficient, expectedCases } = product;
@@ -126,21 +136,21 @@ export const getEstimates = (data: CombinedData | DataRow[]) => {
   });
 };
 
-// Return number of the day of the week. Monday 1, Tuesday 2. ..
+// Function to get the number of the day of the week (Monday: 1, Tuesday: 2, ...)
 export const getDayOfWeekNumber = (dateStr: string | undefined) => {
   if (!dateStr) {
     return -1; // Return -1 to indicate that the date is undefined
   }
 
   const date = parse(dateStr, "dd-MM-yyyy", new Date());
-  const dayOfWeekNumber = date.getDay();
+  const dayOfWeekNumber = date.getDay(); // Get the day of the week number (0: Sunday, 1: Monday, ...)
   return dayOfWeekNumber;
 };
 
-//get default dates for the chart, requested date - 30 days - requested date
+// Function to get default dates for the chart ((requested date minus 30 days) - requested date)
 export const getDefaultDates = (dateStr: string | undefined) => {
   if (!dateStr) {
-    dateStr = format(new Date(), "dd-MM-yyyy");
+    dateStr = format(new Date(), "dd-MM-yyyy"); // If no date is provided, use the current date
   }
 
   const date = parse(dateStr, "dd-MM-yyyy", new Date());

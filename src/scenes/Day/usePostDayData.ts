@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useCreateDayMutation } from "../../state/api";
 import { DataRow } from "../Day/types";
 
-type Props = {
+type UsePostDayDataProps = {
   tableData: DataRow[];
   date: string | undefined;
 };
 
-function usePostDayData({ tableData, date }: Props) {
+function usePostDayData({ tableData, date }: UsePostDayDataProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 

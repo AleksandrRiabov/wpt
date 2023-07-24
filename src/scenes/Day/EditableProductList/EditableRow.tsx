@@ -19,13 +19,16 @@ type Props = {
 };
 
 const EditableRow = ({ row, updateProduct }: Props) => {
+  // State to manage input values
   const [inputsValue, setInputsValue] = useState({
     pallets: row.pallets || "",
     cases: row.cases || "",
   });
 
+  // Get the 'date' from URL parameters
   const { date } = useParams();
 
+  // Update the input values whenever the 'date', 'pallets', or 'cases' change
   useEffect(() => {
     setInputsValue({
       pallets: row.pallets || "",
@@ -33,19 +36,22 @@ const EditableRow = ({ row, updateProduct }: Props) => {
     });
   }, [date, row.pallets, row.cases]);
 
+  // Extract theme and color tokens from the MUI theme
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
+  // Event handler for input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // If the value is a number set state
+    // If the value is a number, set the state
     if (!isNaN(Number(value))) {
       const positiveValue = +value.trim() > 0 ? value : "";
       setInputsValue((prev) => ({ ...prev, [name]: positiveValue }));
     }
   };
 
+  // Event handler for product change (invoked when inputs lose focus)
   const handleProductChange = () => {
     updateProduct({
       name: row.name,
@@ -54,6 +60,7 @@ const EditableRow = ({ row, updateProduct }: Props) => {
     });
   };
 
+  // Determine the background color for error and warning states
   const errorBackground =
     !inputsValue.cases && inputsValue.pallets ? "red" : "";
   const warningBackground =
@@ -70,6 +77,7 @@ const EditableRow = ({ row, updateProduct }: Props) => {
       >
         <Box display="flex" flex="1">
           <SingleCell flex="1" sx={{ background: colors.primary[700] }}>
+            {/* Display the product name with ellipsis for overflow */}
             <Typography
               sx={{
                 whiteSpace: "nowrap",
@@ -90,6 +98,7 @@ const EditableRow = ({ row, updateProduct }: Props) => {
               background: errorBackground,
             }}
           >
+            {/* Input for 'cases' with number type */}
             <input
               name="cases"
               type="number"
@@ -100,6 +109,7 @@ const EditableRow = ({ row, updateProduct }: Props) => {
             />
           </SingleCell>
           <SingleCell flex="1">
+            {/* Input for 'pallets' with number type */}
             <input
               name="pallets"
               type="number"
@@ -110,6 +120,7 @@ const EditableRow = ({ row, updateProduct }: Props) => {
             />
           </SingleCell>
           {/* ========== */}
+          {/* Tooltip for displaying 'trailers' information */}
           <Tooltip title="Trailers">
             <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
               {row.trailers}
@@ -118,9 +129,11 @@ const EditableRow = ({ row, updateProduct }: Props) => {
         </Box>
         {/* =====  Expected data  ========*/}
         <Box display="flex" flex="1">
+          {/* Tooltip for displaying 'expected cases' information */}
           <Tooltip title="Expected Cases">
             <SingleCell flex="1">{row.calculatedCases}</SingleCell>
           </Tooltip>
+          {/* Tooltip for displaying 'expected pallets' information (with warning if no data) */}
           <Tooltip
             title={`${
               warningBackground
@@ -139,6 +152,7 @@ const EditableRow = ({ row, updateProduct }: Props) => {
               {row.calculatedPallets}
             </SingleCell>
           </Tooltip>
+          {/* Tooltip for displaying 'expected trailers' information */}
           <Tooltip title="Expected Trailers">
             <SingleCell flex="1" sx={{ background: colors.primary[400] }}>
               {row.expectedTrailers}

@@ -1,36 +1,31 @@
-import { Box, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { useGetDaysDataQuery } from "../../state/api";
-import { DateRange } from "../../state/types";
-import { tokens } from "../../theme";
-import DashboardBox from "../../components/dashboardBox/DashboardBox";
-import useFormatChartData from "../../hooks/useFormatChartData";
 import { format } from "date-fns";
-import { formateDateRange } from "../../helpers";
+
+import { DateRange } from "../../state/types";
+import { useGetDaysDataQuery } from "../../state/api";
+import useFormatChartData from "../../hooks/useFormatChartData";
 import useGetCategories from "../../hooks/useGetCategories";
-import ChartFilters from "../Dashboard/ChartFilters";
-import ModalWrapper from "../../components/ModalWrapper/ModalWrapper";
-import BoxHeader from "../../components/BoxHeader/BoxHeader";
+import { formateDateRange } from "../../helpers";
 import {
   getDayOfWeekNumber,
   getDefaultDates,
 } from "./EditableProductList/helpers";
 
+import DashboardBox from "../../components/dashboardBox/DashboardBox";
+import ChartFilters from "../Dashboard/ChartFilters";
+import ModalWrapper from "../../components/ModalWrapper/ModalWrapper";
+import BoxHeader from "../../components/BoxHeader/BoxHeader";
+import LineChart from "../../components/LineChart";
+
 // Default category array for the chart
 const defaultCategory = [] as string[];
 
 const DayChart = () => {
+  // Get the date parameter from the URL using useParams
   const { date } = useParams();
 
+  // Calculate default date range based on the date parameter
   const { defaultDateFrom, defaultDateTo } = getDefaultDates(date);
 
   // Use the `useState` hook to manage date range query for fetching
@@ -40,17 +35,14 @@ const DayChart = () => {
   const [checkedProducts, setCheckedProducts] =
     useState<string[]>(defaultCategory);
 
+  // Get the day of the week (0 for Sunday, 1 for Monday, etc.) from the date
   const day = getDayOfWeekNumber(date);
 
-  // Get all products data for requested day
+  // Fetch data for the selected day using the date range query and day of the week
   const { data, refetch } = useGetDaysDataQuery(`${dateRangeQuery}&day=${day}`);
   useEffect(() => {
-    refetch();
+    refetch(); // Refetch data when date or day changes
   }, [date, refetch]);
-
-  // Use the `useTheme` hook to access the MUI theme object
-  const { palette } = useTheme();
-  const colors = tokens(palette.mode);
 
   // Use the `useState` hook to manage the open state of the modal
   const [open, setOpen] = useState(false);
@@ -61,16 +53,18 @@ const DayChart = () => {
   const categories = useGetCategories(data);
   const chartData = useFormatChartData({ data, checkedProducts });
 
-  //On change format date range and update state/query
+  // On date range change, format the date range and update the state/query
   const handleDateRangeChange = (dateRange: DateRange) => {
     const formatedDateRange = formateDateRange(dateRange);
     setDateRangeQuery(formatedDateRange);
   };
 
+  // Extract dateFrom and dateTo from the dateRangeQuery
   const dateFrom = dateRangeQuery.slice(9, 19);
   const dateTo =
     dateRangeQuery.slice(27) || format(defaultDateTo, "dd-MM-yyyy");
 
+  // Generate a string representing the selected products for display
   const selectedProducts = checkedProducts.join(", ").length
     ? checkedProducts.join(", ")
     : "ALL";
@@ -83,69 +77,17 @@ const DayChart = () => {
         width: { xs: "320px", md: "600px", lg: "1000px" },
       }}
     >
+      {/* BoxHeader component with information about selected products, date range  and setings button*/}
       <BoxHeader
         title={`Product: ${selectedProducts}`}
         subtitle={`From ${dateFrom} - To ${dateTo}`}
         handleOpen={handleOpen}
       />
-      <Box height="100%">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            width={500}
-            height={400}
-            data={chartData}
-            margin={{
-              top: 20,
-              right: 25,
-              left: -20,
-              bottom: 0,
-            }}
-          >
-            <defs>
-              <linearGradient id="colorDays" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="10%"
-                  stopColor={colors.green[400]}
-                  stopOpacity={1}
-                />
-                <stop
-                  offset="90%"
-                  stopColor={colors.green[400]}
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-            </defs>
-            <XAxis
-              dataKey="name"
-              tickLine={false}
-              style={{ fontSize: "10px" }}
-            />
-            <YAxis
-              tickLine={false}
-              axisLine={{ strokeWidth: "0" }}
-              style={{ fontSize: "10px" }}
-            />
-            <Tooltip
-              contentStyle={{ backgroundColor: colors.primary[500] }}
-              itemStyle={{ color: colors.primary[100] }}
-            />
-            <Area
-              type="monotone"
-              dataKey="cases"
-              stroke={colors.lightBlue[800]}
-              fillOpacity={0.7}
-              fill="url(#colorDays)"
-            />
-            <Area
-              type="monotone"
-              dataKey="pallets"
-              stroke={colors.primary[700]}
-              fillOpacity={0.9}
-              fill="url(#colorDays)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </Box>
+
+      {/* LineChart component for displaying the chart */}
+      <LineChart chartData={chartData} />
+
+      {/* ModalWrapper component to show the ChartFilters in a modal */}
       <ModalWrapper open={open} handleClose={handleClose}>
         <ChartFilters
           categories={categories}
