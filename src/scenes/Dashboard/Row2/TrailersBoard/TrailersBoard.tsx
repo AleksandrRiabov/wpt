@@ -52,7 +52,11 @@ const TrailersBoard = () => {
         const sentDate = params.row.sentDate;
         if (!sentDate) return "N/A";
         const formattedDate = format(new Date(sentDate), dateFormat);
-        return formattedDate;
+        return (
+          <Tooltip title={"Date Loaded"}>
+            <span>{formattedDate}</span>
+          </Tooltip>
+        );
       },
     },
     {
@@ -63,7 +67,11 @@ const TrailersBoard = () => {
         const deliveryDate = params.row.deliveryDate;
         if (!deliveryDate) return "N/A";
         const formattedDate = format(new Date(deliveryDate), dateFormat);
-        return formattedDate;
+        return (
+          <Tooltip title={"Delivery Date"}>
+            <span>{formattedDate}</span>
+          </Tooltip>
+        );
       },
     },
     {
