@@ -77,7 +77,14 @@ const App = () => {
         <Route path="/team" element={<Team />} />
 
         <Route path="/week/:id" element={<Week />} />
-        <Route path="/day/:date" element={<Day />} />
+        <Route
+          path="/day/:date"
+          element={
+            <ProtectedRoute>
+              <Day />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
