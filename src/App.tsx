@@ -76,7 +76,14 @@ const App = () => {
         />
         <Route path="/team" element={<Team />} />
 
-        <Route path="/week/:id" element={<Week />} />
+        <Route
+          path="/week/:startDay"
+          element={
+            <ProtectedRoute>
+              <Week />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/day/:date"
           element={

@@ -2,9 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { getStartOfWeekDate } from "../../helpers";
 
 // Default date from in the query
 const today = format(new Date(), "dd-MM-yyyy");
+const startOfThisWeek = getStartOfWeekDate(new Date());
 
 const Home = () => {
   return (
@@ -64,15 +66,17 @@ const Home = () => {
                   Today
                 </Button>
               </Link>
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{
-                  color: "primary.contrastText",
-                }}
-              >
-                This Week
-              </Button>
+              <Link to={`/week/${startOfThisWeek}`}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    color: "primary.contrastText",
+                  }}
+                >
+                  This Week
+                </Button>
+              </Link>
             </Box>
           </Box>
           <Box

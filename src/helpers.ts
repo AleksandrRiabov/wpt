@@ -1,4 +1,4 @@
-import { addDays, isAfter, format } from "date-fns";
+import { addDays, isAfter, format, startOfWeek } from "date-fns";
 import { DateRange, GetTrailersDataResponse } from "./state/types";
 
 //Formats date range from {from: Date, to: Date} to string "dd-MM-yyyy_dd-MM-yyyy"
@@ -56,3 +56,21 @@ export const setAccessTokenToCookie = (
   const expires = `expires=${date.toUTCString()}`;
   document.cookie = `accessToken=${token}; ${expires}; path=/`;
 };
+
+// Get start of the week day date always monday ('dd-mm-yyyy')
+export const getStartOfWeekDate = (date: Date) => {
+  // Calculate the start of the week (Monday) using the startOfWeek function
+  const startOfWeekMonday = startOfWeek(date, { weekStartsOn: 1 }); // Monday is 1, Sunday is 0
+
+  // Format the start of the week date as 'dd-mm-yyyy'
+  const formattedDate = format(startOfWeekMonday, "dd-MM-yyyy");
+
+  return formattedDate;
+};
+
+// Get the current date
+const today = new Date();
+
+// Get the start of the week date for today
+const startOfWeekDate = getStartOfWeekDate(today);
+console.log("Start of the Week Date (Today):", startOfWeekDate);
