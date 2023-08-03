@@ -19,7 +19,7 @@ const Day = () => {
     <Container maxWidth="xl" sx={{ minHeight: "85vh" }}>
       <PageHeader title={`Day `} />
 
-      <Box maxWidth="xs">
+      <Box>
         {/* Box for horizontal scrolling if needed */}
         <Box
           sx={{

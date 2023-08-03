@@ -1,4 +1,11 @@
-import { addDays, isAfter, format, startOfWeek } from "date-fns";
+import {
+  addDays,
+  isAfter,
+  format,
+  startOfWeek,
+  endOfWeek,
+  parse,
+} from "date-fns";
 import { DateRange, GetTrailersDataResponse } from "./state/types";
 
 //Formats date range from {from: Date, to: Date} to string "dd-MM-yyyy_dd-MM-yyyy"
@@ -58,7 +65,8 @@ export const setAccessTokenToCookie = (
 };
 
 // Get start of the week day date always monday ('dd-mm-yyyy')
-export const getStartOfWeekDate = (date: Date) => {
+export const getStartOfWeekDate = (date: Date | null) => {
+  if (!date) return null;
   // Calculate the start of the week (Monday) using the startOfWeek function
   const startOfWeekMonday = startOfWeek(date, { weekStartsOn: 1 }); // Monday is 1, Sunday is 0
 
@@ -68,9 +76,28 @@ export const getStartOfWeekDate = (date: Date) => {
   return formattedDate;
 };
 
-// Get the current date
-const today = new Date();
+// Get end of the week day date always Sunday ('dd-mm-yyyy')
+export const getEndOfWeekDate = (date: Date | null) => {
+  if (!date) return null;
+  // Calculate the end of the week (Sunday) using the endOfWeek function
+  const endOfWeekSunday = endOfWeek(date, { weekStartsOn: 1 }); // Monday is 1, Sunday is 0
 
-// Get the start of the week date for today
-const startOfWeekDate = getStartOfWeekDate(today);
-console.log("Start of the Week Date (Today):", startOfWeekDate);
+  // Format the end of the week date as 'dd-mm-yyyy'
+  const formattedDate = format(endOfWeekSunday, "dd-MM-yyyy");
+
+  return formattedDate;
+};
+
+export const parseDateString = (dateString: string | undefined) => {
+  if (!dateString) return null;
+  // Try to parse the date string into a valid Date object
+  const parsedDate = parse(dateString, "dd-MM-yyyy", new Date());
+
+  if (parsedDate instanceof Date && !isNaN(parsedDate.valueOf())) {
+    // The date string was successfully parsed into a valid Date object
+    return parsedDate;
+  } else {
+    // The date string could not be parsed, or it was an invalid date
+    return null;
+  }
+};
