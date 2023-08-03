@@ -34,7 +34,7 @@ const Week = () => {
     useState<string[]>(defaultCategory);
 
   // Fetch data for the selected day using the date range query and day of the week
-  const { data, refetch } = useGetDaysDataQuery(dateRangeQuery);
+  const { data, refetch, isFetching } = useGetDaysDataQuery(dateRangeQuery);
 
   // Use the `useEffect` hook to refetch data when startDay changes
   useEffect(() => {
@@ -78,6 +78,7 @@ const Week = () => {
           setCheckedProducts={setCheckedProducts}
           handleDateRangeChange={handleDateRangeChange}
           handleChageStartDate={handleChageStartDate}
+          isFetching={isFetching}
         />
         <WeekTable />
       </Box>

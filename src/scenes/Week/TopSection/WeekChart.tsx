@@ -20,6 +20,7 @@ type Props = {
   checkedProducts: string[];
   setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
   handleDateRangeChange: (dateRange: DateRange) => void;
+  isFetching: boolean;
 };
 
 const WeekChart = ({
@@ -30,6 +31,7 @@ const WeekChart = ({
   checkedProducts,
   setCheckedProducts,
   handleDateRangeChange,
+  isFetching,
 }: Props) => {
   // Use the `useState` hook to manage the open state of the modal
   const [open, setOpen] = useState(false);
@@ -47,6 +49,8 @@ const WeekChart = ({
   const selectedProducts = checkedProducts.join(", ").length
     ? checkedProducts.join(", ")
     : "ALL";
+
+  const message = isFetching ? "Loading..." : "No Data for selected dates..";
 
   return (
     <Box
@@ -73,7 +77,7 @@ const WeekChart = ({
           sessionStorageKey="dashboard-areachart"
         />
       </ModalWrapper>
-      {!chartData.length && (
+      {(!chartData.length || isFetching) && (
         <Box
           sx={{
             position: "absolute",
@@ -84,9 +88,11 @@ const WeekChart = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            background: "rgba(255,255,255,.1)",
+            borderRadius: "15px",
           }}
         >
-          <Typography> No Data for selected dates..</Typography>
+          <Typography> {message} </Typography>
         </Box>
       )}
     </Box>

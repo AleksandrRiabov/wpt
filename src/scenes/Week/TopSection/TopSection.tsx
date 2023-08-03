@@ -18,6 +18,7 @@ type Props = {
   setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
   handleDateRangeChange: (dateRange: DateRange) => void;
   handleChageStartDate: (newDate: Date) => void;
+  isFetching: boolean;
 };
 
 const TopSection = ({
@@ -30,6 +31,7 @@ const TopSection = ({
   setCheckedProducts,
   handleDateRangeChange,
   handleChageStartDate,
+  isFetching
 }: Props) => {
   console.log("Render Top section");
 
@@ -52,6 +54,7 @@ const TopSection = ({
           checkedProducts={checkedProducts}
           setCheckedProducts={setCheckedProducts}
           handleDateRangeChange={handleDateRangeChange}
+          isFetching={isFetching}
         />
       </DashboardBox>
       <DashboardBox flex="1">
