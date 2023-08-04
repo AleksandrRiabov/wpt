@@ -27,15 +27,17 @@ function MuiDateRangePicker({ onDateChange, sessionStorageKey }: Props) {
   });
 
   const handleDateChange = (key: keyof DateRange, date: Date | null) => {
-    const newDateRange = {
-      ...dateRange,
-      [key]: date,
-    };
-    setDateRange(newDateRange);
-    sessionStorage.setItem(
-      `${sessionStorageKey}dateRange`,
-      JSON.stringify(newDateRange)
-    );
+    if (date && !isNaN(Date.parse(date.toString()))) {
+      const newDateRange = {
+        ...dateRange,
+        [key]: date,
+      };
+      setDateRange(newDateRange);
+      sessionStorage.setItem(
+        `${sessionStorageKey}dateRange`,
+        JSON.stringify(newDateRange)
+      );
+    }
   };
 
   useEffect(() => {
