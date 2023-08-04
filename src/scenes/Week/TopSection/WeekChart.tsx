@@ -88,7 +88,7 @@ const WeekChart = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            background: "rgba(255,255,255,.1)",
+            background: "rgba(255,255,250,0.07)",
             borderRadius: "15px",
           }}
         >

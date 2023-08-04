@@ -164,7 +164,7 @@ export const getDesignTokens = (mode: PaletteMode) => {
               light: colors.lightBlue[100],
             },
             background: {
-              default: colors.primary[500],
+              default: colors.primary[400],
             },
           }
         : {
