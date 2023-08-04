@@ -54,7 +54,7 @@ const Week = () => {
     setDateRangeQuery(formatedDateRange);
   };
 
-  const handleChageStartDate = (newDate: Date) => {
+  const handleChangeStartDate = (newDate: Date) => {
     const newDateFrom = getStartOfWeekDate(newDate);
     const newDateTo = getEndOfWeekDate(newDate);
     const newDateRangeQuery = `dateFrom=${newDateFrom}&dateTo=${newDateTo}`;
@@ -77,8 +77,9 @@ const Week = () => {
           checkedProducts={checkedProducts}
           setCheckedProducts={setCheckedProducts}
           handleDateRangeChange={handleDateRangeChange}
-          handleChageStartDate={handleChageStartDate}
+          handleChangeStartDate={handleChangeStartDate}
           isFetching={isFetching}
+          startDate={startDate}
         />
         <WeekTable />
       </Box>

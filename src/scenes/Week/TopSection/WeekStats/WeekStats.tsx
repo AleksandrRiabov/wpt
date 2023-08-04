@@ -2,13 +2,17 @@ import { Box } from "@mui/material";
 import WeekDatePicker from "./WeekDatePicker";
 
 type Props = {
-  handleChageStartDate: (newDate: Date) => void;
+  handleChangeStartDate: (newDate: Date) => void;
+  startDate: Date | null;
 };
 
-const WeekStats = ({ handleChageStartDate }: Props) => {
+const WeekStats = ({ handleChangeStartDate, startDate }: Props) => {
   return (
     <Box display="flex" justifyContent="center" padding="45px 10px">
-      <WeekDatePicker handleChageStartDate={handleChageStartDate} />
+      <WeekDatePicker
+        handleChangeStartDate={handleChangeStartDate}
+        startDate={startDate}
+      />
     </Box>
   );
 };
