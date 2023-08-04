@@ -94,7 +94,7 @@ const DayChart = () => {
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
           onDateChange={handleDateRangeChange}
-          sessionStorageKey="dashboard-areachart"
+          sessionStorageKey="day-areachart"
         />
       </ModalWrapper>
     </DashboardBox>
