@@ -1,19 +1,8 @@
 import { Close } from "@mui/icons-material";
+import { useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-
-const style = {
-  position: "absolute",
-  minWidth: "350px",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  pt: 6,
-};
+import { tokens } from "../../theme";
 
 type Props = {
   children: string | JSX.Element | JSX.Element[];
@@ -22,6 +11,9 @@ type Props = {
 };
 
 function ModalWrapper({ children, open, handleClose }: Props) {
+  const { palette } = useTheme();
+  const colors = tokens(palette.mode);
+
   return (
     <div>
       <Modal
@@ -30,7 +22,20 @@ function ModalWrapper({ children, open, handleClose }: Props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          sx={{
+            position: "absolute",
+            minWidth: "350px",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: `2px solid ${colors.secondary[500]}`,
+            boxShadow: 24,
+            p: 4,
+            pt: 6,
+          }}
+        >
           <Close
             onClick={handleClose}
             sx={{
