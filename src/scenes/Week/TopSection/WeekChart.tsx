@@ -90,6 +90,7 @@ const WeekChart = ({
             alignItems: "center",
             background: "rgba(255,255,250,0.07)",
             borderRadius: "15px",
+            pointerEvents: "none",
           }}
         >
           <Typography> {message} </Typography>
