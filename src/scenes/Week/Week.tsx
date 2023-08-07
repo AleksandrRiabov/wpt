@@ -13,14 +13,20 @@ import {
 import { useGetDaysDataQuery } from "../../state/api";
 import useFormatChartData from "../../hooks/useFormatChartData";
 import { DateRange } from "../../state/types";
+import { getISOWeek } from "date-fns";
+import useCalculateWeekStats from "./useCalculateWeekStats";
 
 // Default category array for the chart
 const defaultCategory = [] as string[];
 
 const Week = () => {
   const { startDay } = useParams();
+  const [startDate, setStartDate] = useState(parseDateString(startDay));
 
-  const startDate = parseDateString(startDay);
+  useEffect(() => {
+    setStartDate(parseDateString(startDay));
+  }, [startDay]);
+
   const defaultDateFrom = getStartOfWeekDate(startDate);
   const defaultDateTo = getEndOfWeekDate(startDate);
 
@@ -36,17 +42,15 @@ const Week = () => {
   // Fetch data for the selected day using the date range query and day of the week
   const { data, refetch, isFetching } = useGetDaysDataQuery(dateRangeQuery);
 
-  // Use the `useEffect` hook to refetch data when startDay changes
+  // Use the `useEffect` hook to refetch data when startDate changes
   useEffect(() => {
-    const newDateFrom = getStartOfWeekDate(parseDateString(startDay));
-    const newDateTo = getEndOfWeekDate(parseDateString(startDay));
+    const newDateFrom = getStartOfWeekDate(startDate);
+    const newDateTo = getEndOfWeekDate(startDate);
     const newDateRangeQuery = `dateFrom=${newDateFrom}&dateTo=${newDateTo}`;
 
     setDateRangeQuery(newDateRangeQuery);
     refetch();
-  }, [startDay, refetch]);
-
-  const chartData = useFormatChartData({ data, checkedProducts });
+  }, [startDate, refetch]);
 
   // On date range change, format the date range and update the state/query
   const handleDateRangeChange = (dateRange: DateRange) => {
@@ -54,18 +58,21 @@ const Week = () => {
     setDateRangeQuery(formatedDateRange);
   };
 
-  const handleChangeStartDate = (newDate: Date) => {
-    const newDateFrom = getStartOfWeekDate(newDate);
-    const newDateTo = getEndOfWeekDate(newDate);
-    const newDateRangeQuery = `dateFrom=${newDateFrom}&dateTo=${newDateTo}`;
+  // Formated Chart Data
+  const chartData = useFormatChartData({ data, checkedProducts });
 
-    setDateRangeQuery(newDateRangeQuery);
-    refetch();
-  };
+  // Get Week stats. If some product checked on chart it will display only those products totals
+  const weekStats = useCalculateWeekStats({ data: chartData });
+
+  // Get week number from the date
+  const currentWeekNumber = startDate ? getISOWeek(startDate) : "";
+
+  // Indicates if any filters applied, (not including date range)
+  const filtersApplied = !!checkedProducts.length;
 
   return (
     <Container maxWidth="xl" sx={{ minHeight: "85vh" }}>
-      <PageHeader title={`Week ${startDay}`} />
+      <PageHeader title={`Week  - ${currentWeekNumber}`} />
 
       <Box>
         <TopSection
@@ -77,9 +84,10 @@ const Week = () => {
           checkedProducts={checkedProducts}
           setCheckedProducts={setCheckedProducts}
           handleDateRangeChange={handleDateRangeChange}
-          handleChangeStartDate={handleChangeStartDate}
           isFetching={isFetching}
           startDate={startDate}
+          weekStats={weekStats}
+          filtersApplied={filtersApplied}
         />
         <WeekTable />
       </Box>

@@ -17,9 +17,15 @@ type Props = {
   checkedProducts: string[];
   setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
   handleDateRangeChange: (dateRange: DateRange) => void;
-  handleChangeStartDate: (newDate: Date) => void;
   isFetching: boolean;
   startDate: Date | null;
+  weekStats: {
+    totalCases: number;
+    totalPallets: number;
+    averageCases: number;
+    averagePallets: number;
+  };
+  filtersApplied: boolean;
 };
 
 const TopSection = ({
@@ -31,9 +37,10 @@ const TopSection = ({
   checkedProducts,
   setCheckedProducts,
   handleDateRangeChange,
-  handleChangeStartDate,
   isFetching,
   startDate,
+  weekStats,
+  filtersApplied,
 }: Props) => {
   console.log("Render Top section");
 
@@ -43,7 +50,6 @@ const TopSection = ({
         display: "flex",
         gap: "1rem",
         flexDirection: { xs: "column-reverse", md: "row" },
-        height: { xs: "400px", sm: "450px", md: "500px", lg: "600px" },
       }}
     >
       <DashboardBox sx={{ flex: { xs: 1, sm: 2, md: 3, lg: 3 } }}>
@@ -61,8 +67,9 @@ const TopSection = ({
       </DashboardBox>
       <DashboardBox flex="1">
         <WeekStats
-          handleChangeStartDate={handleChangeStartDate}
           startDate={startDate}
+          weekStats={weekStats}
+          filtersApplied={filtersApplied}
         />
       </DashboardBox>
     </Box>

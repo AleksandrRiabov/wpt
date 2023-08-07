@@ -56,7 +56,7 @@ const WeekChart = ({
     <Box
       sx={{
         position: "relative",
-        height: "100%",
+        height: { xs: "400px", sm: "450px", md: "500px", lg: "600px" },
         display: "flex",
         flexDirection: "column",
       }}
@@ -74,7 +74,7 @@ const WeekChart = ({
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
           onDateChange={handleDateRangeChange}
-          sessionStorageKey="dashboard-areachart"
+          sessionStorageKey="week-areachart"
         />
       </ModalWrapper>
       {(!chartData.length || isFetching) && (

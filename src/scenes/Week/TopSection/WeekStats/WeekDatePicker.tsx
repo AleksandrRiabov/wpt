@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box } from "@mui/system";
 
@@ -6,38 +6,50 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { addWeeks, isAfter, subWeeks } from "date-fns";
+import { Link, useNavigate } from "react-router-dom";
+import { getStartOfWeekDate } from "../../../../helpers";
 
 const arrowsStyle = { cursor: "pointer", fontSize: "2rem" };
 
 type Props = {
-  handleChangeStartDate: (newDate: Date) => void;
   startDate: Date | null;
 };
 
-const WeekDatePicker = ({ handleChangeStartDate, startDate }: Props) => {
+const WeekDatePicker = ({ startDate }: Props) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(startDate);
 
+  // UseEffect to synchronize the selectedDate state with the startDate prop
+  useEffect(() => {
+    setSelectedDate(startDate);
+  }, [startDate]);
+
+  const navigate = useNavigate();
+
+  // Handler for date change in the date picker
   const handleDateChange = (date: Date | null) => {
     if (date) {
       setSelectedDate(date);
-      handleChangeStartDate(date);
+      // Navigate to the new week's start date
+      navigate(`/week/${getStartOfWeekDate(date)}`);
     }
   };
 
+  // Handler for arrow button clicks
   const handleArrowClick = (direction: string) => {
     if (!selectedDate) return;
 
     let newDate: Date;
 
+    // Calculate the new date based on the arrow direction
     if (direction === "left") {
       newDate = subWeeks(selectedDate, 1);
     } else {
       newDate = addWeeks(selectedDate, 1);
     }
 
-    // Check if the new date is after today, if so, don't update
+    // Check if the new date is after today, if so, navigate to the new week's start date
     if (!isAfter(newDate, new Date())) {
-      handleDateChange(newDate);
+      navigate(`/week/${getStartOfWeekDate(newDate)}`);
     }
   };
 
@@ -67,6 +79,7 @@ const WeekDatePicker = ({ handleChangeStartDate, startDate }: Props) => {
         </LocalizationProvider>
       </Box>
       <Box paddingLeft="10px">
+        <Link to={`/week/${3}`}></Link>
         <ArrowForward
           color="secondary"
           sx={arrowsStyle}
