@@ -56,7 +56,7 @@ const WeekChart = ({
     <Box
       sx={{
         position: "relative",
-        height: { xs: "400px", sm: "450px", md: "500px", lg: "600px" },
+        height: { xs: "400px", sm: "450px", md: "470px" },
         display: "flex",
         flexDirection: "column",
       }}

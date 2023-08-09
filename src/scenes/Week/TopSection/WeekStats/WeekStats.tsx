@@ -43,9 +43,7 @@ const WeekStats = ({ startDate, weekStats, filtersApplied }: Props) => {
           </Box>
         </Box>
 
-        <Box
-          sx={{ marginTop: { xs: "20px", sm: "0", lg: "70px" }, width: "100%" }}
-        >
+        <Box sx={{ marginTop: { xs: "20px", sm: "0" }, width: "100%" }}>
           <Typography variant="h2" textAlign="center">
             Day Average:
           </Typography>
