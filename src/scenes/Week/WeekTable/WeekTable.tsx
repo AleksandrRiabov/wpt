@@ -1,4 +1,3 @@
-import React from "react";
 import DashboardBox from "../../../components/dashboardBox/DashboardBox";
 import { Box } from "@mui/material";
 import DayRow from "./DayRow";
@@ -8,7 +7,7 @@ type Props = {};
 const WeekTable = (props: Props) => {
   return (
     <DashboardBox marginTop="20px">
-      <Box padding="40px">
+      <Box sx={{ overflowX: "auto", padding: { xs: "20px", md: "30px" } }}>
         <DayRow
           day="DAY"
           date="DATE"

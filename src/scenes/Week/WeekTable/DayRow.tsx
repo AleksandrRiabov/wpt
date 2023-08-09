@@ -1,4 +1,4 @@
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button, Tooltip, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../../theme";
 
@@ -30,25 +30,28 @@ const DayRow = ({
     justifyContent: "center",
     alignItems: "center",
     padding: isHeader ? "20px 10px" : "10px",
-    borderRight: "1px solid",
+    borderRight: `1px dashed ${colors.primary[500]}`,
     textTransform: "uppercase",
   };
 
   const rowStyle = {
     "&:hover": {
-      fontWeight: 900,
-      fontSize: "1rem",
+      color: colors.secondary[500],
     },
-    fontSize: isHeader ? "1rem" : "inherit",
-    fontWeight: isHeader ? "900" : "inherit",
+    fontSize: isHeader ? "0.95rem" : "inherit",
+    color: isHeader ? colors.secondary[500] : "inherit",
   };
 
   return (
     <Box
       display="flex"
       textAlign="center"
-      borderTop="1px solid"
-      borderBottom={isLastRow ? "1px solid" : "none"}
+      borderTop={
+        isHeader
+          ? `1px solid ${colors.primary[400]}`
+          : `1px dashed ${colors.primary[400]}`
+      }
+      borderBottom={isLastRow ? `1px solid ${colors.primary[400]}` : "none"}
       minWidth="600px"
       sx={rowStyle}
     >
@@ -56,17 +59,30 @@ const DayRow = ({
         sx={{
           ...cellStyle,
           background: colors.primary[800],
-          borderLeft: "1px solid",
+          borderLeft: `1px solid ${colors.primary[400]}`,
         }}
       >
         {day}
       </Box>
-      <Box sx={{ ...cellStyle, background: colors.primary[700] }}>{date}</Box>
-      <Box sx={{ ...cellStyle, background: colors.primary[500] }}>{cases}</Box>
-      <Box sx={{ ...cellStyle, background: colors.primary[400] }}>
-        {pallets}
-      </Box>
-      <Box sx={{ ...cellStyle, flex: 0.7, background: colors.primary[400] }}>
+      <Box sx={{ ...cellStyle, background: colors.primary[600] }}>{date}</Box>
+      <Tooltip title={`Total sum of all products for ${day} ${date}`}>
+        <Box sx={{ ...cellStyle, background: colors.primary[600] }}>
+          {cases}
+        </Box>
+      </Tooltip>
+      <Tooltip title={`Total pallets for ${day} ${date}`}>
+        <Box sx={{ ...cellStyle, background: colors.primary[600] }}>
+          {pallets}
+        </Box>
+      </Tooltip>
+      <Box
+        sx={{
+          ...cellStyle,
+          flex: 0.7,
+          background: colors.primary[600],
+          borderRight: `1px solid ${colors.primary[400]}`,
+        }}
+      >
         {withBtn && (
           <Link to={`/day/${date}`}>
             <Button variant={"contained"} color={"secondary"}>
