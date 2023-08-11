@@ -33,7 +33,7 @@ const useFormatChartData = ({ data, checkedProducts }: Props) => {
         result.push({
           cases: totalCases,
           pallets: totalPallets,
-          name: day.date.slice(0, 10),
+          name: day.date.slice(0, 10).split("-").reverse().join("-"),
         });
       }
     }
