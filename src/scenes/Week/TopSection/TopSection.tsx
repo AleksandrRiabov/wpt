@@ -16,7 +16,6 @@ type Props = {
   defaultDateTo: string | null;
   checkedProducts: string[];
   setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
-  handleDateRangeChange: (dateRange: DateRange) => void;
   isFetching: boolean;
   startDate: Date | null;
   weekStats: {
@@ -36,7 +35,6 @@ const TopSection = ({
   defaultDateTo,
   checkedProducts,
   setCheckedProducts,
-  handleDateRangeChange,
   isFetching,
   startDate,
   weekStats,
@@ -61,7 +59,6 @@ const TopSection = ({
           defaultDateTo={defaultDateTo}
           checkedProducts={checkedProducts}
           setCheckedProducts={setCheckedProducts}
-          handleDateRangeChange={handleDateRangeChange}
           isFetching={isFetching}
         />
       </DashboardBox>

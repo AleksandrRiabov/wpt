@@ -19,7 +19,6 @@ type Props = {
   defaultDateTo: string | null;
   checkedProducts: string[];
   setCheckedProducts: React.Dispatch<React.SetStateAction<string[]>>;
-  handleDateRangeChange: (dateRange: DateRange) => void;
   isFetching: boolean;
 };
 
@@ -30,7 +29,6 @@ const WeekChart = ({
   dateRangeQuery,
   checkedProducts,
   setCheckedProducts,
-  handleDateRangeChange,
   isFetching,
 }: Props) => {
   // Use the `useState` hook to manage the open state of the modal
@@ -73,7 +71,6 @@ const WeekChart = ({
           categories={categories}
           setCheckedProducts={setCheckedProducts}
           checkedProducts={checkedProducts}
-          onDateChange={handleDateRangeChange}
           sessionStorageKey="week-areachart"
         />
       </ModalWrapper>
