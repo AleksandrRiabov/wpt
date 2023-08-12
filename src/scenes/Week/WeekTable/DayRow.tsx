@@ -5,8 +5,8 @@ import { tokens } from "../../../theme";
 type Props = {
   day: string;
   date: string;
-  cases: string;
-  pallets: string;
+  cases: string | number;
+  pallets: string | number;
   withBtn?: boolean;
   isLastRow?: boolean;
   isHeader?: boolean;

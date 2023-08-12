@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Container } from "@mui/material";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import TopSection from "./TopSection/TopSection";
 import WeekTable from "./WeekTable/WeekTable";
 import { useParams } from "react-router-dom";
 import {
-  formateDateRange,
   getEndOfWeekDate,
   getStartOfWeekDate,
   parseDateString,
 } from "../../helpers";
 import { useGetDaysDataQuery } from "../../state/api";
 import useFormatChartData from "../../hooks/useFormatChartData";
-import { DateRange } from "../../state/types";
 import { getISOWeek } from "date-fns";
 import useCalculateWeekStats from "./useCalculateWeekStats";
+import useFormatWeekTableData from "./WeekTable/useFormatWeekTableData";
 
 // Default category array for the chart
 const defaultCategory = [] as string[];
@@ -52,12 +51,6 @@ const Week = () => {
     refetch();
   }, [startDate, refetch]);
 
-  // On date range change, format the date range and update the state/query
-  const handleDateRangeChange = (dateRange: DateRange) => {
-    const formatedDateRange = formateDateRange(dateRange);
-    setDateRangeQuery(formatedDateRange);
-  };
-
   // Formated Chart Data
   const chartData = useFormatChartData({ data, checkedProducts });
 
@@ -69,6 +62,12 @@ const Week = () => {
 
   // Indicates if any filters applied, (not including date range)
   const filtersApplied = !!checkedProducts.length;
+
+  //Formated week table data
+  const { weekTableData } = useFormatWeekTableData({
+    startDate,
+    data: chartData,
+  });
 
   return (
     <Container maxWidth="xl" sx={{ minHeight: "85vh" }}>
@@ -83,13 +82,12 @@ const Week = () => {
           defaultDateTo={defaultDateTo}
           checkedProducts={checkedProducts}
           setCheckedProducts={setCheckedProducts}
-          handleDateRangeChange={handleDateRangeChange}
           isFetching={isFetching}
           startDate={startDate}
           weekStats={weekStats}
           filtersApplied={filtersApplied}
         />
-        <WeekTable />
+        {weekTableData && <WeekTable data={weekTableData} />}
       </Box>
     </Container>
   );
