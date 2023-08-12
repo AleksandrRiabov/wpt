@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import LineChart from "../../../components/LineChart";
 import ModalWrapper from "../../../components/ModalWrapper/ModalWrapper";
-import ChartFilters from "../../Dashboard/ChartFilters";
+import ChartFilters from "../../../components/ChartFilters";
 import useGetCategories from "../../../hooks/useGetCategories";
-import { DateRange, GetDaysDataResponse } from "../../../state/types";
+import { GetDaysDataResponse } from "../../../state/types";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 import { Box, Typography } from "@mui/material";
 

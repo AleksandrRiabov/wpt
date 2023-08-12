@@ -26,7 +26,6 @@ import Footer from "./components/Footer/Footer";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
-import FreeHostingServerWakeUpAlarm from "./scenes/FreeHostingServerWakeUpAlarm";
 
 const App = () => {
   const router = createHashRouter(
@@ -95,10 +94,6 @@ const App = () => {
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/server-wake-up-alarm"
-          element={<FreeHostingServerWakeUpAlarm />}
-        />
 
         <Route path="*" element={<Home />} />
       </Route>

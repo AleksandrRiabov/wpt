@@ -70,7 +70,7 @@ const WeekDatePicker = ({ startDate }: Props) => {
       <Box width="160px">
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-            label="Select Start of the Week"
+            label="Select Date"
             value={selectedDate}
             onChange={handleDateChange}
             maxDate={new Date()}

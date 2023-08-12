@@ -13,7 +13,7 @@ import {
 } from "./EditableProductList/helpers";
 
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
-import ChartFilters from "../Dashboard/ChartFilters";
+import ChartFilters from "../../components/ChartFilters";
 import ModalWrapper from "../../components/ModalWrapper/ModalWrapper";
 import BoxHeader from "../../components/BoxHeader/BoxHeader";
 import LineChart from "../../components/LineChart";

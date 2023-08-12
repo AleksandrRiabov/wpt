@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import MuiDateRangePicker from "../../components/DateRangePicker/MuiDateRangePicker";
-import { DateRange } from "../../state/types";
+import MuiDateRangePicker from "./DateRangePicker/MuiDateRangePicker";
+import { DateRange } from "../state/types";
 
 type Categories = Record<string, string[]>;
 
@@ -104,7 +104,7 @@ const ChartFilters = ({
                   onChange={() => handleCategoryCheck(category)}
                 />
               }
-              label={category}
+              label={<Typography color="secondary">{category}</Typography>}
             />
             <div style={{ marginLeft: "1rem" }}>
               {products.map((product) => (

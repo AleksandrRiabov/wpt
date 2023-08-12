@@ -14,7 +14,7 @@ import {
 import { useGetDaysDataQuery } from "../../../state/api";
 import BoxHeader from "../../../components/BoxHeader/BoxHeader";
 import FiltersModal from "../../../components/ModalWrapper/ModalWrapper";
-import ChartFilters from "../ChartFilters";
+import ChartFilters from "../../../components/ChartFilters";
 import useGetCategories from "../../../hooks/useGetCategories";
 import useFormatChartData from "../../../hooks/useFormatChartData";
 import { format } from "date-fns";
