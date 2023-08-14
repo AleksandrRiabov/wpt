@@ -38,7 +38,10 @@ const useFormatBarChartData = ({ data, checkedProducts }: Props) => {
 
     return Object.keys(totalsForThePeriod).map((product) => {
       const { cases, pallets } = totalsForThePeriod[product];
-      return { name: product, casesPerPallet: Math.round(cases / pallets) };
+      const casesPerPallet = isNaN(cases / pallets) // If 0 cases and 0 pallets, avoid 0 devide by 0
+        ? 0
+        : Math.round(cases / pallets);
+      return { name: product, casesPerPallet };
     });
   }, [data, checkedProducts]);
 
