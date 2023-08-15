@@ -1,27 +1,68 @@
-# WPT (Warehouse Planning Tool) 
+# WPT - Warehouse Planning Tool (Front-end)
 
-The WPT (Warehouse Planning Tool) front-end repository is a part of a MERN stack application that I am currently developing. This application is designed to help warehouses plan the number of trailers required to dispatch orders efficiently. When the application is ready, I plan to integrate an AI library to predict future orders volume based on past data, enabling warehouses to plan ahead and better allocate resources effectively.
+WPT Frontend serves as the user interface for the Warehouse Planning Tool, delivering a robust dashboard and interactive capabilities for efficient warehouse management. This application redefines the process of tracking trailers, managing product information, and optimizing resource allocation within warehouses.
 
-The front-end is being developed using ReactJS, Redux Toolkit (RTK), TypeScript, and Recharts. 
-- ReactJS is a popular JavaScript library for building user interfaces
-- Redux Toolkit (RTK) is a library that helps manage state in React applications
-- TypeScript is a strongly-typed language that adds additional safety and functionality to JavaScript
-- Recharts is a library for building charts and graphs.
+## Key Features
+- **📊 Interactive Dashboard:** Gain actionable insights through an intuitive dashboard enriched with dynamic charts. Tailor charts with customizable date ranges, enabling detailed trend analysis and data-driven decision-making.
 
-#### `This repository is open to collaboration and contributions from anyone who wants to help build this application. You can fork the repository and create a pull request with any changes you make, create an issue if you find any bugs or have any suggestions for new features, or reach out to me directly on LinkedIn or email with any ideas you have.`
+- **🚚 Trailers Board:** Seamlessly oversee trailers with the digital trailers board. Effortlessly add, edit, and remove trailer entries for comprehensive monitoring of loaded and dispatched trailers.
 
-### Please note that this is a work in progress and the application is not yet ready for use. This repository contains the code for the front-end logic of the application.
+- **📈 Trailer Statistics:** Obtain immediate access to essential trailer statistics, including monthly trailer counts, average case delivery costs, and comprehensive expenditure with supplementary charges.
 
-[Link to Back-End of this App](https://github.com/AleksandrRiabov/wptbackend)
+- **🔧 Configuration Management:** Ensure data accuracy and streamline workflows with the configuration page. Manage load types, products, and contractors through dropdown lists, minimizing errors and maximizing operational efficiency.
 
-### Deployed
-Not 100% ready yet.. Also, keep in mind that it might take a while until you get the first response from the server due to Free hosting.
+- **🗓️ Days and Week Pages:** Strategically plan operations using the Days and Week pages. Input precise data for specific days, forecast trailer requirements based on historical data, and analyze demand patterns. The Week page provides a comprehensive overview of a chosen week's data.
 
-Link to [Deployed ](https://warehouse-planning-tool.onrender.com/) 
+- **Resource Allocation:** Empower store managers with predictive insights, allowing accurate resource allocation decisions before trailers depart the warehouse premises.
 
+- **🔐 Secure Authentication:** Safely access the application by creating a personalized account or logging in through Google credentials. Firebase authentication ensures data integrity and user privacy.
+
+- **📱 Responsive Design:** Experience a consistent and optimal user interface across various devices, courtesy of the application's responsive design tailored for both desktop and mobile screens.
+
+## Screenshots
 
 ![Preview Image](https://github.com/AleksandrRiabov/wpt/assets/61385379/bcd790d1-fd6b-4ad8-94a9-254623864c49)
 <img width="1490" alt="WPT Trailer Details" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/199bb214-368b-42d0-b8f5-c81a7f2b9f70">
+
+
+## Deployment
+
+Please note that it might take a while to receive the initial response from the server due to free hosting.
+
+⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
+
+:point_right: Link to the [Deployed Application](https://warehouse-planning-tool.onrender.com/) 👈:
+
+⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
+
+## Getting Started
+
+Follow these steps to set up and run the frontend of the Warehouse Planning Tool:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/AleksandrRiabov/wpt
+
+2. Install dependencies:
+    ```sh
+    cd warehouse-planning-tool-frontend
+    npm install
+
+3. Set up environment variables:
+   - Create the .env file with your Firebase configuration.
+
+4. Start the development server:
+    ```sh
+    npm start
+
+5. Make sure the backend is set up and running. Find the backend repository here: [WPT Backend Repository](https://github.com/AleksandrRiabov/wptbackend)
+
+### Contributing
+ - Contributions are welcome! If you find any issues or want to enhance the application, feel free to open an issue or submit a pull request.   
+  
+
+
+
 
 
 
