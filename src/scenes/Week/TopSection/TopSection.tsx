@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import WeekChart from "./WeekChart";
 import WeekStats from "./WeekStats/WeekStats";
 import DashboardBox from "../../../components/dashboardBox/DashboardBox";
-import { DateRange, GetDaysDataResponse } from "../../../state/types";
+import { GetDaysDataResponse } from "../../../state/types";
 
 type Props = {
   chartData: {
@@ -40,8 +40,6 @@ const TopSection = ({
   weekStats,
   filtersApplied,
 }: Props) => {
-  console.log("Render Top section");
-
   return (
     <Box
       sx={{
