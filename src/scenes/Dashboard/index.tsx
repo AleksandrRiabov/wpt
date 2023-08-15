@@ -4,7 +4,6 @@ import Row1 from "./Row1/Row1";
 import Row2 from "./Row2/Row2";
 import Row3 from "./Row3/Row3";
 
-
 const gridTemplateLargeScreen = `
 "a b c"
 "a b c"
@@ -12,10 +11,10 @@ const gridTemplateLargeScreen = `
 "a b f"
 "d d f"
 "d d f"
+"d d f"
 "d d i"
 "d d i"
-"d d j"
-"d d j"
+"d d i"
 `;
 
 const gridTemplateSmallScreen = `
@@ -37,10 +36,10 @@ const gridTemplateSmallScreen = `
 "f"
 "f"
 "f"
+"f"
 "i"
 "i"
-"j"
-"j"
+"i"
 `;
 
 const Dashboard = () => {

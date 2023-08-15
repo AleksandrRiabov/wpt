@@ -1,12 +1,12 @@
 import DashboardBox from "../../../components/dashboardBox/DashboardBox";
+import TrailersStats from "./TrailersStats";
 
-type Props = {};
-
-const Row3 = (props: Props) => {
+const Row3 = () => {
   return (
     <>
-      <DashboardBox gridArea="i"></DashboardBox>
-      <DashboardBox gridArea="j"></DashboardBox>
+      <DashboardBox gridArea="i">
+        <TrailersStats />
+      </DashboardBox>
     </>
   );
 };
