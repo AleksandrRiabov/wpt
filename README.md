@@ -35,6 +35,15 @@ Please note that it might take a while to receive the initial response from the 
 
 ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
 
+## Technologies Used
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A superset of JavaScript that adds static types.
+- **RTK Query**: A data fetching and state management library for React applications.
+- **Material-UI (mui 5)**: A popular UI framework for creating responsive and visually appealing components.
+- **Recharts**: A charting library for creating interactive and customizable charts.
+- **date-fns**: A modern JavaScript date utility library.
+- **countUp**: A React component wrapper around the CountUp.js library for animating numbers.
+
 ## Getting Started
 
 Follow these steps to set up and run the frontend of the Warehouse Planning Tool:
