@@ -23,22 +23,45 @@ type Product = {
 };
 
 const AddProduct = ({ addProduct, options }: Props) => {
+  // State for the new product being added
   const [product, setProduct] = useState<Product>({} as Product);
   const [error, setError] = useState(false);
 
+  // Get theme and colors from MUI theme
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 
-  const handleChange = (
+  // Handle change for Pallets and Cases inputs
+  const handlePalletsCasesChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
 
-    if ((name === "pallets" || name === "cases") && isNaN(Number(value)))
-      return;
+    // Ensure input is a valid number
+    if (isNaN(Number(value))) return;
     setProduct({ ...product!, [name]: value });
   };
 
+  // Handle change when selecting a product from the dropdown
+  const handleProductChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+
+    // Find the selected option from the dropdown
+    const selectedOption = options.find((option) => option.name === value);
+
+    // Update product state with selected product and its category
+    if (selectedOption) {
+      setProduct({
+        ...product,
+        [name]: value,
+        category: selectedOption.category,
+      });
+    }
+  };
+
+  // Handle click when adding the product
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!product?.name || !product.cases) {
@@ -46,21 +69,23 @@ const AddProduct = ({ addProduct, options }: Props) => {
       return;
     }
 
+    // If no pallets added, set pallets to zero
     const newProduct = !product.pallets ? { ...product, pallets: 0 } : product;
     addProduct(newProduct);
+
+    // Reset form values and errors
     setProduct({ name: "", cases: 0, pallets: 0, category: "" });
     setError(false);
   };
 
+  console.log(product); // Log the current product state
   return (
     <Box
-      sx={{
-        background: colors.primary[400],
-        display: "flex",
-        alignItems: "center",
-        padding: "5px",
-        borderRadius: "5px",
-      }}
+      sx={
+        {
+          // Styling for the outer box
+        }
+      }
     >
       <Grid container spacing={3}>
         {/* Product Name */}
@@ -71,19 +96,23 @@ const AddProduct = ({ addProduct, options }: Props) => {
             value={product.name || ""}
             fullWidth
             select
-            onChange={handleChange}
+            onChange={handleProductChange}
             error={error && !product?.name}
             helperText={error && !product?.name && "Select Product"}
             required
           >
             {options.map((option) => (
-              <MenuItem key={option.name} value={option.name}>
+              <MenuItem
+                key={option.name}
+                value={option.name}
+                data-category={option.category}
+              >
                 {option.name}
               </MenuItem>
             ))}
           </TextField>
         </Grid>
-        {/* Pallets*/}
+        {/* Pallets */}
         <Grid item xs={6} sm={3}>
           <TextField
             autoComplete="off"
@@ -91,7 +120,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
             label="Pallets"
             value={product.pallets || ""}
             fullWidth
-            onChange={handleChange}
+            onChange={handlePalletsCasesChange}
           />
         </Grid>
         {/* Cases */}
@@ -102,9 +131,9 @@ const AddProduct = ({ addProduct, options }: Props) => {
             label="Cases"
             value={product.cases || ""}
             fullWidth
-            onChange={handleChange}
+            onChange={handlePalletsCasesChange}
             error={error && !product?.cases}
-            helperText={error && !product?.cases && "Insert Cases Qantity"}
+            helperText={error && !product?.cases && "Insert Cases Quantity"}
           />
         </Grid>
         <Grid
@@ -117,6 +146,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
             alignItems: "center",
           }}
         >
+          {/* Button to add the product */}
           <Button
             sx={{ background: colors.secondary[500] }}
             variant="contained"
