@@ -1,16 +1,7 @@
 import { useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 import { useTheme } from "@mui/material";
-import { tokens } from "../../../theme";
-
-// Data for the pie chart
-const data = [
-  { name: "Fresh", value: 400 },
-  { name: "Ambient", value: 300 },
-  { name: "Frozen", value: 300 },
-  { name: "Alcohol", value: 200 },
-  { name: "Directs", value: 400 },
-];
+import { tokens } from "../../../../theme";
 
 // Type definition for shape props used in renderActiveShape function
 type shapeProps = {
@@ -111,8 +102,15 @@ const renderActiveShape = (props: shapeProps) => {
   );
 };
 
-export default function PieChartComponent() {
-  const [activeIndex, setActiveIndex] = useState(1);
+type ChartProps = {
+  data: {
+    name: string;
+    value: number;
+  }[];
+};
+
+export default function PieChartComponent({ data }: ChartProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);

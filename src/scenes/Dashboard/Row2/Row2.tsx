@@ -1,5 +1,5 @@
 import DashboardBox from "../../../components/dashboardBox/DashboardBox";
-import PieChartComponent from "./PieChartComponent";
+import TotalCases from "./TotalCases/TotalCases";
 import TrailersBoard from "./TrailersBoard/TrailersBoard";
 
 type Props = {};
@@ -11,7 +11,7 @@ const Row2 = (props: Props) => {
         <TrailersBoard />
       </DashboardBox>
       <DashboardBox gridArea="f">
-        <PieChartComponent />
+        <TotalCases />
       </DashboardBox>
     </>
   );
