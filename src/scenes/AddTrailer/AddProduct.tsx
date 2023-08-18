@@ -78,7 +78,6 @@ const AddProduct = ({ addProduct, options }: Props) => {
     setError(false);
   };
 
-  console.log(product); // Log the current product state
   return (
     <Box
       sx={
