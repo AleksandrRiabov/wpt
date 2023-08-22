@@ -1,11 +1,12 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 import PieChartComponent from "./PieChartComponent";
 import useTrailerCasesLogic from "./useTrailerCasesLogic";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { tokens } from "../../../../theme";
 
 const TotalCases = () => {
-  const { isError, chartData } = useTrailerCasesLogic();
+  const { isError, isFetching, chartData, handleDateChange, currentDateStr } =
+    useTrailerCasesLogic();
 
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -36,6 +37,7 @@ const TotalCases = () => {
           justifyContent="center"
         >
           <ArrowBack
+            onClick={() => handleDateChange("left")}
             color="secondary"
             sx={{ cursor: "pointer", fontSize: "1.5rem" }}
           />
@@ -44,16 +46,38 @@ const TotalCases = () => {
             sx={{ padding: "0 20px", color: colors.secondary[500] }}
           >
             {" "}
-            2023
+            {currentDateStr}
           </Typography>
           <ArrowForward
+            onClick={() => handleDateChange("right")}
             color="secondary"
             sx={{ cursor: "pointer", fontSize: "1.5rem" }}
           />
         </Box>
       </Box>
       <Box height="80%">
-        <PieChartComponent data={chartData} />
+        {isFetching ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="80%"
+          >
+            {" "}
+            <CircularProgress />
+          </Box>
+        ) : isError ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="80%"
+          >
+            Error.. Please try again later.
+          </Box>
+        ) : (
+          <PieChartComponent data={chartData} />
+        )}
       </Box>
     </Box>
   );

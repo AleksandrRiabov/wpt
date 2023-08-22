@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
-import { useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../../../theme";
+import { Warning } from "@mui/icons-material";
 
 // Type definition for shape props used in renderActiveShape function
 type shapeProps = {
@@ -121,32 +122,49 @@ export default function PieChartComponent({ data }: ChartProps) {
   };
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart width={400} height={400}>
-        {/* Define a linear gradient for the pie chart */}
-        <defs>
-          <linearGradient id="pieChart" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="10%" stopColor={colors.green[500]} stopOpacity={1} />
-            <stop
-              offset="90%"
-              stopColor={colors.green[400]}
-              stopOpacity={0.4}
+    <>
+      {!data.length ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="80%"
+        >
+          <Warning /> <Typography padding="10px">No Data</Typography>{" "}
+        </Box>
+      ) : (
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart width={400} height={400}>
+            {/* Define a linear gradient for the pie chart */}
+            <defs>
+              <linearGradient id="pieChart" x1="0" y1="1" x2="1" y2="0">
+                <stop
+                  offset="10%"
+                  stopColor={colors.green[500]}
+                  stopOpacity={1}
+                />
+                <stop
+                  offset="90%"
+                  stopColor={colors.green[400]}
+                  stopOpacity={0.4}
+                />
+              </linearGradient>
+            </defs>
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={40}
+              outerRadius={60}
+              fill={"url(#pieChart)"}
+              dataKey="value"
+              onMouseEnter={onPieEnter}
             />
-          </linearGradient>
-        </defs>
-        <Pie
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius={40}
-          outerRadius={60}
-          fill={"url(#pieChart)"}
-          dataKey="value"
-          onMouseEnter={onPieEnter}
-        />
-      </PieChart>
-    </ResponsiveContainer>
+          </PieChart>
+        </ResponsiveContainer>
+      )}
+    </>
   );
 }

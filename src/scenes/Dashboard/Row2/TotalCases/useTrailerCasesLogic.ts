@@ -63,7 +63,7 @@ const useTrailerCasesLogic = () => {
     const totals = {} as Totals;
     trailers?.forEach((trailer) => {
       trailer.products.forEach((product) => {
-        if (!totals[product.category]) {
+        if (!totals.hasOwnProperty(product.category)) {
           totals[product.category] = product.cases;
         } else {
           totals[product.category] += product.cases;

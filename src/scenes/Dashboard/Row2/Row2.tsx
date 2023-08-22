@@ -2,9 +2,7 @@ import DashboardBox from "../../../components/dashboardBox/DashboardBox";
 import TotalCases from "./TotalCases/TotalCases";
 import TrailersBoard from "./TrailersBoard/TrailersBoard";
 
-type Props = {};
-
-const Row2 = (props: Props) => {
+const Row2 = () => {
   return (
     <>
       <DashboardBox gridArea="d">
