@@ -6,8 +6,11 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import ModalWrapper from "../../components/ModalWrapper/ModalWrapper";
 import EditableProductsList from "./EditableProductList/EditableProductsList";
 import DayChart from "./DayChart";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 const Day = () => {
+  useSendAnalytics({ title: "Day" });
+
   // State to manage the visibility of the DayChart modal
   const [openChart, setOpenChart] = useState(false);
 

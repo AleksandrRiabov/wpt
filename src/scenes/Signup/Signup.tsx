@@ -6,8 +6,11 @@ import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import { HowToReg } from "@mui/icons-material";
 import Notifications from "../../components/Notifications/Notifications";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 const Signup = () => {
+  useSendAnalytics({ title: "Sign Up Page" });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

@@ -20,8 +20,11 @@ import Notifications from "../../components/Notifications/Notifications";
 import useHandlePost from "./useHandlePost";
 import ErrorMessage from "./ErrorMessage";
 import TrailerUnavailable from "./TrailerUnavailable";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 const EditTrailer = () => {
+  useSendAnalytics({ title: "Edit Trailer" });
+
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
 

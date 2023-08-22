@@ -3,12 +3,14 @@ import { Box, Container } from "@mui/system";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { getStartOfWeekDate } from "../../helpers";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 // Default date from in the query
 const today = format(new Date(), "dd-MM-yyyy");
 const startOfThisWeek = getStartOfWeekDate(new Date());
 
 const Home = () => {
+  useSendAnalytics({ title: "Home Page" });
   return (
     <Box
       className="page home-page"

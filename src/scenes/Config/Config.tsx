@@ -7,9 +7,11 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import ConfigBox from "./ConfigBox/ConfigBox";
 import ConfigProductBox from "./ConfigProductBox/ConfigProductBox";
-
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 const Config = () => {
+  useSendAnalytics({ title: "Configurations" });
+
   const [updatedDataState, setUpdatedDataState] =
     useState<GetOptionsDataResponse | null>(null);
 

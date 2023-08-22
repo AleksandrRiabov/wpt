@@ -17,8 +17,10 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import useAddTrailerLogic from "./useAddTrailerLogic";
 import Notifications from "../../components/Notifications/Notifications";
 import FlexCenterCenter from "../../components/FlexCenterCenter/FlexCenterCenter";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 const AddTrailer = () => {
+  useSendAnalytics({ title: "Add Trailer" });
   const {
     formState,
     isLoading,

@@ -14,11 +14,14 @@ import useFormatChartData from "../../hooks/useFormatChartData";
 import { getISOWeek } from "date-fns";
 import useCalculateWeekStats from "./useCalculateWeekStats";
 import useFormatWeekTableData from "./WeekTable/useFormatWeekTableData";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 // Default category array for the chart
 const defaultCategory = [] as string[];
 
 const Week = () => {
+  useSendAnalytics({ title: "Week" });
+
   const { startDay } = useParams();
   const [startDate, setStartDate] = useState(parseDateString(startDay));
 

@@ -6,8 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Notifications from "../../components/Notifications/Notifications";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 const Login = () => {
+  useSendAnalytics({ title: "Login Page" });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");

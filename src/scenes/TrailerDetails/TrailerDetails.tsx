@@ -9,8 +9,11 @@ import InfoSection from "./InfoSection";
 import ProductsPieChart from "./ProductsPieChart";
 import BottomSection from "./BottomSection";
 import ProductsInfoSection from "./ProductsInfoSection";
+import useSendAnalytics from "../../hooks/useSendAnalytics";
 
 const TrailerDetails = () => {
+  useSendAnalytics({ title: "Trailer Details" });
+
   const { id } = useParams();
   const { data, isLoading, isError, refetch } = useGetTrailersDataQuery(
     `_id=${id}`
