@@ -28,7 +28,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
 import ReactGA from "react-ga4";
 
-ReactGA.initialize("G-NM1SB5CJGF");
+ReactGA.initialize(process.env.REACT_APP_MEASURMENT_ID!);
 
 const App = () => {
   const router = createHashRouter(
