@@ -37,6 +37,7 @@ const EditProducts = ({
               label="Pallets"
               value={pallets}
               onChange={(e) => handleProductChange(e, name)}
+              color="secondary"
             />
           </Box>
           <Box flex="1">
@@ -45,6 +46,7 @@ const EditProducts = ({
               label="Cases"
               value={cases}
               onChange={(e) => handleProductChange(e, name)}
+              color="secondary"
             />
           </Box>
           <Box flex="0.3" display="flex" justifyContent="center">

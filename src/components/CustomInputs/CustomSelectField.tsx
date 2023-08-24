@@ -26,6 +26,7 @@ function CustomSelectField({
         label={label}
         value={value}
         select
+        color="secondary"
         onChange={handleChange}
         sx={{ minWidth: "200px" }}
       >

@@ -35,6 +35,7 @@ const MiddleSection = ({
           label="Reference"
           value={formState.reference}
           fullWidth
+          color="secondary"
           onChange={handleChange}
           disabled={formState.contractor === "JCARRION"}
           error={referenceError?.error}
@@ -49,6 +50,7 @@ const MiddleSection = ({
           label="Freight Type"
           value={formState.freightType}
           fullWidth
+          color="secondary"
           select
           onChange={handleChange}
         >
@@ -65,6 +67,7 @@ const MiddleSection = ({
         <FormControlLabel
           control={<Checkbox checked={formState.alcohol} />}
           label="Alcohol"
+          color="secondary"
           onChange={() => handleCheckbox("alcohol")}
         />
       </Grid>
@@ -86,6 +89,7 @@ const MiddleSection = ({
           value={formState.crossed}
           fullWidth
           select
+          color="secondary"
           onChange={handleChange}
         >
           {options?.crossed.map((option) => (
@@ -104,6 +108,7 @@ const MiddleSection = ({
           value={formState.comments}
           fullWidth
           multiline
+          color="secondary"
           onChange={handleChange}
         />
       </Grid>

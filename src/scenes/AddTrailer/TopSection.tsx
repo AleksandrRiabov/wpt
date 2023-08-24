@@ -41,6 +41,7 @@ const TopSection = ({
           name="trailerNumber"
           label="Trailer Number"
           value={formState.trailerNumber}
+          color="secondary"
           fullWidth
           onChange={handleChange}
           error={trailerNumberError?.error}
@@ -54,6 +55,7 @@ const TopSection = ({
           name="loadType"
           label="Load Type"
           value={formState.loadType}
+          color="secondary"
           fullWidth
           select
           onChange={handleChange}
@@ -75,6 +77,7 @@ const TopSection = ({
           label="Contractor"
           value={formState.contractor}
           fullWidth
+          color="secondary"
           select
           onChange={handleChange}
         >

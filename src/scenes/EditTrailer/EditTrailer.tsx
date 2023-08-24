@@ -152,6 +152,7 @@ const EditTrailer = () => {
                 value={editTrailerData?.comments || ""}
                 onChange={handleChange}
                 name="comments"
+                color="secondary"
               />
             </Box>
             {/* Submit BTN (Update Details) */}

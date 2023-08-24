@@ -20,6 +20,7 @@ function CustomTextField({ value, name, label, handleChange, title }: Props) {
         name={name}
         value={value}
         onChange={handleChange}
+        color="secondary"
       />
     </FlexBetween>
   );

@@ -95,6 +95,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
             value={product.name || ""}
             fullWidth
             select
+            color="secondary"
             onChange={handleProductChange}
             error={error && !product?.name}
             helperText={error && !product?.name && "Select Product"}
@@ -119,6 +120,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
             label="Pallets"
             value={product.pallets || ""}
             fullWidth
+            color="secondary"
             onChange={handlePalletsCasesChange}
           />
         </Grid>
@@ -130,6 +132,7 @@ const AddProduct = ({ addProduct, options }: Props) => {
             label="Cases"
             value={product.cases || ""}
             fullWidth
+            color="secondary"
             onChange={handlePalletsCasesChange}
             error={error && !product?.cases}
             helperText={error && !product?.cases && "Insert Cases Quantity"}

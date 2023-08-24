@@ -187,6 +187,17 @@ export const getDesignTokens = (mode: PaletteMode) => {
             },
           }),
     },
+    components: {
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            "&.Mui-checked": {
+              color: colors.secondary[500],
+            },
+          },
+        },
+      },
+    },
     typography: {
       fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
       fontSize: 12,
