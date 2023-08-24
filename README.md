@@ -20,7 +20,7 @@ WPT Frontend serves as the user interface for the Warehouse Planning Tool, deliv
 - **📱 Responsive Design:** Experience a consistent and optimal user interface across various devices, courtesy of the application's responsive design tailored for both desktop and mobile screens.
 
 ## Screenshots
-<img width="1219" alt="Warehouse Planning Tool dashboard, react" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/451d3bc0-e894-4dfa-9ee8-d50f1a98027a">
+<img width="1210" alt="Logistics Dashboard" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/3579f18e-c701-47f5-a9d4-deed41a092e5">
 
 
 <img width="1484" alt="Warehouse Planning Tool trailer details" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/34d728a0-5c18-42ff-afd0-37bb1cca9f13">
