@@ -23,7 +23,8 @@ a {
   position: relative;
 }
 
-.home-page {
+.home-page,
+.authPageBg {
   position: relative;
 }
 
@@ -34,7 +35,22 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("./scenes/Home/images/bgLogistics.png");
+  background-image: url("./assets/images/bgLogistics.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.authPageBg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -20%;
+  right: -20%;
+  bottom: -5%;
+  background-image: url("./assets/images/bgLogistics.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

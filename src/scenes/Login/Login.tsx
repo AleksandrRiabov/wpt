@@ -54,6 +54,7 @@ const Login = () => {
         justifyContent="center"
         alignItems="center"
         height="80vh"
+        className='authPageBg'
       >
         <DashboardBox
           sx={{ padding: { xs: "15px", md: "40px", maxWidth: "400px" } }}
