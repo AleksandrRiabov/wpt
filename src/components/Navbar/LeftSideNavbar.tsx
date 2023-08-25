@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { LocalShipping as LocalShippingIcon } from "@mui/icons-material";
 import { tokens } from "../../theme";
@@ -19,24 +19,31 @@ const LeftSideNavbar = ({ pages, handleCloseNavMenu }: Props) => {
 
   return (
     <>
-      <LocalShippingIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-      <Typography
-        variant="h6"
-        noWrap
-        component="a"
-        href="/"
-        sx={{
-          mr: 2,
-          display: { xs: "none", md: "flex" },
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          color: "inherit",
-          textDecoration: "none",
-        }}
-      >
-        WPT
-      </Typography>
+      <Link to="/">
+        <LocalShippingIcon
+          sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "#fff" }}
+        />
+      </Link>
+      <Link to="/">
+        <Typography
+          variant="h6"
+          noWrap
+          component="a"
+          color="inherit"
+          href="/"
+          sx={{
+            mr: 2,
+            display: { xs: "none", md: "flex" },
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            textDecoration: "none",
+            color: "#fff",
+          }}
+        >
+          WPT
+        </Typography>
+      </Link>
       <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
         {pages.map((page) => (
           <Link key={page.name} to={page.url}>
