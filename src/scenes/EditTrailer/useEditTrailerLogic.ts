@@ -8,14 +8,14 @@ import { GetTrailersDataResponse } from "../../state/types";
 
 const useEditTrailerLogic = () => {
   const { id } = useParams();
+
   // Fetch trailer data based on the 'id'
   const {
     data,
     isLoading: isLoadingTrailerData,
     isError: isErrorTrailerData,
   } = useGetTrailersDataQuery(`_id=${id}`);
-  // Extract the first trailer object from the fetched data
-  const trailer = data && data[0];
+  const trailer = data && data[0]; // Extract the first trailer object from the fetched data
 
   // Define the state variable 'editTrailerData' and initialize it with the fetched trailer object
   const [editTrailerData, setEditTrailerData] = useState<
@@ -23,6 +23,7 @@ const useEditTrailerLogic = () => {
   >(trailer);
 
   useEffect(() => {
+    // Update 'editTrailerData' whenever 'trailer' changes
     setEditTrailerData(trailer);
   }, [trailer]);
 
@@ -58,11 +59,13 @@ const useEditTrailerLogic = () => {
     });
   };
 
+  // Handle checkbox changes
   const handleCheckbox = (name: "alcohol" | "cert") => {
     if (!editTrailerData) return;
     setEditTrailerData({ ...editTrailerData, [name]: !editTrailerData[name] });
   };
 
+  // Handle date changes
   const handleDateChange = (
     key: "sentDate" | "deliveryDate" | "clearance" | "received",
     date: Date | null
@@ -71,6 +74,7 @@ const useEditTrailerLogic = () => {
     setEditTrailerData({ ...editTrailerData, [key]: date });
   };
 
+  // Handle changes in product details
   const handleProductChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     editingProduct: string
@@ -81,21 +85,26 @@ const useEditTrailerLogic = () => {
     const cleanValue = !value.length ? " " : parseInt(value.trim());
     if (!cleanValue) return;
 
-    const foundProduct = editTrailerData.products.find(
+    const foundProductIndex = editTrailerData.products.findIndex(
       (product) => product.name === editingProduct
     );
-    if (!foundProduct) return;
-    const updatedProduct = { ...foundProduct, [name]: cleanValue };
-    const filteredProducts = editTrailerData.products.filter(
-      (product) => product.name !== editingProduct
-    );
-    const newProducts = [...filteredProducts, updatedProduct];
+    if (foundProductIndex === -1) return;
+
+    const updatedProduct = {
+      ...editTrailerData.products[foundProductIndex],
+      [name]: cleanValue,
+    };
+
+    const newProducts = [...editTrailerData.products];
+    newProducts[foundProductIndex] = updatedProduct;
+
     setEditTrailerData({
       ...editTrailerData,
       products: newProducts,
     });
   };
 
+  // Add a new product
   const addProduct = (product: {
     name: string;
     pallets: number;
@@ -109,7 +118,7 @@ const useEditTrailerLogic = () => {
     );
     if (productExist) {
       alert(
-        `${product.name} already exist, please change the value of existing product`
+        `${product.name} already exists, please change the value of the existing product`
       );
       return;
     }
@@ -120,6 +129,7 @@ const useEditTrailerLogic = () => {
     });
   };
 
+  // Remove a product
   const handleRemoveProduct = (name: string) => {
     if (!editTrailerData) return;
     const filteredProducts = editTrailerData.products.filter(
@@ -132,6 +142,7 @@ const useEditTrailerLogic = () => {
     });
   };
 
+  // Return all the variables and functions as part of the hook's API
   return {
     id,
     isLoadingOptions,
