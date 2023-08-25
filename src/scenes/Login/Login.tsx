@@ -48,69 +48,82 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="80vh"
-        className="mainBackgroundImg"
-      >
-        <DashboardBox
-          sx={{ padding: { xs: "15px", md: "40px", maxWidth: "400px" } }}
+    <Box
+      className=" mainBackgroundImg"
+      sx={{
+        width: "100%",
+        display: "flex",
+        marginBottom: "-30px",
+      }}
+    >
+      <Container>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="85vh"
         >
-          <form onSubmit={handleSubmit}>
-            <Typography variant="h3" textAlign={"center"} p="10px 0 25px">
-              Login
-            </Typography>
-            <TextField
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              sx={{
-                margin: "10px 0",
-              }}
-            />
-            <TextField
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              fullWidth
-            />
-            <FlexBetween p="30px 0">
-              <Button type="submit" variant="contained" color="secondary">
+          <DashboardBox
+            sx={{
+              padding: { xs: "15px", md: "40px", maxWidth: "400px" },
+              margin: "20px 0",
+            }}
+          >
+            <form onSubmit={handleSubmit}>
+              <Typography variant="h3" textAlign={"center"} p="10px 0 25px">
                 Login
-              </Button>
-            </FlexBetween>
-          </form>
-          <LoginWithGoogle />
-
-          <Box pt="30px">
-            <Typography
-              variant="h5"
-              sx={{ color: "#fff" }}
-              textAlign="center"
-              pb="10px"
-            >
-              Don't have an account?
-            </Typography>
-            <Link to="/signup">
-              <Typography variant="h4" color="secondary" textAlign="center">
-                SIGN UP
               </Typography>
-            </Link>
-          </Box>
-          <Notifications
-            errorMessage={errorMessage}
-            successMessage={successMessage}
-            handleCloseSnackbar={handleCloseSnackbar}
-          />
-        </DashboardBox>
-      </Box>
-    </Container>
+              <TextField
+                label="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                fullWidth
+                color="secondary"
+                sx={{
+                  margin: "10px 0",
+                }}
+              />
+              <TextField
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                fullWidth
+                color="secondary"
+              />
+              <FlexBetween p="30px 0">
+                <Button type="submit" variant="contained" color="secondary">
+                  Login
+                </Button>
+              </FlexBetween>
+            </form>
+            <LoginWithGoogle />
+
+            <Box pt="30px">
+              <Typography
+                variant="h5"
+                sx={{ color: "#fff" }}
+                textAlign="center"
+                pb="10px"
+              >
+                Don't have an account?
+              </Typography>
+              <Link to="/signup">
+                <Typography variant="h4" color="secondary" textAlign="center">
+                  SIGN UP
+                </Typography>
+              </Link>
+            </Box>
+            <Notifications
+              errorMessage={errorMessage}
+              successMessage={successMessage}
+              handleCloseSnackbar={handleCloseSnackbar}
+            />
+          </DashboardBox>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

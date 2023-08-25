@@ -31,9 +31,9 @@ a {
   content: "";
   position: absolute;
   top: 0;
-  left: -20%;
-  right: -20%;
-  bottom: -5%;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url("./assets/images/bgLogistics.png");
   background-position: center;
   background-size: cover;

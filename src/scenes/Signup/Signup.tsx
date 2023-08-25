@@ -126,86 +126,100 @@ const Signup = () => {
   };
 
   return (
-    <Container>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="80vh"
-        className="mainBackgroundImg"
-      >
-        <DashboardBox
-          sx={{ padding: { xs: "15px", md: "40px", maxWidth: "400px" } }}
+    <Box
+      className=" mainBackgroundImg"
+      sx={{
+        width: "100%",
+        display: "flex",
+        marginBottom: "-30px",
+      }}
+    >
+      <Container>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="85vh"
         >
-          <form onSubmit={handleSubmit}>
-            <Typography variant="h3" textAlign={"center"} p="10px 0 25px">
-              Sign Up
-            </Typography>
-            <TextField
-              label="Email"
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleChange}
-              fullWidth
-              sx={{
-                margin: "10px 0",
-              }}
-              error={invalidEmail.length > 0}
-              helperText={invalidEmail}
-            />
-            <TextField
-              label="Password"
-              type="password"
-              value={password}
-              name="password"
-              onChange={handleChange}
-              fullWidth
-              sx={{
-                margin: "10px 0",
-              }}
-              error={invalidPassword.length > 0}
-              helperText={invalidPassword}
-            />
-            <TextField
-              label="Confirm Password"
-              type="password"
-              value={confirmPassword}
-              name="confirmPassword"
-              onChange={handleChange}
-              fullWidth
-              error={invalidConfirmPassword.length > 0}
-              helperText={invalidConfirmPassword}
-            />
-            <FlexBetween p="30px 0">
-              <Button type="submit" variant="contained" color="secondary">
-                <HowToReg /> Register
-              </Button>
-            </FlexBetween>
-          </form>
-          <Box pt="30px">
-            <Typography
-              variant="h5"
-              sx={{ color: "#fff" }}
-              textAlign="center"
-              pb="10px"
-            >
-              Already have an account?
-            </Typography>
-            <Link to="/login">
-              <Typography variant="h4" color="secondary" textAlign="center">
-                SIGN IN
+          <DashboardBox
+            sx={{
+              padding: { xs: "15px", md: "40px", maxWidth: "400px" },
+              margin: "20px 0",
+            }}
+          >
+            <form onSubmit={handleSubmit}>
+              <Typography variant="h3" textAlign={"center"} p="10px 0 25px">
+                Sign Up
               </Typography>
-            </Link>
-          </Box>
-        </DashboardBox>
-      </Box>
-      <Notifications
-        errorMessage={errorMessage}
-        successMessage={successMessage}
-        handleCloseSnackbar={handleCloseSnackbar}
-      />
-    </Container>
+              <TextField
+                label="Email"
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleChange}
+                fullWidth
+                color="secondary"
+                sx={{
+                  margin: "10px 0",
+                }}
+                error={invalidEmail.length > 0}
+                helperText={invalidEmail}
+              />
+              <TextField
+                label="Password"
+                type="password"
+                value={password}
+                name="password"
+                onChange={handleChange}
+                fullWidth
+                color="secondary"
+                sx={{
+                  margin: "10px 0",
+                }}
+                error={invalidPassword.length > 0}
+                helperText={invalidPassword}
+              />
+              <TextField
+                label="Confirm Password"
+                type="password"
+                value={confirmPassword}
+                name="confirmPassword"
+                onChange={handleChange}
+                fullWidth
+                color="secondary"
+                error={invalidConfirmPassword.length > 0}
+                helperText={invalidConfirmPassword}
+              />
+              <FlexBetween p="30px 0">
+                <Button type="submit" variant="contained" color="secondary">
+                  <HowToReg /> Register
+                </Button>
+              </FlexBetween>
+            </form>
+            <Box pt="30px">
+              <Typography
+                variant="h5"
+                sx={{ color: "#fff" }}
+                textAlign="center"
+                pb="10px"
+              >
+                Already have an account?
+              </Typography>
+              <Link to="/login">
+                <Typography variant="h4" color="secondary" textAlign="center">
+                  SIGN IN
+                </Typography>
+              </Link>
+            </Box>
+          </DashboardBox>
+        </Box>
+        <Notifications
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+          handleCloseSnackbar={handleCloseSnackbar}
+        />
+      </Container>
+    </Box>
   );
 };
 
