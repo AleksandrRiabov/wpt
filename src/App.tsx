@@ -27,6 +27,7 @@ import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext, useMode } from "./theme";
 import ReactGA from "react-ga4";
+import ScrollToTopOnNavigate from "./ScrollToTopOnNavigate";
 
 ReactGA.initialize(process.env.REACT_APP_MEASURMENT_ID!);
 
@@ -114,6 +115,9 @@ const Root = () => {
         <CssBaseline />
         <div>
           <Navbar />
+        </div>
+        <div>
+          <ScrollToTopOnNavigate /> {/* Just to scroll to the top */}
         </div>
         <div>
           <Outlet />
