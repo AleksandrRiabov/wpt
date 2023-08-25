@@ -13,7 +13,7 @@ const Home = () => {
   useSendAnalytics({ title: "Home Page" });
   return (
     <Box
-      className="page home-page"
+      className="page mainBackgroundImg"
       sx={{
         width: "100%",
         display: "flex",
