@@ -105,7 +105,9 @@ const LineChartCompnent = () => {
           <Legend
             height={20}
             wrapperStyle={{
-              margin: "0 0 10px 0",
+              margin: "10px 0 10px 0",
+              width: "100%",
+              left: 0,
             }}
           />
           <Line
