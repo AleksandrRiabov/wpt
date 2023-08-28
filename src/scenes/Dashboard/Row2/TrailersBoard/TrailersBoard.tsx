@@ -110,7 +110,7 @@ const TrailersBoard = () => {
         <FlexBetween>
           {" "}
           <Typography variant="h4" pb="5px">
-            Recent Trailers
+            Trailers:
           </Typography>
           <MuiDateRangePicker
             onDateChange={handleDateRangeChange}
@@ -134,6 +134,7 @@ const TrailersBoard = () => {
         }}
       >
         <DataGrid
+          sx={{ maxHeight: "360px" }}
           getRowId={(row) => row._id}
           rows={data || []}
           columns={trailerColumns}
