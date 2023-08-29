@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { getStartOfWeekDate } from "../../helpers";
 import useSendAnalytics from "../../hooks/useSendAnalytics";
+import dashboardScreen from "../../assets/images/dashboardScreen.png";
 
 // Default date from in the query
 const today = format(new Date(), "dd-MM-yyyy");
@@ -87,11 +88,7 @@ const Home = () => {
               padding: { md: "20px" },
             }}
           >
-            <img
-              src="https://user-images.githubusercontent.com/61385379/213078370-f39f027b-a2dd-4dd1-a6d3-16cb4d0186b3.png"
-              alt="Screenshot"
-              width="100%"
-            />
+            <img src={dashboardScreen} alt="Screenshot" width="100%" />
           </Box>
         </Box>
       </Container>
