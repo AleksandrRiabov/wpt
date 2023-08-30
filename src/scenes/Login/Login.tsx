@@ -7,6 +7,7 @@ import Notifications from "../../components/Notifications/Notifications";
 import DashboardBox from "../../components/dashboardBox/DashboardBox";
 import FlexBetween from "../../components/FlexBetween/FlexBetween";
 import useSendAnalytics from "../../hooks/useSendAnalytics";
+import "./style.css";
 
 const Login = () => {
   useSendAnalytics({ title: "Login Page" });
@@ -54,6 +55,7 @@ const Login = () => {
         width: "100%",
         display: "flex",
         marginBottom: "-30px",
+        overflow: "hidden",
       }}
     >
       <Container>
@@ -63,10 +65,13 @@ const Login = () => {
           alignItems="center"
           minHeight="85vh"
         >
+          {/* <img width="100%" src={forklift} className="forklift" /> */}
           <DashboardBox
+            className="forklift"
             sx={{
               padding: { xs: "15px", md: "40px", maxWidth: "400px" },
               margin: "20px 0",
+              position: "relative",
             }}
           >
             <form onSubmit={handleSubmit}>
