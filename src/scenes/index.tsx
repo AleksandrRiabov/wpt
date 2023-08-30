@@ -9,8 +9,6 @@ import Config from "./Config/Config";
 import Login from "./auth/Login/Login";
 import Signup from "./auth/Signup/Signup";
 
-import Team from "./Team/Team";
-
 export {
   Home,
   Dashboard,
@@ -22,5 +20,4 @@ export {
   Config,
   Login,
   Signup,
-  Team,
 };

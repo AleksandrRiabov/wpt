@@ -17,7 +17,6 @@ import {
   EditTrailer,
   Login,
   Signup,
-  Team,
 } from "./scenes";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -77,8 +76,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/team" element={<Team />} />
-
         <Route
           path="/week/:startDay"
           element={
