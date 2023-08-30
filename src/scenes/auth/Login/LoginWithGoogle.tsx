@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { UserAuth } from "../../context/AuthContext";
+import { UserAuth } from "../../../context/AuthContext";
 import { useEffect } from "react";
 import googleImg from "./images/google.svg";
 

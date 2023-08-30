@@ -6,8 +6,8 @@ import AddTrailer from "./AddTrailer/AddTrailer";
 import TrailerDetails from "./TrailerDetails/TrailerDetails";
 import EditTrailer from "./EditTrailer/EditTrailer";
 import Config from "./Config/Config";
-import Login from "./Login/Login";
-import Signup from "./Signup/Signup";
+import Login from "./auth/Login/Login";
+import Signup from "./auth/Signup/Signup";
 
 import Team from "./Team/Team";
 

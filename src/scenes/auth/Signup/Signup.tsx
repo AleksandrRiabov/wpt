@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
-import { UserAuth } from "../../context/AuthContext";
+import { UserAuth } from "../../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import DashboardBox from "../../components/dashboardBox/DashboardBox";
-import FlexBetween from "../../components/FlexBetween/FlexBetween";
+import DashboardBox from "../../../components/dashboardBox/DashboardBox";
+import FlexBetween from "../../../components/FlexBetween/FlexBetween";
 import { HowToReg } from "@mui/icons-material";
-import Notifications from "../../components/Notifications/Notifications";
-import useSendAnalytics from "../../hooks/useSendAnalytics";
+import Notifications from "../../../components/Notifications/Notifications";
+import useSendAnalytics from "../../../hooks/useSendAnalytics";
+
+import "../style.css";
 
 const Signup = () => {
   useSendAnalytics({ title: "Sign Up Page" });
@@ -132,6 +134,7 @@ const Signup = () => {
         width: "100%",
         display: "flex",
         marginBottom: "-30px",
+        overflow: "hidden",
       }}
     >
       <Container>
@@ -142,6 +145,7 @@ const Signup = () => {
           minHeight="85vh"
         >
           <DashboardBox
+            className="forklift"
             sx={{
               padding: { xs: "15px", md: "40px", maxWidth: "400px" },
               margin: "20px 0",

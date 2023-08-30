@@ -1,0 +1,53 @@
+.forklift {
+  transform: translate(1100px, 0);
+  animation: slideIn 1.5s forwards ease-in-out; /* Slide in animation */
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translate(800px, 0) rotate(5deg);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.forklift::before {
+  content: "";
+  background-image: url("../../assets/images/forklift.png");
+  position: absolute;
+  top: 45px;
+  right: -130%; /* Adjust this value as needed */
+  width: 200%; /* Adjust the width as needed */
+  height: 100%;
+  object-fit: cover;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  z-index: -1;
+  transform: rotate(-5deg);
+  animation: fixHorizont 1s forwards ease-in-out, shake 0.3s 0.5s infinite; /* Slide in animation */
+}
+
+@keyframes fixHorizont {
+  0% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    filter: brightness(0.9);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  75% {
+    transform: translateX(0px);
+  }
+}

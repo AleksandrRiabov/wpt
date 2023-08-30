@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import LoginWithGoogle from "./LoginWithGoogle";
-import { UserAuth } from "../../context/AuthContext";
+import { UserAuth } from "../../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import Notifications from "../../components/Notifications/Notifications";
-import DashboardBox from "../../components/dashboardBox/DashboardBox";
-import FlexBetween from "../../components/FlexBetween/FlexBetween";
-import useSendAnalytics from "../../hooks/useSendAnalytics";
-import "./style.css";
+import Notifications from "../../../components/Notifications/Notifications";
+import DashboardBox from "../../../components/dashboardBox/DashboardBox";
+import FlexBetween from "../../../components/FlexBetween/FlexBetween";
+import useSendAnalytics from "../../../hooks/useSendAnalytics";
+import "../style.css";
 
 const Login = () => {
   useSendAnalytics({ title: "Login Page" });
@@ -65,7 +65,6 @@ const Login = () => {
           alignItems="center"
           minHeight="85vh"
         >
-          {/* <img width="100%" src={forklift} className="forklift" /> */}
           <DashboardBox
             className="forklift"
             sx={{
