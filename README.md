@@ -83,26 +83,33 @@ Follow these steps to set up and run the frontend of the Warehouse Planning Tool
 
 Welcome to the MERN Warehouse Planning Tool dashboard! The dashboard provides a visual representation of key metrics and insights to streamline your warehouse planning process. Here's an overview of the six main components:
 
-1. **Order Demand History Line Chart**
+1. **Order Demand History Area Chart**
 
     <img width="484" alt="Area-Chart-docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/562b562d-3994-48ed-80c6-ef6b17bb1981">
-The first component is a dynamic line chart that displays the historical trend of ordered demand and corresponding pallets picked. Use this chart to identify upcoming spikes in demand and plan accordingly. You can apply filters and settings to focus on specific data points. Refer to the "Chart Filters" section for more details.
+The first component is a dynamic area chart that displays the historical trend of ordered demand and corresponding pallets picked. Use this chart to identify upcoming spikes in demand and plan accordingly. You can apply filters and settings to focus on specific data points. Refer to the "Chart Filters" section for more details.
 
 
+2. **Demand vs. Picked Pallets Line Chart**
 
-3. Demand vs. Stacking Line Chart
-The second component features two line charts that compare demand and pallet stacking. Detect anomalies and changes in stacking patterns that may require investigation. Applying filters and date ranges helps you analyze data effectively. Review the "Chart Filters" section for instructions on customization.
+   <img width="440" alt="LineChart-docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/c0b5f2a9-04de-4cb7-8e37-039373a08ae4">
+   
+The second component features two line charts that compare demand and pallet stacking. Detect anomalies and changes in stacking patterns that may require investigation. Applying filters and date ranges helps you analyze data effectively. 
+In usual circumstances, the two lines will maintain parallel, indicating a consistent stacking efficiency.
+However, when a significant gap occurs between the two lines, this suggests an anomaly. Anomalies could signify issues such as partial picking or inefficient consolidation, leading to increased delivery costs.
 
-4. Average Cases per Pallet Bar Chart
+3. **Average Cases per Pallet Bar Chart**
+   
+   <img width="479" alt="Bar-Chart-docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/629acf66-9780-40bf-9239-362f8766c75c">
+
 Number 3 showcases a bar chart illustrating the average number of cases per pallet for a specific product within the selected date range. Just like other charts, you can modify settings to tailor the view to your needs.
 
-5. Trailers Board
+7. Trailers Board
 The Trailers Board is a virtual whiteboard displaying loaded trailers. It includes essential information such as shipment date, delivery date, and border crossing time. Stay organized and track trailer movements with ease.
 
-6. Category Distribution Pie Chart
+8. Category Distribution Pie Chart
 Component 5 presents a pie chart depicting the distribution of total cases sent by category as a percentage for the selected year. Gain insights into category-wise shipment proportions.
 
-7. Monthly Trailer Statistics
+9. Monthly Trailer Statistics
 Lastly, component 6 offers a summary box presenting statistics for the selected month. Find total trailer count, overall cost, additional charges, and average case delivery cost conveniently.
 
 
