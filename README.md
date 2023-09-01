@@ -103,14 +103,25 @@ However, when a significant gap occurs between the two lines, this suggests an a
 
 Number 3 showcases a bar chart illustrating the average number of cases per pallet for a specific product within the selected date range. Just like other charts, you can modify settings to tailor the view to your needs.
 
-7. Trailers Board
-The Trailers Board is a virtual whiteboard displaying loaded trailers. It includes essential information such as shipment date, delivery date, and border crossing time. Stay organized and track trailer movements with ease.
+4. **Trailers Board**
 
-8. Category Distribution Pie Chart
+ <img width="980" alt="Trailers Board-Docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/76c9367a-8d48-47f3-b23c-0be8b88f0369">
+ 
+
+The Trailers Board is a virtual whiteboard displaying loaded trailers. It includes essential information such as shipment date, delivery date, and border crossing time. Stay organized and track trailer movements with ease.
+Double-click to open the trailer row to open the Trailer Details.
+
+5. **Category Distribution Pie Chart**
+
+<img width="483" alt="dashboard pie-chart- docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/a6e60fcc-4b0f-4989-85c6-12f1b0059366">
+
 Component 5 presents a pie chart depicting the distribution of total cases sent by category as a percentage for the selected year. Gain insights into category-wise shipment proportions.
 
-9. Monthly Trailer Statistics
-Lastly, component 6 offers a summary box presenting statistics for the selected month. Find total trailer count, overall cost, additional charges, and average case delivery cost conveniently.
+6. **Monthly Trailer Statistics**
+
+<img width="479" alt="Stats box-docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/83b88a35-fa6f-457a-a87a-b6f53ada40b7">
+
+Lastly, component 6 offers a summary box presenting statistics for the selected month. Find the total trailer count, overall cost, additional charges, and average case delivery cost conveniently.
 
 
 
