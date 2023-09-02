@@ -1,3 +1,9 @@
+# Table of Contents
+1. [Dashboard Overview](#dashboard-overview)
+2. [Chart Settings](#chart-settings)
+3. [Add Trailer](#add-trailer)
+
+
 
 ## Dashboard Overview
 
@@ -44,4 +50,101 @@ Component 5 presents a pie chart depicting the distribution of total cases sent 
 <img width="479" alt="Stats box-docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/83b88a35-fa6f-457a-a87a-b6f53ada40b7">
 
 Lastly, component 6 offers a summary box presenting statistics for the selected month. Find the total trailer count, overall cost, additional charges, and average case delivery cost conveniently.
+
+
+
+<br/>
+<hr/>
+
+## Chart Settings
+<img width="1022" alt="Chart Filters wpt docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/6c7d7ab3-cdba-4774-bdef-086a8724262f">
+The chart settings allow you to customize the data displayed on the charts for a more focused analysis. You can adjust the following settings:
+
+- Date Range: By default, the charts show data for the last 30 days. You can change this date range to view historical data over a different period.
+
+To change the date range, locate the date range selector on the chart interface and select your desired start and end dates.
+**Product Selection:**
+
+- Select Products: Choose specific products to be displayed on the chart. You can do this by clicking on the product names.
+
+- Select Category: Alternatively, you can choose to display all products within a specific category. When selecting a category, all products in that category will be automatically selected for display on the chart.
+
+- Show All: If neither specific products nor a category is selected, the chart will display data for all available products.
+
+These settings provide flexibility in customizing your analysis, allowing you to focus on the data that is most relevant to your planning needs.
+
+<br/>
+<hr/>
+
+## Add Trailer
+
+<img width="1482" alt="Add Trailer Page WPT Docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/efe1e645-afb0-494b-a61f-ef272deae114">
+
+1 **Trailer Number:**
+
+- Enter the unique identifier for the trailer. Avoid using spaces or special characters.
+
+2 **Load Type:**
+
+- Select the load type from the dropdown list. The load type represents the temperature requirements for the trailer's cargo.
+
+3 **Contractor Name:**
+
+- Choose the contractor's name from the dropdown list. This indicates the company responsible for the trailer.
+
+4 **Load Date:**
+
+- Select the date when the trailer was loaded or sent from the warehouse.
+
+5 **Arrival Date:**
+
+- Choose the date when the trailer should arrive at its destination.
+
+6 **Reference Number:**
+
+- If you've selected "JCARRION" as the contractor, this field becomes disabled, and a reference number is automatically generated.
+For other contractors, manually add a reference number related to this trailer.
+Freight Type:
+
+7 **Freight-Type**
+- Select the freight type from the dropdown list. Choose from options such as road, air, or sea to specify the mode of transportation for the trailer.
+
+8 **Contains Alcohol:**
+
+- Check this box if the trailer contains alcohol products.
+
+9 **Requires EHC Certificate:**
+
+- Check this box if the trailer contains products that require an EHC (Export Health Certificate) certificate.
+
+10 Exit from the UK:
+
+- Select from the dropdown how the trailer will leave the UK, for example, through the tunnel or ferry.
+
+11 Comments:
+
+- Add any comments or notes related to the trailer. For instance, you can mention specific details like the location of certain customer orders.
+
+12 Product Selection:
+
+- Select a product from the dropdown list that you want to add to the trailer.
+
+13 Pallets Loaded:
+- Specify the number of pallets of that product loaded onto the trailer. This field can be left empty if not applicable.
+
+14 Cases Loaded:
+- Enter the number of cases of this product loaded onto the trailer. This field cannot be left empty.
+Add Product:
+
+
+*Click the "+" icon to add the selected product with the specified pallets and cases to the product list.*
+
+*After adding all the necessary products and details, click this button to create the trailer record.*
+
+
+
+
+
+
+
 
