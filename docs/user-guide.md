@@ -3,6 +3,7 @@
 2. [Chart Settings](#chart-settings)
 3. [Add Trailer](#add-trailer)
 4. [Trailer Details](#trailer-details)
+5. [Edit Trailer](#edit-trailer)
 
 
 
@@ -232,6 +233,14 @@ Add Product:
 - Also shows the name of the user who made any changes to the trailer.
 - If no changes have been made, this field remains empty.
 
+
+
+<br />
+<hr/>
+
+## Edit Trailer
+
+<img width="1008" alt="Edit Trailer Details" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/05156ec3-b688-4107-af21-4f89f5ba2094">
 
 
 
