@@ -2,6 +2,7 @@
 1. [Dashboard Overview](#dashboard-overview)
 2. [Chart Settings](#chart-settings)
 3. [Add Trailer](#add-trailer)
+4. [Trailer Details](#trailer-details)
 
 
 
@@ -37,6 +38,11 @@ Number 3 showcases a bar chart illustrating the average number of cases per pall
  
 
 The Trailers Board is a virtual whiteboard displaying loaded trailers. It includes essential information such as shipment date, delivery date, and border crossing time. Stay organized and track trailer movements with ease.
+
+- Red: Indicates the presence of alcohol in the trailer.
+- Green: Indicates certified products in the trailer.
+- White: Indicates no certification or alcohol in the trailer.
+
 Double-click to open the trailer row to open the Trailer Details.
 
 5. **Category Distribution Pie Chart**
@@ -140,6 +146,91 @@ Add Product:
 *Click the "+" icon to add the selected product with the specified pallets and cases to the product list.*
 
 *After adding all the necessary products and details, click this button to create the trailer record.*
+
+
+<br/>
+<hr/>
+
+## Trailer Details
+<img width="1512" alt="Trailer Details WPT docs" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/51950e75-158b-4327-8c40-d555950a1e32">
+
+1 **Trailer Number:**
+
+- Red: Indicates the presence of alcohol in the trailer.
+- Green: Indicates certified products in the trailer.
+- White: Indicates no certification or alcohol in the trailer.
+  
+2 **Reference Number:**
+
+- Composed of the delivery date plus four digits of the trailer number.
+  
+3 **Send Date:**
+
+- Shows when the trailer was loaded and sent.
+  
+4 **Delivery Date:**
+
+- Displays the expected arrival date of the trailer.
+  
+5 **Clearance:**
+
+- Shows the date and time when the trailer was cleared by customs.
+- Remains empty if not cleared yet.
+  
+6 **Received:**
+
+- Shows the date the trailer was actually received by the store.
+- Remains empty if not received yet.
+
+7 **Freight Type:**
+
+- Indicates the mode of transportation (e.g., road, air, sea).
+
+8 **Certified:**
+
+- Indicates whether the trailer contains certified stock.
+- Options: Yes or No.
+
+9 **Alcohol:**
+
+- Indicates whether the trailer contains alcohol.
+- Options: Yes or No.
+
+10 **Extra Cost:**
+
+- Displays the total extra cost associated with the trailer.
+  
+11 **Extra Cost Reasons:**
+
+- Displays reasons for the extra cost, including price details.
+- Multiple lines may be added for different reasons.
+  
+12 **Comments:**
+
+- Allows users to add comments related to the trailer.
+  
+13 **Action Buttons:**
+
+- Edit: Allows users to edit trailer details.
+- Delete: Deletes the trailer, with a confirmation prompt.
+  
+14 **Pie Chart:**
+
+- Displays a pie chart showing the percentage of pallets for each product in the trailer.
+  
+15 **Total:**
+
+- Shows the total number of pallets and cases loaded into the trailer.
+  
+16 **Pallet Breakdown:**
+
+- Provides a breakdown of cases and pallets for each product separately.
+  
+17 **User Information:**
+
+- Displays the name of the user who created the trailer.
+- Also shows the name of the user who made any changes to the trailer.
+- If no changes have been made, this field remains empty.
 
 
 
