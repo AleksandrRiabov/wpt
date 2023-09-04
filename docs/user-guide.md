@@ -242,7 +242,14 @@ Add Product:
 
 <img width="1008" alt="Edit Trailer Details" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/05156ec3-b688-4107-af21-4f89f5ba2094">
 
+<br>
+ You can use the "Edit Trailer" page to update important timestamps related to clearance and when the trailer is received by the store. Here's how you can do it:
 
+- **Clearance**: Shows the date and time when the trailer was cleared by customs. This field remains empty if the trailer has not been cleared yet. You can update this field with the clearance date and time once customs clearance is obtained.
+
+- **Received**: Indicates the date the trailer was actually received by the store. This field remains empty until the trailer is received. You can update this field with the date and time when the store receives the trailer.
+
+In addition to these timestamps, you can also make other necessary edits on this page to keep the trailer record accurate and up-to-date, ensuring that all relevant information is reflected in the system.
 
 
 
