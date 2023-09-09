@@ -4,6 +4,7 @@
 3. [Add Trailer](#add-trailer)
 4. [Trailer Details](#trailer-details)
 5. [Edit Trailer](#edit-trailer)
+6. [Configurations](#configurations)
 
 
 
@@ -250,6 +251,12 @@ Add Product:
 - **Received**: Indicates the date the trailer was actually received by the store. This field remains empty until the trailer is received. You can update this field with the date and time when the store receives the trailer.
 
 In addition to these timestamps, you can also make other necessary edits on this page to keep the trailer record accurate and up-to-date, ensuring that all relevant information is reflected in the system.
+
+<br/>
+<hr/>
+
+## Configurations
+ <img width="1025" alt="WPT Configuration page" src="https://github.com/AleksandrRiabov/wpt/assets/61385379/0e18a093-174c-4b90-8be8-0f3ffbcea8ee">
 
 
 
