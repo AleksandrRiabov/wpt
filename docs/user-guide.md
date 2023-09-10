@@ -260,5 +260,27 @@ In addition to these timestamps, you can also make other necessary edits on this
 
 
 
+1. **Freight-Type**
+Defines freight transportation modes (e.g., Road, Sea, Air).
+Used when creating or editing trailer details.
+
+2. **Contractors**
+Specifies service provider (e.g., Eddie Stobart, J Carrion).
+Selected when managing trailer details.
+
+3. **Crossed**
+Records the trailer's entry or exit route (e.g., Port, Ferry).
+Chosen during trailer management.
+
+4. **Load-Type**
+Indicates trailer temperature requirements (e.g., Ambient, Frozen).
+Assigned when managing trailer details.
+
+5. **Products**
+Adds new products and assigns categories.
+Impacts charts, filters, and Day details.
 
 
+#### Adding New Options 
+- To add a new option, add the name in to the input and click the "+" icon next to the respective box.
+- Remember to click "Save Changes" after adding new options or removing existed.
