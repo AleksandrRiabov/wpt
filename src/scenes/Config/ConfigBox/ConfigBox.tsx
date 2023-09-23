@@ -88,7 +88,13 @@ function ConfigBox({ configCategory, name, title }: Props) {
   useEffect(() => {
     if (error) {
       if ("status" in error) {
-        setErrorMessage(`Error.. could not save changes in ${title}`);
+        // Use a type assertion to tell TypeScript about the structure of the error object
+        const errorWithMessage = error as { data?: { message?: string } };
+        const msg: string =
+          errorWithMessage.data?.message ||
+          `Error.. could not save changes in ${title}`;
+
+        setErrorMessage(msg);
       }
     }
   }, [error, title]);
